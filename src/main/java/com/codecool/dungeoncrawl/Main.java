@@ -22,6 +22,7 @@ public class Main extends Application {
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
+    Label meo = new Label();
 
     public static void main(String[] args) {
         launch(args);
@@ -34,7 +35,9 @@ public class Main extends Application {
         ui.setPadding(new Insets(10));
 
         ui.add(new Label("Health: "), 0, 0);
+        ui.add(new Label("Meo: "), 0, 1);
         ui.add(healthLabel, 1, 0);
+        ui.add(meo, 1, 1);
 
         BorderPane borderPane = new BorderPane();
 
@@ -46,7 +49,7 @@ public class Main extends Application {
         refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
 
-        primaryStage.setTitle("Dungeon Crawl");
+        primaryStage.setTitle("Legend of Martin");
         primaryStage.show();
     }
 
@@ -85,5 +88,6 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
+        meo.setText("15");
     }
 }
