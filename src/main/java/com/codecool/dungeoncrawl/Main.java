@@ -15,7 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class Main extends Application implements Runnable {
     GameMap map = MapLoader.loadMap();
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
@@ -27,11 +27,21 @@ public class Main extends Application {
         launch(args);
     }
 
+    public void run() {
+        while (true) {
+            System.out.println("Ez egy thread");
+        }
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
+
+        Main obj = new Main();
+        Thread thread = new Thread(obj);
+        thread.start();
 
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
