@@ -13,6 +13,8 @@ public class GameMap {
 
     private Player player;
     private List<Actor> actors = new LinkedList<>();
+    private List<Actor> added = new LinkedList<>();
+    private List<Actor> killed = new LinkedList<>();
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
@@ -26,19 +28,19 @@ public class GameMap {
     }
 
     public void addToActors(Actor actor) {
-        actors.add(actor);
+        added.add(actor);
     }
 
     public void removeFromActors(Actor actor) {
-        actors.remove(actor);
+        killed.add(actor);
     }
 
     public void actActors() {
-        int i = 0;
-        while(actors.size() > i) {
-            actors.get(i).act();
-            i++;
-        }
+        actors.forEach(Actor::act);
+        actors.addAll(added);
+        actors.removeAll(killed);
+        added.clear();
+        killed.clear();
     }
 
     public Cell getCell(int x, int y) {

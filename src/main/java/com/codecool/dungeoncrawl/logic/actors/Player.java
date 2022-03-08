@@ -9,6 +9,7 @@ public class Player extends Movable {
 
     public Player(GameMap map, Cell cell) {
         super(map, cell, Direction.UP);
+        killable = true;
         lastOrder = ' ';
         super.coolDownTimer = 3;
     }
@@ -19,14 +20,27 @@ public class Player extends Movable {
 
     public void act() {
         if (super.coolDown == 0) {
-            if (lastOrder == 'w') changeDirection(Direction.UP);
-            if (lastOrder == 'd') changeDirection(Direction.RIGHT);
-            if (lastOrder == 's') changeDirection(Direction.DOWN);
-            if (lastOrder == 'a') changeDirection(Direction.LEFT);
-            if (lastOrder == 'y') shoot();
-
-            moveToDir();
-
+            switch (lastOrder) {
+                case 'w':
+                    changeDirection(Direction.UP);
+                    moveToDir();
+                    break;
+                case 'd':
+                    changeDirection(Direction.RIGHT);
+                    moveToDir();
+                    break;
+                case 's':
+                    changeDirection(Direction.DOWN);
+                    moveToDir();
+                    break;
+                case 'a':
+                    changeDirection(Direction.LEFT);
+                    moveToDir();
+                    break;
+                case 'y':
+                    shoot();
+                    break;
+            }
             lastOrder = ' ';
             coolDown = coolDownTimer;
         }

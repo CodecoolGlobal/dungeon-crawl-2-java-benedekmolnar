@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.GameMap;
 
 public abstract class Actor implements Drawable {
+    protected boolean killable = false;
     protected int coolDownTimer;
     protected GameMap map;
     protected int coolDown = 0;
@@ -38,4 +39,6 @@ public abstract class Actor implements Drawable {
     public int getY() {
         return cell.getY();
     }
+
+    public boolean isKillable() {return killable; }
 }
