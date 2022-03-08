@@ -3,6 +3,8 @@ package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -14,8 +16,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
-public class Main extends Application implements Runnable {
+public class Main extends Application {
+
+
     GameMap map = MapLoader.loadMap();
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
@@ -27,21 +32,12 @@ public class Main extends Application implements Runnable {
         launch(args);
     }
 
-    public void run() {
-        while (true) {
-            System.out.println("Ez egy thread");
-        }
-    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
-
-        Main obj = new Main();
-        Thread thread = new Thread(obj);
-        thread.start();
 
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
@@ -53,30 +49,34 @@ public class Main extends Application implements Runnable {
 
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
-        refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
+
+
+        Timeline refresh = new Timeline(
+            new KeyFrame(Duration.seconds(0.1),
+                    event -> refresh()));
+        refresh.setCycleCount(Timeline.INDEFINITE);
+        refresh.play();
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+
+        refresh();
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1);
-                refresh();
                 break;
             case DOWN:
                 map.getPlayer().move(0, 1);
-                refresh();
                 break;
             case LEFT:
                 map.getPlayer().move(-1, 0);
-                refresh();
                 break;
             case RIGHT:
                 map.getPlayer().move(1,0);
-                refresh();
                 break;
         }
     }
