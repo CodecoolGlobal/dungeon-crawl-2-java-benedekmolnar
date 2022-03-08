@@ -36,7 +36,7 @@ public class MapLoader {
                             map.addToActors(new Skeleton(cell));
                             break;
                         case '@':
-                            Player player = new Player(cell);
+                            Player player = new Player(cell, map);
                             cell.setType(CellType.FLOOR);
                             map.setPlayer(player);
                             map.addToActors(player);

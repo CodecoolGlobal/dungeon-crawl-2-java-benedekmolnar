@@ -16,5 +16,4 @@ public class Projectile extends Movable{
     public String getTileName() {
         return "projectile";
     }
-
 }

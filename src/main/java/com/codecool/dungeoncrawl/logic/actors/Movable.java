@@ -4,10 +4,11 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 
 public abstract class Movable extends Actor {
-    private Direction direction;
+    protected Direction direction;
 
     public Movable(Cell cell, Direction direction) {
         super(cell);
+        this.direction = direction;
     }
 
     public void moveToDir() {

@@ -39,10 +39,10 @@ public class Cell implements Drawable {
     }
 
     public Cell getNeighborByDir(Direction direction) {
-        if (direction == Direction.UP) return getNeighbor(1, 0);
-        if (direction == Direction.DOWN) return getNeighbor(0, -1);
+        if (direction == Direction.UP) return getNeighbor(0, -1);
+        if (direction == Direction.DOWN) return getNeighbor(0, 1);
         if (direction == Direction.LEFT) return getNeighbor(-1, 0);
-        return getNeighbor(0, 1);
+        return getNeighbor(1, 0);
     }
 
     @Override

@@ -78,6 +78,9 @@ public class Main extends Application {
             case RIGHT:
                 map.getPlayer().setLastOrder('d');
                 break;
+            case SPACE:
+                map.getPlayer().setLastOrder('y');
+                break;
         }
     }
 

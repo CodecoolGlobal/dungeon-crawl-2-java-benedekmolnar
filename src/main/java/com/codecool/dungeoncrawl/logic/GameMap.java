@@ -29,7 +29,17 @@ public class GameMap {
         actors.add(actor);
     }
 
+    public void removeFromActors(Actor actor) {
+        actors.remove(actor);
+    }
+
     public void actActors() {
+        int i = 0;
+        while(actors.size() > i) {
+            actors.get(i).act();
+            i++;
+        }
+
         actors.forEach(Actor::act);
     }
 
