@@ -28,7 +28,7 @@ public class Player extends Actor {
     public String inventoryToString() {
         StringBuilder inventoryAsString = new StringBuilder();
         for (String key : inventory.keySet()) {
-            inventoryAsString.append(key + "=" + inventory.get(key) + ", ");
+            inventoryAsString.append(key + "=" + inventory.get(key) + "   ");
         }
         return inventoryAsString.toString();
     }

@@ -42,7 +42,7 @@ public class Main extends Application {
         ui.add(new Label("Health: "), 0, 0);
         ui.add(new Label("Meo: "), 0, 1);
         ui.add(pickUpButton, 0, 2);
-        ui.add(new Label("Inventory: "), 0, 13);
+        ui.add(new Label("Inventory: "), 0, 3);
         ui.add(inventory, 1, 3);
         ui.add(healthLabel, 1, 0);
         ui.add(meo, 1, 1);
