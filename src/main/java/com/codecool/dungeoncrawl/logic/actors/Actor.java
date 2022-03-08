@@ -3,26 +3,18 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
+import com.codecool.dungeoncrawl.logic.GameMap;
 
 public abstract class Actor implements Drawable {
     protected int coolDownTimer;
     protected int coolDown = 0;
 
-    private Cell cell;
+    protected Cell cell;
     private int health = 10;
 
     public Actor(Cell cell) {
         this.cell = cell;
         this.cell.setActor(this);
-    }
-
-    public void move(int dx, int dy) {
-        Cell nextCell = cell.getNeighbor(dx, dy);
-        if (nextCell.getActor() == null && nextCell.getType() != CellType.WALL) {
-            cell.setActor(null);
-            nextCell.setActor(this);
-            cell = nextCell;
-        }
     }
 
     abstract public void act();

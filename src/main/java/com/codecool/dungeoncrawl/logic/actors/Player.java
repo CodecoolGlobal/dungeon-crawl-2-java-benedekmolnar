@@ -2,11 +2,11 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 
-public class Player extends Actor {
+public class Player extends Movable {
     private char lastOrder;
 
     public Player(Cell cell) {
-        super(cell);
+        super(cell, Direction.UP);
         lastOrder = ' ';
         super.coolDownTimer = 3;
     }
@@ -17,15 +17,22 @@ public class Player extends Actor {
 
     public void act() {
         if (super.coolDown == 0) {
-            if (lastOrder == 'w') this.move(0, -1);
-            if (lastOrder == 'd') this.move(1, 0);
-            if (lastOrder == 's') this.move(0, 1);
-            if (lastOrder == 'a')  this.move(-1, 0);
+            if (lastOrder == 'w') changeDirection(Direction.UP);
+            if (lastOrder == 'd') changeDirection(Direction.RIGHT);
+            if (lastOrder == 's') changeDirection(Direction.DOWN);
+            if (lastOrder == 'a') changeDirection(Direction.LEFT);
+            if (lastOrder == 'y') shoot();
+
+            moveToDir();
 
             lastOrder = ' ';
             coolDown = coolDownTimer;
         }
         else coolDown--;
+    }
+
+    private void shoot() {
+
     }
 
     public void setLastOrder(char order) {
