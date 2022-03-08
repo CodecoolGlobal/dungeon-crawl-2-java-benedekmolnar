@@ -11,6 +11,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -24,6 +25,7 @@ public class Main extends Application {
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
     Label meo = new Label();
+    Label inventory = new Label();
     Button pickUpButton = new Button("Pick up item");
 
     public static void main(String[] args) {
@@ -39,8 +41,12 @@ public class Main extends Application {
         ui.add(new Label("Health: "), 0, 0);
         ui.add(new Label("Meo: "), 0, 1);
         ui.add(pickUpButton, 0, 2);
+        ui.add(new Label("Inventory: "), 0, 13);
+        ui.add(inventory, 1, 3);
         ui.add(healthLabel, 1, 0);
         ui.add(meo, 1, 1);
+
+        pickUpButton.setFocusTraversable(false);
 
         BorderPane borderPane = new BorderPane();
 
@@ -94,5 +100,10 @@ public class Main extends Application {
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
         meo.setText("15");
+        pickUpButton.setOnMouseClicked(this::onClick);
+    }
+
+    private void onClick(MouseEvent mouseEvent) {
+        inventory.setText("click");
     }
 }
