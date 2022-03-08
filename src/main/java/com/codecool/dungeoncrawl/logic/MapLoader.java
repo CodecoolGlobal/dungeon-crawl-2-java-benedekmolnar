@@ -25,8 +25,29 @@ public class MapLoader {
                         case ' ':
                             cell.setType(CellType.EMPTY);
                             break;
-                        case '#':
-                            cell.setType(CellType.WALL);
+                        case 'L':
+                            cell.setType(CellType.LEFTWALL);
+                            break;
+                        case 'R':
+                            cell.setType(CellType.RIGHTWALL);
+                            break;
+                        case 'U':
+                            cell.setType(CellType.UPWALL);
+                            break;
+                        case 'D':
+                            cell.setType(CellType.DOWNWALL);
+                            break;
+                        case '(':
+                            cell.setType(CellType.UPLEFTCORNER);
+                            break;
+                        case ')':
+                            cell.setType(CellType.UPRIGHTCORNER);
+                            break;
+                        case '<':
+                            cell.setType(CellType.DOWNLEFTCORNER);
+                            break;
+                        case '>':
+                            cell.setType(CellType.DOWNRIGHTCORNER);
                             break;
                         case '.':
                             cell.setType(CellType.FLOOR);
