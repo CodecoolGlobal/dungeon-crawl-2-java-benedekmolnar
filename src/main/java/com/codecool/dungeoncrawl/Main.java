@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.items.Item;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -104,8 +105,10 @@ public class Main extends Application {
     }
 
     private void onClick(MouseEvent mouseEvent) {
-        String itemToPickUp = map.getPlayer().getCell().getItem().getTileName();
-        map.getPlayer().addItemToInventory(itemToPickUp);
+        Cell currentCell = map.getPlayer().getCell();
+        Item itemToPickUp = currentCell.getItem();
+        map.getPlayer().addItemToInventory(itemToPickUp.getTileName());
+        currentCell.setItem(null);
         inventory.setText(map.getPlayer().inventoryToString());
     }
 }
