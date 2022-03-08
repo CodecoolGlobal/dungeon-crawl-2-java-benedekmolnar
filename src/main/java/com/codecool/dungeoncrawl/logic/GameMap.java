@@ -1,6 +1,10 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class GameMap {
     private int width;
@@ -8,6 +12,7 @@ public class GameMap {
     private Cell[][] cells;
 
     private Player player;
+    private List<Actor> actors = new LinkedList<>();
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
@@ -18,6 +23,14 @@ public class GameMap {
                 cells[x][y] = new Cell(this, x, y, defaultCellType);
             }
         }
+    }
+
+    public void addToActors(Actor actor) {
+        actors.add(actor);
+    }
+
+    public void actActors() {
+        actors.forEach(Actor::act);
     }
 
     public Cell getCell(int x, int y) {

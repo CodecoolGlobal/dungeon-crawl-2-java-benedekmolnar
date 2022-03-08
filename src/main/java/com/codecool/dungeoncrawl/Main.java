@@ -53,7 +53,7 @@ public class Main extends Application {
 
 
         Timeline refresh = new Timeline(
-            new KeyFrame(Duration.seconds(0.1),
+            new KeyFrame(Duration.seconds(0.05),
                     event -> refresh()));
         refresh.setCycleCount(Timeline.INDEFINITE);
         refresh.play();
@@ -67,21 +67,23 @@ public class Main extends Application {
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case UP:
-                map.getPlayer().move(0, -1);
+                map.getPlayer().setLastOrder('w');
                 break;
             case DOWN:
-                map.getPlayer().move(0, 1);
+                map.getPlayer().setLastOrder('s');
                 break;
             case LEFT:
-                map.getPlayer().move(-1, 0);
+                map.getPlayer().setLastOrder('a');
                 break;
             case RIGHT:
-                map.getPlayer().move(1,0);
+                map.getPlayer().setLastOrder('d');
                 break;
         }
     }
 
     private void refresh() {
+        map.actActors();
+
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (int x = 0; x < map.getWidth(); x++) {

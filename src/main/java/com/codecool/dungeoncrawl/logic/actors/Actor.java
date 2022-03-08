@@ -5,6 +5,9 @@ import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 
 public abstract class Actor implements Drawable {
+    protected int coolDownTimer;
+    protected int coolDown = 0;
+
     private Cell cell;
     private int health = 10;
 
@@ -21,6 +24,8 @@ public abstract class Actor implements Drawable {
             cell = nextCell;
         }
     }
+
+    abstract public void act();
 
     public int getHealth() {
         return health;
