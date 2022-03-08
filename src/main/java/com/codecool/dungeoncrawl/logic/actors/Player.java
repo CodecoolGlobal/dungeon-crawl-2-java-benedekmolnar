@@ -6,11 +6,9 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 
 public class Player extends Movable {
     private char lastOrder;
-    protected GameMap map;
 
-    public Player(Cell cell, GameMap map) {
-        super(cell, Direction.UP);
-        this.map = map;
+    public Player(GameMap map, Cell cell) {
+        super(map, cell, Direction.UP);
         lastOrder = ' ';
         super.coolDownTimer = 3;
     }
@@ -36,8 +34,9 @@ public class Player extends Movable {
     }
 
     private void shoot() {
-        if (cell.getNeighborByDir(direction).getType() == CellType.FLOOR)
-            map.addToActors(new Projectile(cell.getNeighborByDir(direction), direction));
+        if (cell.getNeighborByDir(direction).getType() != CellType.WALL &&
+            cell.getNeighborByDir(direction).getActor() == null)
+            map.addToActors(new Projectile(map, cell.getNeighborByDir(direction), direction));
     }
 
     public void setLastOrder(char order) {

@@ -39,8 +39,6 @@ public class GameMap {
             actors.get(i).act();
             i++;
         }
-
-        actors.forEach(Actor::act);
     }
 
     public Cell getCell(int x, int y) {

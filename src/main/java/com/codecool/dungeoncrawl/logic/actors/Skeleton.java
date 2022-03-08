@@ -1,10 +1,11 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.GameMap;
 
 public class Skeleton extends Movable {
-    public Skeleton(Cell cell) {
-        super(cell, Direction.UP);
+    public Skeleton(GameMap map, Cell cell) {
+        super(map, cell, Direction.UP);
         coolDownTimer = 5;
     }
 

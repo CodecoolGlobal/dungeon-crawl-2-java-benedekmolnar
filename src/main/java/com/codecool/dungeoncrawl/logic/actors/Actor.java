@@ -7,12 +7,14 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 
 public abstract class Actor implements Drawable {
     protected int coolDownTimer;
+    protected GameMap map;
     protected int coolDown = 0;
 
     protected Cell cell;
-    private int health = 10;
+    protected int health = 10;
 
-    public Actor(Cell cell) {
+    public Actor(Cell cell, GameMap map) {
+        this.map = map;
         this.cell = cell;
         this.cell.setActor(this);
     }
@@ -22,6 +24,8 @@ public abstract class Actor implements Drawable {
     public int getHealth() {
         return health;
     }
+
+    public void setHealth(int health) { this.health = health; }
 
     public Cell getCell() {
         return cell;
