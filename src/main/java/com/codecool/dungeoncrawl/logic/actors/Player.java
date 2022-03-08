@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
-import com.sun.javafx.collections.MappingChange;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,10 +11,6 @@ public class Player extends Actor {
 
     public Player(Cell cell) {
         super(cell);
-    }
-
-    public Map<String, Integer> getInventory(){
-        return inventory;
     }
 
     public void addItemToInventory(String item){
@@ -27,5 +23,13 @@ public class Player extends Actor {
 
     public String getTileName() {
         return "player";
+    }
+
+    public String inventoryToString() {
+        StringBuilder inventoryAsString = new StringBuilder();
+        for (String key : inventory.keySet()) {
+            inventoryAsString.append(key + "=" + inventory.get(key) + ", ");
+        }
+        return inventoryAsString.toString();
     }
 }
