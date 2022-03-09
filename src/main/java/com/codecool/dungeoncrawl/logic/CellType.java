@@ -10,7 +10,9 @@ public enum CellType {
     UPRIGHTCORNER("uprightcorner"),
     UPLEFTCORNER("upleftcorner"),
     DOWNRIGHTCORNER("downrightcorner"),
-    DOWNLEFTCORNER("downleftcorner");
+    DOWNLEFTCORNER("downleftcorner"),
+    WALL("wall"),
+    SHOOTABLEWALL("shootablewall");
 
 
     private final String tileName;
