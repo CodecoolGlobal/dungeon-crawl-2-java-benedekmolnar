@@ -44,6 +44,9 @@ public class Tiles {
         tileMap.put("cheese", new Tile(18,28));
         tileMap.put("wall", new Tile(23, 27));
         tileMap.put("shootablewall", new Tile(23, 26));
+        tileMap.put("tree", new Tile(3, 1));
+        tileMap.put("bush", new Tile(19, 5));
+        tileMap.put("grass", new Tile(0, 2));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
