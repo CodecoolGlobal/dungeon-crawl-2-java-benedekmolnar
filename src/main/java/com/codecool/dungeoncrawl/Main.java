@@ -112,9 +112,8 @@ public class Main extends Application {
                 Cell cell = map.getCell(x, y);
                 if (cell.getActor() != null) {
                     Tiles.drawTile(context, cell.getActor(), x + widthModifier, y + heightModifier);
-                    Tiles.drawTile(context, cell.getActor(), x, y);
                 }else if  (cell.getItem() != null) {
-                        Tiles.drawTile(context, cell.getItem(), x, y);
+                        Tiles.drawTile(context, cell.getItem(), x + widthModifier, y + heightModifier);
                 } else {
                     Tiles.drawTile(context, cell, x + widthModifier, y + heightModifier);
                 }
