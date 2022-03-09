@@ -18,12 +18,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    private int heightModifier = 0;
     private int widthModifier = 0;
+    private int heightModifier = 0;
+    private final int canvasWidth = 600;
+    private final int canvasHeight = 600;
     GameMap map = MapLoader.loadMap();
-    public static Canvas canvas = new Canvas(
-            600,
-            600);
+    public Canvas canvas = new Canvas(canvasWidth, canvasHeight);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
     Label meo = new Label();
