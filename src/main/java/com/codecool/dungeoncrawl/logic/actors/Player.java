@@ -3,15 +3,40 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.items.Cheese;
+import com.codecool.dungeoncrawl.logic.items.Item;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Player extends Movable {
     private char lastOrder;
+    private Map<String, Integer> inventory = new HashMap<>();
 
     public Player(GameMap map, Cell cell) {
         super(map, cell, Direction.UP);
         killable = true;
         lastOrder = ' ';
         super.coolDownTimer = 3;
+    }
+
+    public void pickUpItem() {
+        Cell currentCell = this.getCell();
+        Item itemToPickUp = currentCell.getItem();
+        if (itemToPickUp instanceof Cheese){
+            changeHealth(2);
+        }else{
+            this.addItemToInventory(itemToPickUp.getTileName());
+        }
+        currentCell.setItem(null);
+    }
+
+    public void addItemToInventory(String item){
+        if (inventory.get(item) != null){
+            inventory.put(item, inventory.get(item) + 1);
+        }else{
+            inventory.put(item, 1);
+        }
     }
 
     public String getTileName() {
@@ -84,5 +109,14 @@ public class Player extends Movable {
 
     public void setLastOrder(char order) {
         lastOrder = order;
+    }
+
+    public String inventoryToString() {
+        StringBuilder inventoryAsString = new StringBuilder();
+        for (String key : inventory.keySet()) {
+            inventoryAsString.append(key + "=" + inventory.get(key) + "   ");
+            inventoryAsString.append("\n");
+        }
+        return inventoryAsString.toString();
     }
 }

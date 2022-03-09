@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.actors.Direction;
 
 import java.util.Dictionary;
@@ -8,6 +9,7 @@ import java.util.Dictionary;
 public class Cell implements Drawable {
     private CellType type;
     private Actor actor;
+    private Item item;
     private GameMap gameMap;
     private int x, y;
 
@@ -32,6 +34,14 @@ public class Cell implements Drawable {
 
     public Actor getActor() {
         return actor;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public Item getItem() {
+        return item;
     }
 
     public Cell getNeighbor(int dx, int dy) {

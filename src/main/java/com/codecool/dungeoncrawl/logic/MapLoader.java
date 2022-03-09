@@ -2,6 +2,9 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.items.Arrow;
+import com.codecool.dungeoncrawl.logic.items.Cheese;
+import com.codecool.dungeoncrawl.logic.items.Key;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -25,8 +28,29 @@ public class MapLoader {
                         case ' ':
                             cell.setType(CellType.EMPTY);
                             break;
-                        case '#':
-                            cell.setType(CellType.WALL);
+                        case 'L':
+                            cell.setType(CellType.LEFTWALL);
+                            break;
+                        case 'R':
+                            cell.setType(CellType.RIGHTWALL);
+                            break;
+                        case 'U':
+                            cell.setType(CellType.UPWALL);
+                            break;
+                        case 'D':
+                            cell.setType(CellType.DOWNWALL);
+                            break;
+                        case '(':
+                            cell.setType(CellType.UPLEFTCORNER);
+                            break;
+                        case ')':
+                            cell.setType(CellType.UPRIGHTCORNER);
+                            break;
+                        case '<':
+                            cell.setType(CellType.DOWNLEFTCORNER);
+                            break;
+                        case '>':
+                            cell.setType(CellType.DOWNRIGHTCORNER);
                             break;
                         case '.':
                             cell.setType(CellType.FLOOR);
@@ -34,6 +58,18 @@ public class MapLoader {
                         case 's':
                             cell.setType(CellType.FLOOR);
                             map.addToActors(new Skeleton(map, cell));
+                            break;
+                        case 'k':
+                            cell.setType(CellType.FLOOR);
+                            new Key(cell);
+                            break;
+                        case 'a':
+                            cell.setType(CellType.FLOOR);
+                            new Arrow(cell);
+                            break;
+                        case 'c':
+                            cell.setType(CellType.FLOOR);
+                            new Cheese(cell);
                             break;
                         case '@':
                             Player player = new Player(map, cell);
