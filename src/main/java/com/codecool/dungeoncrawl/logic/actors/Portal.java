@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 
 public class Portal extends Actor implements Killable{
@@ -20,7 +21,42 @@ public class Portal extends Actor implements Killable{
     }
 
     public void act() {
+        Cell portalCell = getPortalCell();
+        Portal otherPortal = map.getPortal(getOtherType());
+        if (portalCell.getActor() instanceof Player) {
+            Player player = (Player) portalCell.getActor();
+            if (player.getDirection().getReversDirection() == direction
+                && otherPortal != null && otherPortal.isPortalCellFree()) {
+                portalCell.setActor(null);
+                player.setDirection(otherPortal.getDirection());
+                player.setCell(otherPortal.getPortalCell());
+                player.getCell().setActor(player);
+            }
+        }
 
+        if (portalCell.getActor() instanceof Projectile) {
+            Projectile projectile = (Projectile) portalCell.getActor();
+            if (projectile.getDirection().getReversDirection() == direction
+                    && otherPortal != null && otherPortal.isPortalCellFree()) {
+                portalCell.setActor(null);
+                projectile.setDirection(otherPortal.getDirection());
+                projectile.setCell(otherPortal.getPortalCell());
+                projectile.getCell().setActor(projectile);
+            }
+        }
+    }
+
+    public boolean isPortalCellFree() {
+        return cell.getNeighborByDir(direction).getActor() == null;
+    }
+
+    public Cell getPortalCell() {
+        return cell.getNeighborByDir(direction);
+    }
+
+    public String getOtherType() {
+        if (type.equals("red")) return "blue";
+        else return "red";
     }
 
     @Override
@@ -29,5 +65,9 @@ public class Portal extends Actor implements Killable{
             return "redPortal";
         else
             return "bluePortal";
+    }
+
+    public Direction getDirection() {
+        return direction;
     }
 }

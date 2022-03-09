@@ -45,4 +45,8 @@ public abstract class Actor implements Drawable {
     }
 
     public boolean isKillable() {return killable; }
+
+    public void setCell(Cell cell) {
+        this.cell = cell;
+    }
 }

@@ -9,7 +9,7 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Player extends Movable {
+public class Player extends Movable implements Killable {
     private Map<Item, Integer> inventory = new HashMap<>();
     private char lastOrder;
 
@@ -45,6 +45,7 @@ public class Player extends Movable {
     }
 
     public void act() {
+        if (isDead(this)) kill(map, this);
         if (super.coolDown == 0) {
             switch (lastOrder) {
                 case 'w':
