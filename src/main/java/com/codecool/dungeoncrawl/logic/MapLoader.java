@@ -14,8 +14,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class MapLoader {
-    public static GameMap loadMap() {
-        InputStream is = MapLoader.class.getResourceAsStream("/memhaz.txt");
+    public static GameMap loadMap(InputStream is) {
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
@@ -52,6 +51,9 @@ public class MapLoader {
                             break;
                         case 'O':
                             cell.setType(CellType.SHOOTABLEWALL);
+                            break;
+                        case 'N':
+                            cell.setType(CellType.NEXTLEVEL);
                             break;
                         case 'c':
                             cell.setType(CellType.FLOOR);

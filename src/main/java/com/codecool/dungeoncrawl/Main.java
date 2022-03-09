@@ -6,8 +6,6 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import com.codecool.dungeoncrawl.logic.items.Item;
-import com.codecool.dungeoncrawl.logic.actors.Player;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -23,12 +21,16 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.InputStream;
+
 public class Main extends Application {
+    InputStream is = MapLoader.class.getResourceAsStream("/memhaz.txt");
+    Stage stage = new Stage();
     private int widthModifier = 0;
     private int heightModifier = 0;
     private final int canvasWidth = 600;
     private final int canvasHeight = 600;
-    GameMap map = MapLoader.loadMap();
+    GameMap map = MapLoader.loadMap(is);
     public Canvas canvas = new Canvas(canvasWidth, canvasHeight);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
@@ -42,6 +44,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        stage = primaryStage;
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
@@ -124,6 +127,11 @@ public class Main extends Application {
         healthLabel.setText("" + map.getPlayer().getHealth());
         meo.setText("15");
         pickUpButton.setOnMouseClicked(this::onClick);
+
+        /*if (map.getPlayer().getCell().getType() == CellType.NEXTLEVEL){
+            map = MapLoader.loadMap(MapLoader.class.getResourceAsStream("/map.txt"));
+            stage.show();
+        }*/
     }
 
     private void onClick(MouseEvent mouseEvent) {
