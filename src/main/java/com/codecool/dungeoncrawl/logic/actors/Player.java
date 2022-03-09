@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Cheese;
 import com.codecool.dungeoncrawl.logic.items.Item;
 
@@ -14,6 +15,19 @@ public class Player extends Actor {
 
     public Player(Cell cell) {
         super(cell);
+    }
+
+    @Override
+    public void move(int dx, int dy) {
+        Cell nextCell = getCell().getNeighbor(dx, dy);
+        boolean nextIsClosedDoorAndHasKey = nextCell.getType() == CellType.CLOSEDDOOR && inventory.get("key") != null;
+        boolean nextIsFloor = nextCell.getType() == CellType.FLOOR;
+        boolean nextIsNotActor = nextCell.getActor() == null;
+        if ((nextIsFloor && nextIsNotActor) || nextIsClosedDoorAndHasKey) {
+            getCell().setActor(null);
+            nextCell.setActor(this);
+            setCell(nextCell);
+        }
     }
 
     public void pickUpItem() {
