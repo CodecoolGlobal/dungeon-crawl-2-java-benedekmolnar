@@ -7,7 +7,7 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 import java.util.Arrays;
 
 public class Projectile extends Movable implements Killable{
-    private CellType[] walls = new CellType[]{CellType.LEFTWALL, CellType.RIGHTWALL, CellType.UPWALL, CellType.DOWNWALL};
+    private CellType[] walls = new CellType[]{CellType.WALL};
 
     public Projectile(GameMap map, Cell cell, Direction direction) {
         super(map, cell, direction);
