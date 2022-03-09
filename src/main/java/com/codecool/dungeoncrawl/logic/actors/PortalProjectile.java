@@ -23,17 +23,19 @@ public class PortalProjectile extends Projectile {
         Cell nextCell = cell.getNeighborByDir(direction);
         Actor nextActor = nextCell.getActor();
         CellType nextType = nextCell.getType();
-        if (nextActor != null)
+        if (nextActor != null) {
             kill(map, this);
+            return;
+        }
         if (Arrays.asList(walls).contains(nextType)) {
             kill(map, this);
             Portal portal;
             if (type.equals("red")) {
-                portal = new Portal(cell.getNeighborByDir(direction), map, direction, "red");
+                portal = new Portal(cell.getNeighborByDir(direction), map, direction.getReversDirection(), "red");
                 map.setPortal("red", portal);
             }
             else {
-                portal = new Portal(cell.getNeighborByDir(direction), map, direction, "blue");
+                portal = new Portal(cell.getNeighborByDir(direction), map, direction.getReversDirection(), "blue");
                 map.setPortal("blue", portal);
             }
             map.addToActors(portal);
