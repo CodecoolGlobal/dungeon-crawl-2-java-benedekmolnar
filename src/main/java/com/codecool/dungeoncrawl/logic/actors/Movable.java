@@ -29,6 +29,14 @@ public abstract class Movable extends Actor {
         }
     }
 
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction dir) {
+        direction = dir;
+    }
+
     public void changeDirection(Direction dir) {
         direction = dir;
     }
