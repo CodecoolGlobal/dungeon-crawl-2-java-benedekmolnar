@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 public class MapLoader {
     public static GameMap loadMap() {
-        InputStream is = MapLoader.class.getResourceAsStream("/map.txt");
+        InputStream is = MapLoader.class.getResourceAsStream("/memhaz.txt");
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
@@ -32,30 +32,6 @@ public class MapLoader {
                         case ' ':
                             cell.setType(CellType.EMPTY);
                             break;
-                        case 'L':
-                            cell.setType(CellType.LEFTWALL);
-                            break;
-                        case 'R':
-                            cell.setType(CellType.RIGHTWALL);
-                            break;
-                        case 'U':
-                            cell.setType(CellType.UPWALL);
-                            break;
-                        case 'D':
-                            cell.setType(CellType.DOWNWALL);
-                            break;
-                        case '(':
-                            cell.setType(CellType.UPLEFTCORNER);
-                            break;
-                        case ')':
-                            cell.setType(CellType.UPRIGHTCORNER);
-                            break;
-                        case '<':
-                            cell.setType(CellType.DOWNLEFTCORNER);
-                            break;
-                        case '>':
-                            cell.setType(CellType.DOWNRIGHTCORNER);
-                            break;
                         case '.':
                             cell.setType(CellType.FLOOR);
                             break;
@@ -67,9 +43,15 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new Key(cell);
                             break;
+                        case '#':
+                            cell.setType(CellType.WALL);
+                            break;
                         case 'a':
                             cell.setType(CellType.FLOOR);
                             new Arrow(cell);
+                            break;
+                        case 'O':
+                            cell.setType(CellType.SHOOTABLEWALL);
                             break;
                         case 'c':
                             cell.setType(CellType.FLOOR);

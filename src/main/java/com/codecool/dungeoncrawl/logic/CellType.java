@@ -11,6 +11,8 @@ public enum CellType {
     UPLEFTCORNER("upleftcorner"),
     DOWNRIGHTCORNER("downrightcorner"),
     DOWNLEFTCORNER("downleftcorner"),
+    WALL("wall"),
+    SHOOTABLEWALL("shootablewall"),
     BLUEPORTAL("bluePortal"),
     REDPORTAL("redPortal");
 
