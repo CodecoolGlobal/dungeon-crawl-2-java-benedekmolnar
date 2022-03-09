@@ -1,12 +1,15 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
+import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Player extends Actor {
+
     private Map<String, Integer> inventory = new HashMap<>();
 
     public Player(Cell cell) {
@@ -33,4 +36,5 @@ public class Player extends Actor {
         }
         return inventoryAsString.toString();
     }
+
 }
