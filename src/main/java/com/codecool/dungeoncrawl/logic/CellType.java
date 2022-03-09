@@ -16,7 +16,11 @@ public enum CellType {
     SHOOTABLEWALL("shootablewall"),
     BLUEPORTAL("bluePortal"),
     REDPORTAL("redPortal"),
-    NEXTLEVEL("nextlevel");
+    NEXTLEVEL("nextlevel"),
+    TREE("tree"),
+    BUSH("bush"),
+    GRASS("grass"),
+    REDPORTAL("redPortal");
 
     private final String tileName;
 

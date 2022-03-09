@@ -72,6 +72,15 @@ public class MapLoader {
                         case 'B':
                             cell.setType(CellType.BASEROOF);
                             break;
+                        case '?':
+                            cell.setType(CellType.TREE);
+                            break;
+                        case ';':
+                            cell.setType(CellType.BUSH);
+                            break;
+                        case ',':
+                            cell.setType(CellType.GRASS);
+                            break;
                         case 'a':
                             cell.setType(CellType.FLOOR);
                             new Arrow(cell);
