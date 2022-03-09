@@ -9,9 +9,10 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Player extends Movable {
+public class Player extends Actor {
+    private Map<Item, Integer> inventory = new HashMap<>();
     private char lastOrder;
-    private Map<String, Integer> inventory = new HashMap<>();
+
 
     public Player(GameMap map, Cell cell) {
         super(map, cell, Direction.UP);
@@ -26,12 +27,12 @@ public class Player extends Movable {
         if (itemToPickUp instanceof Cheese){
             changeHealth(2);
         }else{
-            this.addItemToInventory(itemToPickUp.getTileName());
+            this.addItemToInventory(itemToPickUp);
         }
         currentCell.setItem(null);
     }
 
-    public void addItemToInventory(String item){
+    public void addItemToInventory(Item item){
         if (inventory.get(item) != null){
             inventory.put(item, inventory.get(item) + 1);
         }else{
@@ -113,8 +114,8 @@ public class Player extends Movable {
 
     public String inventoryToString() {
         StringBuilder inventoryAsString = new StringBuilder();
-        for (String key : inventory.keySet()) {
-            inventoryAsString.append(key + "=" + inventory.get(key) + "   ");
+        for (Item key : inventory.keySet()) {
+            inventoryAsString.append(key.getTileName() + "=" + inventory.get(key) + "   ");
             inventoryAsString.append("\n");
         }
         return inventoryAsString.toString();
