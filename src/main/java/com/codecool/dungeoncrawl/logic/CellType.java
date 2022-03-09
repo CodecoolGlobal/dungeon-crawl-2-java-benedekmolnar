@@ -19,8 +19,7 @@ public enum CellType {
     NEXTLEVEL("nextlevel"),
     TREE("tree"),
     BUSH("bush"),
-    GRASS("grass"),
-    REDPORTAL("redPortal");
+    GRASS("grass");
 
     private final String tileName;
 
