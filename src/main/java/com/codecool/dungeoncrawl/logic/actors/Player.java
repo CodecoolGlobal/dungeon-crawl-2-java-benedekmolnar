@@ -1,19 +1,30 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
-import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.CellType;
+import com.codecool.dungeoncrawl.logic.items.Cheese;
+import com.codecool.dungeoncrawl.logic.items.Item;
+
 
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Player extends Actor {
-
     private Map<String, Integer> inventory = new HashMap<>();
 
     public Player(Cell cell) {
         super(cell);
+    }
+
+    public void pickUpItem() {
+        Cell currentCell = this.getCell();
+        Item itemToPickUp = currentCell.getItem();
+        if (itemToPickUp instanceof Cheese){
+            changeHealth(2);
+        }else{
+            this.addItemToInventory(itemToPickUp.getTileName());
+        }
+        currentCell.setItem(null);
     }
 
     public void addItemToInventory(String item){
@@ -36,5 +47,4 @@ public class Player extends Actor {
         }
         return inventoryAsString.toString();
     }
-
 }

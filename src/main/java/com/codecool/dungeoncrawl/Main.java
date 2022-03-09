@@ -125,10 +125,7 @@ public class Main extends Application {
     }
 
     private void onClick(MouseEvent mouseEvent) {
-        Cell currentCell = map.getPlayer().getCell();
-        Item itemToPickUp = currentCell.getItem();
-        map.getPlayer().addItemToInventory(itemToPickUp.getTileName());
-        currentCell.setItem(null);
+        map.getPlayer().pickUpItem();
         inventory.setText(map.getPlayer().inventoryToString());
     }
 }
