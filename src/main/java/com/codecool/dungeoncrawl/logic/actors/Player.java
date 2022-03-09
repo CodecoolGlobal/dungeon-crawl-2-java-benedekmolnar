@@ -40,6 +40,10 @@ public class Player extends Movable implements Killable {
         }
     }
 
+    public Map<Item, Integer> getInventory(){
+        return inventory;
+    }
+
     public String getTileName() {
         return "player";
     }
@@ -94,8 +98,7 @@ public class Player extends Movable implements Killable {
                 map.getPortal("red").killPortal();
 
             map.addToActors(new PortalProjectile(map, cell.getNeighborByDir(direction), direction, "red"));
-        };
-
+        }
     }
 
     private void blueShoot() {
@@ -120,5 +123,9 @@ public class Player extends Movable implements Killable {
             inventoryAsString.append("\n");
         }
         return inventoryAsString.toString();
+    }
+
+    public void setInventory(Map<Item, Integer> inventory) {
+        this.inventory = inventory;
     }
 }

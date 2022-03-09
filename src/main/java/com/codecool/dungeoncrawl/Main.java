@@ -129,7 +129,9 @@ public class Main extends Application {
         pickUpButton.setOnMouseClicked(this::onClick);
 
         if (map.getPlayer().getCell().getType() == CellType.NEXTLEVEL){
+            Map<Item, Integer> inventoryOfPlayer = map.getPlayer().getInventory();
             map = MapLoader.loadMap(MapLoader.class.getResourceAsStream("/memhaz.txt"));
+            map.getPlayer().setInventory(inventoryOfPlayer);
             refresh();
         }
 
