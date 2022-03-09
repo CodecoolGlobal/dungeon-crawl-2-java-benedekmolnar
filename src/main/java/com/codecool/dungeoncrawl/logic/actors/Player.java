@@ -79,13 +79,13 @@ public class Player extends Movable {
     }
 
     private void shoot() {
-        if (cell.getNeighborByDir(direction).getType() != CellType.WALL &&
+        if (cell.getNeighborByDir(direction).getType() == CellType.FLOOR &&
             cell.getNeighborByDir(direction).getActor() == null)
             map.addToActors(new Projectile(map, cell.getNeighborByDir(direction), direction));
     }
 
     private void redShoot() {
-        if (cell.getNeighborByDir(direction).getType() != CellType.WALL &&
+        if (cell.getNeighborByDir(direction).getType() == CellType.FLOOR &&
             cell.getNeighborByDir(direction).getActor() == null) {
 
             if (map.getPortal("red") != null)
@@ -97,7 +97,7 @@ public class Player extends Movable {
     }
 
     private void blueShoot() {
-        if (cell.getNeighborByDir(direction).getType() != CellType.WALL &&
+        if (cell.getNeighborByDir(direction).getType() == CellType.FLOOR &&
             cell.getNeighborByDir(direction).getActor() == null) {
 
             if (map.getPortal("blue") != null)

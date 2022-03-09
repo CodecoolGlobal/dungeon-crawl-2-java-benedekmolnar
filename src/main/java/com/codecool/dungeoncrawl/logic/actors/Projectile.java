@@ -4,7 +4,11 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 
+import java.util.Arrays;
+
 public class Projectile extends Movable implements Killable{
+    private CellType[] walls = new CellType[]{CellType.LEFTWALL, CellType.RIGHTWALL, CellType.UPWALL, CellType.DOWNWALL};
+
     public Projectile(GameMap map, Cell cell, Direction direction) {
         super(map, cell, direction);
         killable = true;
@@ -18,7 +22,7 @@ public class Projectile extends Movable implements Killable{
                 nextActor.setHealth(nextActor.getHealth() - 5);
             kill(map, this);
         }
-        if (nextCell.getType() == CellType.WALL)
+        if (Arrays.asList(walls).contains(nextCell.getType()))
             kill(map, this);
         moveToDir();
     }

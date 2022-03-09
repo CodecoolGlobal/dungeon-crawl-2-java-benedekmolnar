@@ -4,10 +4,11 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 
-import java.lang.reflect.Type;
+import java.util.Arrays;
 
 public class PortalProjectile extends Projectile {
     private String type;
+    private CellType[] walls = new CellType[]{CellType.LEFTWALL, CellType.RIGHTWALL, CellType.UPWALL, CellType.DOWNWALL};
 
 
     public PortalProjectile(GameMap map, Cell cell, Direction direction, String type) {
@@ -24,7 +25,7 @@ public class PortalProjectile extends Projectile {
         CellType nextType = nextCell.getType();
         if (nextActor != null)
             kill(map, this);
-        if (nextType == CellType.WALL) {
+        if (Arrays.asList(walls).contains(nextType)) {
             kill(map, this);
             Portal portal;
             if (type.equals("red")) {

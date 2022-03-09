@@ -82,38 +82,15 @@ public class Main extends Application {
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().setLastOrder('w');
-                if (map.getPlayer().getCell().getNeighbor(0, -1).getType() == CellType.FLOOR
-                        && map.getPlayer().getCell().getNeighbor(0, -1).getActor() == null){
-                    heightModifier++;
-                }
-                map.getPlayer().move(0, -1);
-                refresh();
                 break;
             case DOWN:
                 map.getPlayer().setLastOrder('s');
-                if (map.getPlayer().getCell().getNeighbor(0, 1).getType() == CellType.FLOOR
-                        && map.getPlayer().getCell().getNeighbor(0, 1).getActor() == null){
-                    heightModifier--;
-                }
-                map.getPlayer().move(0, 1);
-                refresh();
                 break;
             case LEFT:
                 map.getPlayer().setLastOrder('a');
-                if (map.getPlayer().getCell().getNeighbor(-1, 0).getType() == CellType.FLOOR
-                        && map.getPlayer().getCell().getNeighbor(-1, 0).getActor() == null){
-                    widthModifier++;
-                }
-                map.getPlayer().move(-1, 0);
                 refresh();
                 break;
             case RIGHT:
-                if (map.getPlayer().getCell().getNeighbor(1, 0).getType() == CellType.FLOOR
-                        && map.getPlayer().getCell().getNeighbor(1, 0).getActor() == null){
-                    widthModifier--;
-                }
-                map.getPlayer().move(1, 0);
-                refresh();
                 map.getPlayer().setLastOrder('d');
                 break;
             case SPACE:
@@ -131,18 +108,16 @@ public class Main extends Application {
     private void refresh() {
         context.setFill(Color.color(0.278, 0.176, 0.235));
         map.actActors();
-
-        context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
                 Cell cell = map.getCell(x, y);
                 if (cell.getActor() != null) {
-                    Tiles.drawTile(context, cell.getActor(), x + widthModifier, y + heightModifier);
+                    Tiles.drawTile(context, cell.getActor(), x + 10 - map.getPlayer().getX(), y + 10 - map.getPlayer().getY());
                 }else if  (cell.getItem() != null) {
-                        Tiles.drawTile(context, cell.getItem(), x + widthModifier, y + heightModifier);
+                        Tiles.drawTile(context, cell.getItem(), x + 10 - map.getPlayer().getX(), y + 10 - map.getPlayer().getY());
                 } else {
-                    Tiles.drawTile(context, cell, x + widthModifier, y + heightModifier);
+                    Tiles.drawTile(context, cell, x + 10 - map.getPlayer().getX(), y + 10 - map.getPlayer().getY());
                 }
             }
         }

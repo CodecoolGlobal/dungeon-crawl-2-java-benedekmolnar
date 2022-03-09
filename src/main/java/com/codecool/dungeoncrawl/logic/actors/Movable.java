@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 
 public abstract class Movable extends Actor {
     protected Direction direction;
+    private CellType[] passable = new CellType[] {CellType.FLOOR};
 
     public Movable(GameMap map, Cell cell, Direction direction) {
         super(cell, map);
@@ -21,7 +22,7 @@ public abstract class Movable extends Actor {
 
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
-        if (nextCell.getActor() == null && nextCell.getType() != CellType.WALL) {
+        if (nextCell.getActor() == null && nextCell.getType() == CellType.FLOOR) {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
