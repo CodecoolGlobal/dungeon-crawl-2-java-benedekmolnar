@@ -22,7 +22,7 @@ public abstract class Movable extends Actor {
 
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
-        if (nextCell.getActor() == null && nextCell.getType() == CellType.FLOOR) {
+        if (nextCell.getActor() == null && nextCell.getType() == CellType.FLOOR || nextCell.getType() == CellType.NEXTLEVEL) {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;

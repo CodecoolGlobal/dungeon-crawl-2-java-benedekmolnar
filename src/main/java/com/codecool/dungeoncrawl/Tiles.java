@@ -43,6 +43,7 @@ public class Tiles {
         tileMap.put("cheese", new Tile(18,28));
         tileMap.put("wall", new Tile(23, 27));
         tileMap.put("shootablewall", new Tile(23, 26));
+        tileMap.put("nextlevel", new Tile(0, 6));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
