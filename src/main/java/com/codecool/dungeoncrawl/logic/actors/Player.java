@@ -23,7 +23,8 @@ public class Player extends Actor {
         boolean nextIsClosedDoorAndHasKey = nextCell.getType() == CellType.CLOSEDDOOR && inventory.get("key") != null;
         boolean nextIsFloor = nextCell.getType() == CellType.FLOOR;
         boolean nextIsNotActor = nextCell.getActor() == null;
-        if ((nextIsFloor && nextIsNotActor) || nextIsClosedDoorAndHasKey) {
+        boolean nextIsOpenDoor = nextCell.getType() == CellType.OPENDOOR;
+        if ((nextIsFloor && nextIsNotActor) || nextIsClosedDoorAndHasKey || nextIsOpenDoor) {
             if (nextCell.getType() == CellType.CLOSEDDOOR){
                 nextCell.setType(CellType.OPENDOOR);
             }
