@@ -12,8 +12,9 @@ public enum CellType {
     DOWNRIGHTCORNER("downrightcorner"),
     DOWNLEFTCORNER("downleftcorner"),
     WALL("wall"),
-    SHOOTABLEWALL("shootablewall");
-
+    SHOOTABLEWALL("shootablewall"),
+    BLUEPORTAL("bluePortal"),
+    REDPORTAL("redPortal");
 
     private final String tileName;
 

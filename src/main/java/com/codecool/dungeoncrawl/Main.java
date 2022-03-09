@@ -4,6 +4,8 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import javafx.application.Application;
@@ -19,6 +21,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Main extends Application {
     private int widthModifier = 0;
@@ -60,62 +63,61 @@ public class Main extends Application {
 
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
-        refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
+
+
+        Timeline refresh = new Timeline(
+            new KeyFrame(Duration.seconds(0.05),
+                    event -> refresh()));
+        refresh.setCycleCount(Timeline.INDEFINITE);
+        refresh.play();
 
         primaryStage.setTitle("Legend of Martin");
         primaryStage.show();
+
+        refresh();
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case UP:
-                if (map.getPlayer().getCell().getNeighbor(0, -1).getType() == CellType.FLOOR
-                        && map.getPlayer().getCell().getNeighbor(0, -1).getActor() == null){
-                    heightModifier++;
-                }
-                map.getPlayer().move(0, -1);
-                refresh();
+                map.getPlayer().setLastOrder('w');
                 break;
             case DOWN:
-                if (map.getPlayer().getCell().getNeighbor(0, 1).getType() == CellType.FLOOR
-                        && map.getPlayer().getCell().getNeighbor(0, 1).getActor() == null){
-                    heightModifier--;
-                }
-                map.getPlayer().move(0, 1);
-                refresh();
+                map.getPlayer().setLastOrder('s');
                 break;
             case LEFT:
-                if (map.getPlayer().getCell().getNeighbor(-1, 0).getType() == CellType.FLOOR
-                        && map.getPlayer().getCell().getNeighbor(-1, 0).getActor() == null){
-                    widthModifier++;
-                }
-                map.getPlayer().move(-1, 0);
+                map.getPlayer().setLastOrder('a');
                 refresh();
                 break;
             case RIGHT:
-                if (map.getPlayer().getCell().getNeighbor(1, 0).getType() == CellType.FLOOR
-                        && map.getPlayer().getCell().getNeighbor(1, 0).getActor() == null){
-                    widthModifier--;
-                }
-                map.getPlayer().move(1, 0);
-                refresh();
+                map.getPlayer().setLastOrder('d');
+                break;
+            case SPACE:
+                map.getPlayer().setLastOrder('y');
+                break;
+            case R:
+                map.getPlayer().setLastOrder('r');
+                break;
+            case B:
+                map.getPlayer().setLastOrder('b');
                 break;
         }
     }
 
     private void refresh() {
         context.setFill(Color.color(0.278, 0.176, 0.235));
+        map.actActors();
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
                 Cell cell = map.getCell(x, y);
                 if (cell.getActor() != null) {
-                    Tiles.drawTile(context, cell.getActor(), x + widthModifier, y + heightModifier);
+                    Tiles.drawTile(context, cell.getActor(), x + 10 - map.getPlayer().getX(), y + 10 - map.getPlayer().getY());
                 }else if  (cell.getItem() != null) {
-                        Tiles.drawTile(context, cell.getItem(), x + widthModifier, y + heightModifier);
+                        Tiles.drawTile(context, cell.getItem(), x + 10 - map.getPlayer().getX(), y + 10 - map.getPlayer().getY());
                 } else {
-                    Tiles.drawTile(context, cell, x + widthModifier, y + heightModifier);
+                    Tiles.drawTile(context, cell, x + 10 - map.getPlayer().getX(), y + 10 - map.getPlayer().getY());
                 }
             }
         }
@@ -125,10 +127,7 @@ public class Main extends Application {
     }
 
     private void onClick(MouseEvent mouseEvent) {
-        Cell currentCell = map.getPlayer().getCell();
-        Item itemToPickUp = currentCell.getItem();
-        map.getPlayer().addItemToInventory(itemToPickUp.getTileName());
-        currentCell.setItem(null);
+        map.getPlayer().pickUpItem();
         inventory.setText(map.getPlayer().inventoryToString());
     }
 }

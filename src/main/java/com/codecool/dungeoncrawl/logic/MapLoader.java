@@ -6,8 +6,12 @@ import com.codecool.dungeoncrawl.logic.items.Arrow;
 import com.codecool.dungeoncrawl.logic.items.Cheese;
 import com.codecool.dungeoncrawl.logic.items.Key;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class MapLoader {
     public static GameMap loadMap() {
@@ -33,7 +37,7 @@ public class MapLoader {
                             break;
                         case 's':
                             cell.setType(CellType.FLOOR);
-                            new Skeleton(cell);
+                            map.addToActors(new Skeleton(map, cell));
                             break;
                         case 'k':
                             cell.setType(CellType.FLOOR);
@@ -54,8 +58,10 @@ public class MapLoader {
                             new Cheese(cell);
                             break;
                         case '@':
+                            Player player = new Player(map, cell);
                             cell.setType(CellType.FLOOR);
-                            map.setPlayer(new Player(cell));
+                            map.setPlayer(player);
+                            map.addToActors(player);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

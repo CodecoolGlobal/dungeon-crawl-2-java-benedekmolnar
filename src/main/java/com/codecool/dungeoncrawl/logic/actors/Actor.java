@@ -3,31 +3,37 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
+import com.codecool.dungeoncrawl.logic.GameMap;
 
 public abstract class Actor implements Drawable {
-    private Cell cell;
-    private int health = 10;
+    protected boolean killable = false;
+    protected int coolDownTimer;
+    protected GameMap map;
+    protected int coolDown = 0;
 
-    public Actor(Cell cell) {
+    protected Cell cell;
+    protected int health = 10;
+
+    public Actor(Cell cell, GameMap map) {
+        this.map = map;
         this.cell = cell;
         this.cell.setActor(this);
     }
 
-    public void move(int dx, int dy) {
-        Cell nextCell = cell.getNeighbor(dx, dy);
-        if (nextCell.getType() == CellType.FLOOR && nextCell.getActor() == null) {
-            cell.setActor(null);
-            nextCell.setActor(this);
-            cell = nextCell;
-        }
-    }
+    abstract public void act();
 
     public int getHealth() {
         return health;
     }
 
+    public void setHealth(int health) { this.health = health; }
+
     public Cell getCell() {
         return cell;
+    }
+
+    public void changeHealth(int change) {
+        this.health += change;
     }
 
     public int getX() {
@@ -37,4 +43,6 @@ public abstract class Actor implements Drawable {
     public int getY() {
         return cell.getY();
     }
+
+    public boolean isKillable() {return killable; }
 }

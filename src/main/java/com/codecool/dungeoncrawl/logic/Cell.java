@@ -2,6 +2,9 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.actors.Direction;
+
+import java.util.Dictionary;
 
 public class Cell implements Drawable {
     private CellType type;
@@ -43,6 +46,13 @@ public class Cell implements Drawable {
 
     public Cell getNeighbor(int dx, int dy) {
         return gameMap.getCell(x + dx, y + dy);
+    }
+
+    public Cell getNeighborByDir(Direction direction) {
+        if (direction == Direction.UP) return getNeighbor(0, -1);
+        if (direction == Direction.DOWN) return getNeighbor(0, 1);
+        if (direction == Direction.LEFT) return getNeighbor(-1, 0);
+        return getNeighbor(1, 0);
     }
 
     @Override
