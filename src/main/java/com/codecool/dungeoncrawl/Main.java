@@ -123,17 +123,21 @@ public class Main extends Application {
         healthLabel.setText("" + map.getPlayer().getHealth());
         pickUpButton.setOnMouseClicked(this::onClick);
 
-        if (map.getPlayer().getCell().getType() == CellType.NEXTLEVEL){
-            Map<Item, Integer> inventoryOfPlayer = map.getPlayer().getInventory();
-            map = MapLoader.loadMap(MapLoader.class.getResourceAsStream("/memhaz.txt"));
-            map.getPlayer().setInventory(inventoryOfPlayer);
-            refresh();
-        }
+        teleportToNextLevel("/memhaz.txt");
 
     }
 
     private void onClick(MouseEvent mouseEvent) {
         map.getPlayer().pickUpItem();
         inventory.setText(map.getPlayer().inventoryToString());
+    }
+
+    private void teleportToNextLevel(String nextLevelsFilename){
+        if (map.getPlayer().getCell().getType() == CellType.NEXTLEVEL){
+            Map<Item, Integer> inventoryOfPlayer = map.getPlayer().getInventory();
+            map = MapLoader.loadMap(MapLoader.class.getResourceAsStream(nextLevelsFilename));
+            map.getPlayer().setInventory(inventoryOfPlayer);
+            refresh();
+        }
     }
 }
