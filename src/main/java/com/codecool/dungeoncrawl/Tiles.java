@@ -32,6 +32,8 @@ public class Tiles {
         tileMap.put("uprightcorner", new Tile(18, 13));
         tileMap.put("downleftcorner", new Tile(16, 15));
         tileMap.put("downrightcorner", new Tile(18, 15));
+        tileMap.put("opendoor", new Tile(2, 9));
+        tileMap.put("closeddoor", new Tile(0, 9));
         tileMap.put("floor", new Tile(3, 0));
         tileMap.put("player", new Tile(27, 0));
         tileMap.put("skeleton", new Tile(29, 6));

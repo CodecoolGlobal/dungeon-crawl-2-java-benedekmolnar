@@ -71,6 +71,12 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new Cheese(cell);
                             break;
+                        case 'X':
+                            cell.setType(CellType.CLOSEDDOOR);
+                            break;
+                        case '|':
+                            cell.setType(CellType.OPENDOOR);
+                            break;
                         case '@':
                             cell.setType(CellType.FLOOR);
                             map.setPlayer(new Player(cell));

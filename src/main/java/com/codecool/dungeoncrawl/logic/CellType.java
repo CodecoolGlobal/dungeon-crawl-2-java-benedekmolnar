@@ -11,7 +11,7 @@ public enum CellType {
     UPLEFTCORNER("upleftcorner"),
     DOWNRIGHTCORNER("downrightcorner"),
     DOWNLEFTCORNER("downleftcorner"),
-    OPENEDDOOR("openeddoor"),
+    OPENDOOR("opendoor"),
     CLOSEDDOOR("closeddoor");
 
 
