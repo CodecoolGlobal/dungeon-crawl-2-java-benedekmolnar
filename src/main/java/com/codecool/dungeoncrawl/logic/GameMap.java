@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.actors.Portal;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -10,6 +11,9 @@ public class GameMap {
     private int width;
     private int height;
     private Cell[][] cells;
+
+    private Portal redPortal = null;
+    private Portal bluePortal = null;
 
     private Player player;
     private List<Actor> actors = new LinkedList<>();
@@ -61,5 +65,15 @@ public class GameMap {
 
     public int getHeight() {
         return height;
+    }
+
+    public Portal getPortal(String type) {
+        if (type.equals("red")) return redPortal;
+        else return bluePortal;
+    }
+
+    public void setPortal(String type, Portal portal) {
+        if (type.equals("red")) redPortal = portal;
+        else bluePortal = portal;
     }
 }

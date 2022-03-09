@@ -40,6 +40,12 @@ public class Player extends Movable {
                 case 'y':
                     shoot();
                     break;
+                case 'r':
+                    redShoot();
+                    break;
+                case 'b':
+                    blueShoot();
+                    break;
             }
             lastOrder = ' ';
             coolDown = coolDownTimer;
@@ -51,6 +57,29 @@ public class Player extends Movable {
         if (cell.getNeighborByDir(direction).getType() != CellType.WALL &&
             cell.getNeighborByDir(direction).getActor() == null)
             map.addToActors(new Projectile(map, cell.getNeighborByDir(direction), direction));
+    }
+
+    private void redShoot() {
+        if (cell.getNeighborByDir(direction).getType() != CellType.WALL &&
+            cell.getNeighborByDir(direction).getActor() == null) {
+
+            if (map.getPortal("red") != null)
+                map.getPortal("red").killPortal();
+
+            map.addToActors(new PortalProjectile(map, cell.getNeighborByDir(direction), direction, "red"));
+        };
+
+    }
+
+    private void blueShoot() {
+        if (cell.getNeighborByDir(direction).getType() != CellType.WALL &&
+            cell.getNeighborByDir(direction).getActor() == null) {
+
+            if (map.getPortal("blue") != null)
+                map.getPortal("blue").killPortal();
+
+            map.addToActors(new PortalProjectile(map, cell.getNeighborByDir(direction), direction, "blue"));
+        }
     }
 
     public void setLastOrder(char order) {

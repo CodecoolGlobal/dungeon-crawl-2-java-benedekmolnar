@@ -81,6 +81,12 @@ public class Main extends Application {
             case SPACE:
                 map.getPlayer().setLastOrder('y');
                 break;
+            case R:
+                map.getPlayer().setLastOrder('r');
+                break;
+            case B:
+                map.getPlayer().setLastOrder('b');
+                break;
         }
     }
 
