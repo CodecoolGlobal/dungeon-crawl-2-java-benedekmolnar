@@ -9,7 +9,7 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Player extends Actor {
+public class Player extends Movable {
     private Map<Item, Integer> inventory = new HashMap<>();
     private char lastOrder;
 
