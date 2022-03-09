@@ -10,7 +10,9 @@ public enum CellType {
     UPRIGHTCORNER("uprightcorner"),
     UPLEFTCORNER("upleftcorner"),
     DOWNRIGHTCORNER("downrightcorner"),
-    DOWNLEFTCORNER("downleftcorner");
+    DOWNLEFTCORNER("downleftcorner"),
+    OPENEDDOOR("openeddoor"),
+    CLOSEDDOOR("closeddoor");
 
 
     private final String tileName;
