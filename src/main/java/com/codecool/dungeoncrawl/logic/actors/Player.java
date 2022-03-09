@@ -24,6 +24,9 @@ public class Player extends Actor {
         boolean nextIsFloor = nextCell.getType() == CellType.FLOOR;
         boolean nextIsNotActor = nextCell.getActor() == null;
         if ((nextIsFloor && nextIsNotActor) || nextIsClosedDoorAndHasKey) {
+            if (nextCell.getType() == CellType.CLOSEDDOOR){
+                nextCell.setType(CellType.OPENDOOR);
+            }
             getCell().setActor(null);
             nextCell.setActor(this);
             setCell(nextCell);
