@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.items.Item;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -22,9 +23,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.InputStream;
+import java.util.Map;
 
 public class Main extends Application {
-    InputStream is = MapLoader.class.getResourceAsStream("/memhaz.txt");
+    InputStream is = MapLoader.class.getResourceAsStream("/main.txt");
     Stage stage = new Stage();
     private int widthModifier = 0;
     private int heightModifier = 0;
@@ -42,9 +44,8 @@ public class Main extends Application {
         launch(args);
     }
 
-    @Override
+   @Override
     public void start(Stage primaryStage) throws Exception {
-        stage = primaryStage;
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
@@ -91,7 +92,6 @@ public class Main extends Application {
                 break;
             case LEFT:
                 map.getPlayer().setLastOrder('a');
-                refresh();
                 break;
             case RIGHT:
                 map.getPlayer().setLastOrder('d');
@@ -128,10 +128,11 @@ public class Main extends Application {
         meo.setText("15");
         pickUpButton.setOnMouseClicked(this::onClick);
 
-        /*if (map.getPlayer().getCell().getType() == CellType.NEXTLEVEL){
-            map = MapLoader.loadMap(MapLoader.class.getResourceAsStream("/map.txt"));
-            stage.show();
-        }*/
+        if (map.getPlayer().getCell().getType() == CellType.NEXTLEVEL){
+            map = MapLoader.loadMap(MapLoader.class.getResourceAsStream("/memhaz.txt"));
+            refresh();
+        }
+
     }
 
     private void onClick(MouseEvent mouseEvent) {
