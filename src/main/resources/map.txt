@@ -1,7 +1,7 @@
 25 20
 >UUUUUUUUUU<
 L..........R     >UUUUUU<
-L...s...s..<UUUUU>......R
+L...s...s..<UUUUU>..c...R
 L.......................R
 L..........(DDDDD)......R
 L.....s....R     L.....kR
