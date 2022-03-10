@@ -1,5 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.logic.actors.Direction;
+import com.codecool.dungeoncrawl.logic.actors.movable.monster.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.movable.monster.Knight;
 import com.codecool.dungeoncrawl.logic.actors.movable.player.Player;
 import com.codecool.dungeoncrawl.logic.actors.movable.monster.Skeleton;
@@ -108,6 +110,23 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             map.addToActors(new Knight(map, cell));
                             break;
+                        case '↑':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Ghost(map, cell, Direction.UP));
+                            break;
+                        case '↓':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Ghost(map, cell, Direction.DOWN));
+                            break;
+                        case '→':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Ghost(map, cell, Direction.LEFT));
+                            break;
+                        case '←':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Ghost(map, cell, Direction.RIGHT));
+                            break;
+
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

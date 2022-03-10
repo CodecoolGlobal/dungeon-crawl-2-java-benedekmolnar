@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.animation.KeyFrame;
@@ -27,8 +28,8 @@ public class Main extends Application {
     InputStream is = MapLoader.class.getResourceAsStream("/main.txt");
     private int widthModifier = 0;
     private int heightModifier = 0;
-    private final int canvasWidth = 600;
-    private final int canvasHeight = 600;
+    private final int canvasWidth = 900;
+    private final int canvasHeight = 900;
     GameMap map = MapLoader.loadMap(is);
     public Canvas canvas = new Canvas(canvasWidth, canvasHeight);
     GraphicsContext context = canvas.getGraphicsContext2D();
