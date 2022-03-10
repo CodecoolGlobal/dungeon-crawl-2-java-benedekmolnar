@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.movable.player.Player;
 import com.codecool.dungeoncrawl.logic.actors.inmovable.Portal;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,6 +30,18 @@ public class GameMap {
                 cells[x][y] = new Cell(this, x, y, defaultCellType);
             }
         }
+    }
+
+    public List<Cell> getFreeCells() {
+        List<Cell> freeCells = new ArrayList<>();
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (cells[x][y].getType() == CellType.FLOOR &&
+                    cells[x][y].getActor() == null)
+                    freeCells.add(cells[x][y]);
+            }
+        }
+        return freeCells;
     }
 
     public void addToActors(Actor actor) {
@@ -75,5 +88,9 @@ public class GameMap {
     public void setPortal(String type, Portal portal) {
         if (type.equals("red")) redPortal = portal;
         else bluePortal = portal;
+    }
+
+    public List<Actor> getActors() {
+        return actors;
     }
 }

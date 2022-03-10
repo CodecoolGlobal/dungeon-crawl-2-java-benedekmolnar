@@ -1,7 +1,9 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Direction;
+import com.codecool.dungeoncrawl.logic.actors.inmovable.Boss;
 import com.codecool.dungeoncrawl.logic.actors.inmovable.Cannon;
+import com.codecool.dungeoncrawl.logic.actors.inmovable.Wall;
 import com.codecool.dungeoncrawl.logic.actors.movable.monster.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.movable.monster.Knight;
 import com.codecool.dungeoncrawl.logic.actors.movable.player.Player;
@@ -137,6 +139,44 @@ public class MapLoader {
                         case 't':
                             cell.setType(CellType.TELEPORTKEY);
                             break;
+                        case 'b':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Boss(map, cell));
+                            break;
+                        case '1':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Wall(map, cell, "1"));
+                            break;
+                        case '2':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Wall(map, cell, "2"));
+                            break;
+                        case '3':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Wall(map, cell, "3"));
+                            break;
+                        case '4':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Wall(map, cell, "4"));
+                            break;
+                        case '5':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Wall(map, cell, "5"));
+                            break;
+                        case '6':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Wall(map, cell, "6"));
+                            break;
+                        case '7':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Wall(map, cell, "7"));
+                            break;
+                        case '8':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Wall(map, cell, "8"));
+                            break;
+
+
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }
