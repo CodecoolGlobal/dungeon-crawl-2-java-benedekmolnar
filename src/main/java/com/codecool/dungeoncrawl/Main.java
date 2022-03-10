@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Main extends Application {
-    InputStream is = MapLoader.class.getResourceAsStream("/main.txt");
+    InputStream is = MapLoader.class.getResourceAsStream("/bosslevel.txt");
     private int widthModifier = 0;
     private int heightModifier = 0;
     private final int canvasWidth = 900;
