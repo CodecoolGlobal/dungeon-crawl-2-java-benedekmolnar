@@ -1,13 +1,10 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import com.codecool.dungeoncrawl.logic.items.Item;
-import com.codecool.dungeoncrawl.logic.actors.Player;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -88,7 +85,6 @@ public class Main extends Application {
                 break;
             case LEFT:
                 map.getPlayer().setLastOrder('a');
-                refresh();
                 break;
             case RIGHT:
                 map.getPlayer().setLastOrder('d');

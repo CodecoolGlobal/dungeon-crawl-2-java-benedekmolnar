@@ -1,10 +1,14 @@
-package com.codecool.dungeoncrawl.logic.actors;
+package com.codecool.dungeoncrawl.logic.actors.inmovable;
 
 import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.logic.actors.Direction;
+import com.codecool.dungeoncrawl.logic.actors.Killable;
+import com.codecool.dungeoncrawl.logic.actors.movable.player.Player;
+import com.codecool.dungeoncrawl.logic.actors.movable.projectile.Projectile;
 
-public class Portal extends Actor implements Killable{
+public class Portal extends Actor implements Killable {
     String type;
     Direction direction;
 

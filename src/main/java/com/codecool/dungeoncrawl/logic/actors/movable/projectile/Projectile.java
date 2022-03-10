@@ -1,12 +1,16 @@
-package com.codecool.dungeoncrawl.logic.actors;
+package com.codecool.dungeoncrawl.logic.actors.movable.projectile;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.logic.actors.Direction;
+import com.codecool.dungeoncrawl.logic.actors.Killable;
+import com.codecool.dungeoncrawl.logic.actors.movable.Movable;
 
 import java.util.Arrays;
 
-public class Projectile extends Movable implements Killable{
+public class Projectile extends Movable implements Killable {
     private CellType[] walls = new CellType[]{CellType.LEFTWALL, CellType.RIGHTWALL, CellType.UPWALL, CellType.DOWNWALL};
 
     public Projectile(GameMap map, Cell cell, Direction direction) {

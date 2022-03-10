@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.actors.Direction;
@@ -44,6 +45,22 @@ public class Cell implements Drawable {
         return item;
     }
 
+    public boolean isActorNear(int distance, Actor actor) {
+        if (Math.abs(actor.getCell().x - x) < distance &&
+            Math.abs(actor.getCell().y - y) < distance) {
+            return true;
+        }
+        return false;
+    }
+
+    public Direction dirTowardCell(Cell cell) {
+        if (cell.x < x) return Direction.LEFT;
+        if (cell.x > x) return Direction.RIGHT;
+        if (cell.y < y) return Direction.UP;
+        if (cell.y > y) return Direction.DOWN;
+        return Direction.NONE;
+    }
+
     public Cell getNeighbor(int dx, int dy) {
         return gameMap.getCell(x + dx, y + dy);
     }
@@ -52,7 +69,8 @@ public class Cell implements Drawable {
         if (direction == Direction.UP) return getNeighbor(0, -1);
         if (direction == Direction.DOWN) return getNeighbor(0, 1);
         if (direction == Direction.LEFT) return getNeighbor(-1, 0);
-        return getNeighbor(1, 0);
+        if (direction == Direction.RIGHT) return getNeighbor(1, 0);
+        return getNeighbor(0, 0);
     }
 
     @Override

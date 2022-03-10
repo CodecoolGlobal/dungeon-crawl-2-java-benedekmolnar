@@ -1,19 +1,26 @@
-package com.codecool.dungeoncrawl.logic.actors;
+package com.codecool.dungeoncrawl.logic.actors.movable.projectile;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.logic.actors.Direction;
+import com.codecool.dungeoncrawl.logic.actors.inmovable.Portal;
 
 import java.util.Arrays;
 
 public class PortalProjectile extends Projectile {
     private String type;
-    private CellType[] walls = new CellType[]{CellType.LEFTWALL, CellType.RIGHTWALL, CellType.UPWALL, CellType.DOWNWALL};
+
+    private CellType[] walls = new CellType[]{
+            CellType.LEFTWALL, CellType.RIGHTWALL, CellType.UPWALL, CellType.DOWNWALL,
+            CellType.WALL};
 
 
     public PortalProjectile(GameMap map, Cell cell, Direction direction, String type) {
         super(map, cell, direction);
         this.type = type;
+        passable = new CellType[]{CellType.FLOOR, CellType.SHOOTABLEWALL, CellType.EMPTY};
 
     }
 
