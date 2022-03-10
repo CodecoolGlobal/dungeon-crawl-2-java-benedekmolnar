@@ -137,7 +137,7 @@ public class Player extends Movable implements Killable {
                 map.getPortal(type).killPortal();
 
             map.addToActors(new PortalProjectile(map, cell.getNeighborByDir(direction), direction, type));
-        };
+        }
     }
 
     public void setLastOrder(char order) {
@@ -147,8 +147,7 @@ public class Player extends Movable implements Killable {
     public String inventoryToString() {
         StringBuilder inventoryAsString = new StringBuilder();
         for (String key : inventory.keySet()) {
-            inventoryAsString.append(key + "=" + inventory.get(key) + "   ");
-            inventoryAsString.append("\n");
+            inventoryAsString.append(key + "=" + inventory.get(key) + "    ");
         }
         return inventoryAsString.toString();
     }

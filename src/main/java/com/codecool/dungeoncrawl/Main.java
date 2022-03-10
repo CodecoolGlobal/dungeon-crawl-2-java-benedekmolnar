@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.animation.KeyFrame;
@@ -10,17 +11,18 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Main extends Application {
@@ -32,7 +34,9 @@ public class Main extends Application {
     GameMap map = MapLoader.loadMap(is);
     public Canvas canvas = new Canvas(canvasWidth, canvasHeight);
     GraphicsContext context = canvas.getGraphicsContext2D();
+    Label healthLabelText = new Label("Health: ");
     Label healthLabel = new Label();
+    Label inventoryLabelText = new Label("Inventory: ");
     Label inventory = new Label();
 
     public static void main(String[] args) {
@@ -42,19 +46,12 @@ public class Main extends Application {
    @Override
     public void start(Stage primaryStage) throws Exception {
         GridPane ui = new GridPane();
-        ui.setPrefWidth(200);
-        ui.setPadding(new Insets(10));
-
-        ui.add(new Label("Health: "), 0, 0);
-        ui.add(new Label("Inventory: "), 0, 3);
-        ui.add(inventory, 1, 3);
-        ui.add(healthLabel, 1, 0);
-
+        designUI(ui);
 
         BorderPane borderPane = new BorderPane();
 
         borderPane.setCenter(canvas);
-        borderPane.setRight(ui);
+        borderPane.setBottom(ui);
 
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
@@ -122,7 +119,6 @@ public class Main extends Application {
 
         inventory.setText(map.getPlayer().inventoryToString());
         teleportToNextLevel("/memhaz.txt");
-
     }
 
     private void teleportToNextLevel(String nextLevelsFilename){
@@ -132,5 +128,25 @@ public class Main extends Application {
             map.getPlayer().setInventory(inventoryOfPlayer);
             refresh();
         }
+    }
+
+    private void designUI(GridPane ui){
+        List<Label> labels = new ArrayList<>();
+        labels.add(healthLabel);
+        labels.add(inventory);
+        labels.add(healthLabelText);
+        labels.add(inventoryLabelText);
+        ui.setPrefWidth(200);
+        ui.setPadding(new Insets(10));
+        ui.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        for (Label label:labels) {
+            label.setFont(Font.font("Impact", FontWeight.NORMAL, 20));
+            label.setStyle("-fx-text-fill: white;");
+        }
+
+        ui.add(healthLabelText, 0, 0);
+        ui.add(inventoryLabelText, 0, 3);
+        ui.add(inventory, 1, 3);
+        ui.add(healthLabel, 1, 0);
     }
 }
