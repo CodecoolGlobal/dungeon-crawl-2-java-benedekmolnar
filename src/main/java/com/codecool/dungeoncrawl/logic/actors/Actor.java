@@ -28,12 +28,16 @@ public abstract class Actor implements Drawable {
 
     public void setHealth(int health) { this.health = health; }
 
+    public void changeHealth(int change) {
+        this.health += change;
+    }
+
     public Cell getCell() {
         return cell;
     }
 
-    public void changeHealth(int change) {
-        this.health += change;
+    public void setCell(Cell cell) {
+        this.cell = cell;
     }
 
     public int getX() {
@@ -45,8 +49,4 @@ public abstract class Actor implements Drawable {
     }
 
     public boolean isKillable() {return killable; }
-
-    public void setCell(Cell cell) {
-        this.cell = cell;
-    }
 }

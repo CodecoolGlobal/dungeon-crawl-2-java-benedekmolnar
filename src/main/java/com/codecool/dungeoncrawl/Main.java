@@ -20,16 +20,19 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.InputStream;
+import java.util.Map;
+
 public class Main extends Application {
+    InputStream is = MapLoader.class.getResourceAsStream("/main.txt");
     private int widthModifier = 0;
     private int heightModifier = 0;
     private final int canvasWidth = 600;
     private final int canvasHeight = 600;
-    GameMap map = MapLoader.loadMap();
+    GameMap map = MapLoader.loadMap(is);
     public Canvas canvas = new Canvas(canvasWidth, canvasHeight);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
-    Label meo = new Label();
     Label inventory = new Label();
     Button pickUpButton = new Button("Pick up item");
 
@@ -37,19 +40,17 @@ public class Main extends Application {
         launch(args);
     }
 
-    @Override
+   @Override
     public void start(Stage primaryStage) throws Exception {
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
 
         ui.add(new Label("Health: "), 0, 0);
-        ui.add(new Label("Meo: "), 0, 1);
         ui.add(pickUpButton, 0, 2);
         ui.add(new Label("Inventory: "), 0, 3);
         ui.add(inventory, 1, 3);
         ui.add(healthLabel, 1, 0);
-        ui.add(meo, 1, 1);
 
         pickUpButton.setFocusTraversable(false);
 
@@ -118,12 +119,24 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
-        meo.setText("15");
         pickUpButton.setOnMouseClicked(this::onClick);
+
+        inventory.setText(map.getPlayer().inventoryToString());
+        teleportToNextLevel("/memhaz.txt");
+
     }
 
     private void onClick(MouseEvent mouseEvent) {
         map.getPlayer().pickUpItem();
         inventory.setText(map.getPlayer().inventoryToString());
+    }
+
+    private void teleportToNextLevel(String nextLevelsFilename){
+        if (map.getPlayer().getCell().getType() == CellType.NEXTLEVEL){
+            Map<String, Integer> inventoryOfPlayer = map.getPlayer().getInventory();
+            map = MapLoader.loadMap(MapLoader.class.getResourceAsStream(nextLevelsFilename));
+            map.getPlayer().setInventory(inventoryOfPlayer);
+            refresh();
+        }
     }
 }

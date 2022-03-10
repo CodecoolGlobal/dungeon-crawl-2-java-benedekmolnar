@@ -8,6 +8,7 @@ import com.codecool.dungeoncrawl.logic.actors.Killable;
 import com.codecool.dungeoncrawl.logic.actors.movable.projectile.PortalProjectile;
 import com.codecool.dungeoncrawl.logic.actors.movable.projectile.Projectile;
 import com.codecool.dungeoncrawl.logic.actors.movable.Movable;
+import com.codecool.dungeoncrawl.logic.items.Arrow;
 import com.codecool.dungeoncrawl.logic.items.Cheese;
 import com.codecool.dungeoncrawl.logic.items.Item;
 
@@ -15,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Player extends Movable implements Killable {
-    private Map<Item, Integer> inventory = new HashMap<>();
+    private Map<String, Integer> inventory = new HashMap<>();
     private char lastOrder;
 
 
@@ -24,6 +25,24 @@ public class Player extends Movable implements Killable {
         killable = true;
         lastOrder = ' ';
         super.coolDownTimer = 3;
+    }
+
+    @Override
+    public void move(int dx, int dy) {
+        Cell nextCell = getCell().getNeighbor(dx, dy);
+        boolean nextIsClosedDoorAndHasKey = nextCell.getType() == CellType.CLOSEDDOOR && inventory.get("key") != null;
+        boolean nextIsFloor = nextCell.getType() == CellType.FLOOR;
+        boolean nextIsNotActor = nextCell.getActor() == null;
+        boolean nextIsOpenDoor = nextCell.getType() == CellType.OPENDOOR;
+        boolean nextIsNextLevel = nextCell.getType() == CellType.NEXTLEVEL;
+        if ((nextIsFloor && nextIsNotActor) || nextIsClosedDoorAndHasKey || nextIsOpenDoor || nextIsNextLevel) {
+            if (nextCell.getType() == CellType.CLOSEDDOOR){
+                nextCell.setType(CellType.OPENDOOR);
+            }
+            getCell().setActor(null);
+            nextCell.setActor(this);
+            setCell(nextCell);
+        }
     }
 
     public void pickUpItem() {
@@ -38,11 +57,21 @@ public class Player extends Movable implements Killable {
     }
 
     public void addItemToInventory(Item item){
-        if (inventory.get(item) != null){
-            inventory.put(item, inventory.get(item) + 1);
+        int value;
+        if (item instanceof Arrow){
+            value = 20;
         }else{
-            inventory.put(item, 1);
+            value = 1;
         }
+        if (inventory.get(item.getTileName()) != null){
+            inventory.put(item.getTileName(), inventory.get(item.getTileName()) + value);
+        }else{
+            inventory.put(item.getTileName(), value);
+        }
+    }
+
+    public Map<String, Integer> getInventory(){
+        return inventory;
     }
 
     public String getTileName() {
@@ -86,9 +115,16 @@ public class Player extends Movable implements Killable {
     }
 
     private void shoot() {
-        if (cell.getNeighborByDir(direction).getType() == CellType.FLOOR &&
-            cell.getNeighborByDir(direction).getActor() == null)
-            map.addToActors(new Projectile(map, cell.getNeighborByDir(direction), direction));
+        if (inventory.get("arrow") != null){
+            if (cell.getNeighborByDir(direction).getType() == CellType.FLOOR &&
+                    cell.getNeighborByDir(direction).getActor() == null)
+                map.addToActors(new Projectile(map, cell.getNeighborByDir(direction), direction));
+            if (inventory.get("arrow") != 1){
+                inventory.put("arrow", inventory.get("arrow") - 1);
+            }else{
+                inventory.remove("arrow");
+            }
+        }
     }
 
     private void portalShoot(String type) {
@@ -108,10 +144,14 @@ public class Player extends Movable implements Killable {
 
     public String inventoryToString() {
         StringBuilder inventoryAsString = new StringBuilder();
-        for (Item key : inventory.keySet()) {
-            inventoryAsString.append(key.getTileName() + "=" + inventory.get(key) + "   ");
+        for (String key : inventory.keySet()) {
+            inventoryAsString.append(key + "=" + inventory.get(key) + "   ");
             inventoryAsString.append("\n");
         }
         return inventoryAsString.toString();
+    }
+
+    public void setInventory(Map<String, Integer> inventory) {
+        this.inventory = inventory;
     }
 }

@@ -3,18 +3,25 @@ package com.codecool.dungeoncrawl.logic;
 public enum CellType {
     EMPTY("empty"),
     FLOOR("floor"),
-    UPWALL("upwall"),
-    DOWNWALL("downwall"),
-    LEFTWALL("leftwall"),
-    RIGHTWALL("rightwall"),
-    UPRIGHTCORNER("uprightcorner"),
-    UPLEFTCORNER("upleftcorner"),
-    DOWNRIGHTCORNER("downrightcorner"),
-    DOWNLEFTCORNER("downleftcorner"),
+    UPROOF("uproof"),
+    DOWNROOF("downroof"),
+    LEFTROOF("leftroof"),
+    RIGHTROOF("rightroof"),
+    UPRIGHTROOF("uprightroof"),
+    UPLEFTROOF("upleftroof"),
+    DOWNRIGHTROOF("downrightroof"),
+    DOWNLEFTROOF("downleftroof"),
     WALL("wall"),
+    BASEROOF("baseroof"),
     SHOOTABLEWALL("shootablewall"),
     BLUEPORTAL("bluePortal"),
-    REDPORTAL("redPortal");
+    REDPORTAL("redPortal"),
+    NEXTLEVEL("nextlevel"),
+    TREE("tree"),
+    BUSH("bush"),
+    GRASS("grass"),
+    OPENDOOR("opendoor"),
+    CLOSEDDOOR("closeddoor");
 
     private final String tileName;
 

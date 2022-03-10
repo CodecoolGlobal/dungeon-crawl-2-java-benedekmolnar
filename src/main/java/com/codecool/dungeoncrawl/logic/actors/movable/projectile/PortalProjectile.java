@@ -11,10 +11,7 @@ import java.util.Arrays;
 
 public class PortalProjectile extends Projectile {
     private String type;
-
-    private CellType[] walls = new CellType[]{
-            CellType.LEFTWALL, CellType.RIGHTWALL, CellType.UPWALL, CellType.DOWNWALL,
-            CellType.WALL};
+    private CellType[] walls = new CellType[]{CellType.WALL};
 
 
     public PortalProjectile(GameMap map, Cell cell, Direction direction, String type) {

@@ -10,8 +10,8 @@ import com.codecool.dungeoncrawl.logic.actors.movable.Movable;
 
 import java.util.Arrays;
 
-public class Projectile extends Movable implements Killable {
-    private CellType[] walls = new CellType[]{CellType.LEFTWALL, CellType.RIGHTWALL, CellType.UPWALL, CellType.DOWNWALL};
+public class Projectile extends Movable implements Killable{
+    private CellType[] walls = new CellType[]{CellType.WALL};
 
     public Projectile(GameMap map, Cell cell, Direction direction) {
         super(map, cell, direction);
