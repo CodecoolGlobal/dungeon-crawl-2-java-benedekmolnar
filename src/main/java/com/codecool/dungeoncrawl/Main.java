@@ -123,6 +123,7 @@ public class Main extends Application {
         healthLabel.setText("" + map.getPlayer().getHealth());
         pickUpButton.setOnMouseClicked(this::onClick);
 
+        inventory.setText(map.getPlayer().inventoryToString());
         teleportToNextLevel("/memhaz.txt");
 
     }

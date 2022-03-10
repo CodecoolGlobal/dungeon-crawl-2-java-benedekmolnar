@@ -76,9 +76,7 @@ public class Player extends Movable implements Killable {
                     moveToDir();
                     break;
                 case 'y':
-                    if (0 < inventory.get("arrow")){
-                        shoot();
-                    }
+                    shoot();
                     break;
                 case 'r':
                     redShoot();
@@ -94,9 +92,16 @@ public class Player extends Movable implements Killable {
     }
 
     private void shoot() {
-        if (cell.getNeighborByDir(direction).getType() == CellType.FLOOR &&
-            cell.getNeighborByDir(direction).getActor() == null)
-            map.addToActors(new Projectile(map, cell.getNeighborByDir(direction), direction));
+        if (inventory.get("arrow") != null){
+            if (cell.getNeighborByDir(direction).getType() == CellType.FLOOR &&
+                    cell.getNeighborByDir(direction).getActor() == null)
+                map.addToActors(new Projectile(map, cell.getNeighborByDir(direction), direction));
+            if (inventory.get("arrow") != 1){
+                inventory.put("arrow", inventory.get("arrow") - 1);
+            }else{
+                inventory.remove("arrow");
+            }
+        }
     }
 
     private void redShoot() {
