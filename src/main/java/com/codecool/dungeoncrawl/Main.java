@@ -24,13 +24,13 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class Main extends Application {
-    InputStream is = MapLoader.class.getResourceAsStream("/main.txt");
     private int widthModifier = 0;
     private int heightModifier = 0;
-    private final int canvasWidth = 600;
-    private final int canvasHeight = 600;
+    private final int canvasWidth = 550;
+    private final int canvasHeight = 550;
     GameMap map;
     GameMap memhazMap = MapLoader.loadMap(MapLoader.class.getResourceAsStream("/memhaz.txt"));
     GameMap mainMap = MapLoader.loadMap(MapLoader.class.getResourceAsStream("/main.txt"));
@@ -41,6 +41,9 @@ public class Main extends Application {
     Label healthLabel = new Label();
     Label inventoryLabelText = new Label("Inventory: ");
     Label inventory = new Label();
+    Label Martin = new Label();
+    Label newLine = new Label(" ");
+    Label speech = new Label();
 
     public static void main(String[] args) {
         launch(args);
@@ -75,6 +78,7 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
+        throwMartinsThoughts();
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().setLastOrder('w');
@@ -116,30 +120,34 @@ public class Main extends Application {
                 }
             }
         }
-        healthLabel.setText("" + map.getPlayer().getHealth());
 
         map.getPlayer().pickUpItem();
 
         if (map.getPlayer().getCell().getType() == CellType.NEXTLEVEL){
-            teleportToNextLevel("/memhaz.txt");
+            teleportToNextLevel(memhazMap);
         } else if (map.getPlayer().getCell().getType() == CellType.OPENDOOR2){
-            teleportToNextLevel("/bosslevel.txt");
+            teleportToNextLevel(bossLevelMap);
         }else if (map.getPlayer().getCell().getType() == CellType.TELEPORTKEY){
-            teleportToNextLevel("/main.txt");
+            teleportToNextLevel(mainMap);
         }
 
+
+        healthLabel.setText("" + map.getPlayer().getHealth());
         inventory.setText(map.getPlayer().inventoryToString());
     }
 
-    private void teleportToNextLevel(String nextLevelsFilename){
-        Map<String, Integer> inventoryOfPlayer = map.getPlayer().getInventory();
-        map = MapLoader.loadMap(MapLoader.class.getResourceAsStream(nextLevelsFilename));
-        map.getPlayer().setInventory(inventoryOfPlayer);
+    private void teleportToNextLevel(GameMap map){
+        Map<String, Integer> inventoryOfPlayer = this.map.getPlayer().getInventory();
+        this.map = map;
+        this.map.getPlayer().setInventory(inventoryOfPlayer);
         refresh();
     }
 
     private void designUI(GridPane ui){
         List<Label> labels = new ArrayList<>();
+        labels.add(Martin);
+        labels.add(speech);
+        labels.add(newLine);
         labels.add(healthLabel);
         labels.add(inventory);
         labels.add(healthLabelText);
@@ -153,8 +161,32 @@ public class Main extends Application {
         }
 
         ui.add(healthLabelText, 0, 0);
-        ui.add(inventoryLabelText, 0, 3);
-        ui.add(inventory, 1, 3);
+        ui.add(inventoryLabelText, 0, 2);
+        ui.add(inventory, 1, 2);
         ui.add(healthLabel, 1, 0);
+        ui.add(newLine, 0, 3);
+        ui.add(Martin, 0, 4);
+        ui.add(speech, 1, 4);
+    }
+
+    private String getSentence(){
+        List<String> sentences = new ArrayList<>();
+        sentences.add("A Nutella csak üres kalória!");
+        sentences.add("Szerintem ez így jobb.");
+        sentences.add("Azt már megcsináltam");
+        sentences.add("A feladatleírásban ez nem így van.");
+        sentences.add("Hol vannak a pipáim?");
+        sentences.add("Höhö...mémek");
+        sentences.add("A KFC drágább és kevesebbet adnak.");
+        sentences.add("De ez itt felesleges.");
+        Random rand = new Random();
+        return sentences.get(rand.nextInt(sentences.size()));
+    }
+
+    private void throwMartinsThoughts(){
+        if (map == bossLevelMap){
+            Martin.setText("Martin:");
+            speech.setText(getSentence());
+        }
     }
 }
