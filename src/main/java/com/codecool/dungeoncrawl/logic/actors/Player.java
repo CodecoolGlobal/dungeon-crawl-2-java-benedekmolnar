@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.items.Arrow;
 import com.codecool.dungeoncrawl.logic.items.Cheese;
 import com.codecool.dungeoncrawl.logic.items.Item;
 
@@ -33,10 +34,16 @@ public class Player extends Movable implements Killable {
     }
 
     public void addItemToInventory(Item item){
-        if (inventory.get(item) != null){
-            inventory.put(item, inventory.get(item) + 1);
+        int value;
+        if (item instanceof Arrow){
+            value = 20;
         }else{
-            inventory.put(item, 1);
+            value = 1;
+        }
+        if (inventory.get(item) != null){
+            inventory.put(item, inventory.get(item) + value);
+        }else{
+            inventory.put(item, value);
         }
     }
 
