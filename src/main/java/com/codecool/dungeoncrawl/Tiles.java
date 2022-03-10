@@ -42,6 +42,8 @@ public class Tiles {
         tileMap.put("key", new Tile(16,23));
         tileMap.put("arrow", new Tile(8,27));
         tileMap.put("cheese", new Tile(18,28));
+        tileMap.put("opendoor", new Tile(2, 9));
+        tileMap.put("closeddoor", new Tile(0, 9));
         tileMap.put("wall", new Tile(23, 27));
         tileMap.put("shootablewall", new Tile(23, 26));
         tileMap.put("nextlevel", new Tile(0, 6));

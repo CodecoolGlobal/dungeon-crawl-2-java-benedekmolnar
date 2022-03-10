@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.items.Arrow;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Cheese;
 import com.codecool.dungeoncrawl.logic.items.Item;
 
@@ -22,13 +23,30 @@ public class Player extends Movable implements Killable {
         super.coolDownTimer = 3;
     }
 
+    @Override
+    public void move(int dx, int dy) {
+        Cell nextCell = getCell().getNeighbor(dx, dy);
+        boolean nextIsClosedDoorAndHasKey = nextCell.getType() == CellType.CLOSEDDOOR && inventory.get("key") != null;
+        boolean nextIsFloor = nextCell.getType() == CellType.FLOOR;
+        boolean nextIsNotActor = nextCell.getActor() == null;
+        boolean nextIsOpenDoor = nextCell.getType() == CellType.OPENDOOR;
+        if ((nextIsFloor && nextIsNotActor) || nextIsClosedDoorAndHasKey || nextIsOpenDoor) {
+            if (nextCell.getType() == CellType.CLOSEDDOOR){
+                nextCell.setType(CellType.OPENDOOR);
+            }
+            getCell().setActor(null);
+            nextCell.setActor(this);
+            setCell(nextCell);
+        }
+    }
+
     public void pickUpItem() {
         Cell currentCell = this.getCell();
         Item itemToPickUp = currentCell.getItem();
         if (itemToPickUp instanceof Cheese){
             changeHealth(2);
         }else{
-            this.addItemToInventory(itemToPickUp);
+            this.addItemToInventory(itemToPickUp.getTileName());
         }
         currentCell.setItem(null);
     }

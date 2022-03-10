@@ -19,7 +19,9 @@ public enum CellType {
     NEXTLEVEL("nextlevel"),
     TREE("tree"),
     BUSH("bush"),
-    GRASS("grass");
+    GRASS("grass"),
+    OPENDOOR("opendoor"),
+    CLOSEDDOOR("closeddoor");
 
     private final String tileName;
 
