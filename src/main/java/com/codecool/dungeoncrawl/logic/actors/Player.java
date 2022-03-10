@@ -4,7 +4,6 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.items.Arrow;
-import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Cheese;
 import com.codecool.dungeoncrawl.logic.items.Item;
 
@@ -30,7 +29,8 @@ public class Player extends Movable implements Killable {
         boolean nextIsFloor = nextCell.getType() == CellType.FLOOR;
         boolean nextIsNotActor = nextCell.getActor() == null;
         boolean nextIsOpenDoor = nextCell.getType() == CellType.OPENDOOR;
-        if ((nextIsFloor && nextIsNotActor) || nextIsClosedDoorAndHasKey || nextIsOpenDoor) {
+        boolean nextIsNextLevel = nextCell.getType() == CellType.NEXTLEVEL;
+        if ((nextIsFloor && nextIsNotActor) || nextIsClosedDoorAndHasKey || nextIsOpenDoor || nextIsNextLevel) {
             if (nextCell.getType() == CellType.CLOSEDDOOR){
                 nextCell.setType(CellType.OPENDOOR);
             }
@@ -46,7 +46,7 @@ public class Player extends Movable implements Killable {
         if (itemToPickUp instanceof Cheese){
             changeHealth(2);
         }else{
-            this.addItemToInventory(itemToPickUp.getTileName());
+            this.addItemToInventory(itemToPickUp);
         }
         currentCell.setItem(null);
     }
