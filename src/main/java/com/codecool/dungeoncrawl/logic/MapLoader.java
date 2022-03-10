@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Direction;
+import com.codecool.dungeoncrawl.logic.actors.inmovable.Cannon;
 import com.codecool.dungeoncrawl.logic.actors.movable.monster.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.movable.monster.Knight;
 import com.codecool.dungeoncrawl.logic.actors.movable.player.Player;
@@ -125,6 +126,10 @@ public class MapLoader {
                         case '←':
                             cell.setType(CellType.FLOOR);
                             map.addToActors(new Ghost(map, cell, Direction.RIGHT));
+                            break;
+                        case '+':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Cannon(map, cell));
                             break;
 
                         default:
