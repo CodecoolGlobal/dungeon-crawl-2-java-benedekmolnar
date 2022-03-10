@@ -134,7 +134,9 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             map.addToActors(new Cannon(map, cell));
                             break;
-
+                        case 't':
+                            cell.setType(CellType.TELEPORTKEY);
+                            break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

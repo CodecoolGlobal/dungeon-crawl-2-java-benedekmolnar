@@ -22,7 +22,8 @@ public enum CellType {
     GRASS("grass"),
     OPENDOOR("opendoor"),
     OPENDOOR2("opendoor2"),
-    CLOSEDDOOR("closeddoor");
+    CLOSEDDOOR("closeddoor"),
+    TELEPORTKEY("teleportkey");
 
     private final String tileName;
 

@@ -54,11 +54,7 @@ public class Tiles {
         tileMap.put("opendoor2", new Tile(2, 12));
         tileMap.put("ghost1", new Tile(21, 8));
         tileMap.put("ghost0", new Tile(18, 8));
-
-
-
-
-
+        tileMap.put("teleportkey", new Tile(17, 23));
         tileMap.put("cannon", new Tile(16, 2));
     }
 
