@@ -59,7 +59,7 @@ public class Player extends Movable implements Killable {
         Item itemToPickUp = currentCell.getItem();
         if (itemToPickUp != null){
             if (itemToPickUp instanceof Cheese){
-                changeHealth(2);
+                changeHealth(10);
             }else{
                 this.addItemToInventory(itemToPickUp);
             }

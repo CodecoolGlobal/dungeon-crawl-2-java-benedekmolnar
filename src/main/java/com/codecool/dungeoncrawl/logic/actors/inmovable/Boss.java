@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.Random;
 
 public class Boss extends Actor {
-    private final int coolDownForSkeleton = 100;
-    private int coolDownForSkeletonTimer = 100;
+    private final int coolDownForSkeleton = 300;
+    private int coolDownForSkeletonTimer = 300;
     private final int coolDownForKnight = 1000;
     private int coolDownForKnightTimer = 1000;
-    private int coolDownForItem = 200;
-    private int coolDownForKnightItem =  200;
+    private int coolDownForItem = 500;
+    private int coolDownForKnightItem =  500;
 
     private Random rand = new Random();
 

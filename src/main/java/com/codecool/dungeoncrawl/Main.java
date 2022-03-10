@@ -29,8 +29,8 @@ import java.util.Random;
 public class Main extends Application {
     private int widthModifier = 0;
     private int heightModifier = 0;
-    private final int canvasWidth = 1000;
-    private final int canvasHeight = 1000;
+    private final int canvasWidth = 550;
+    private final int canvasHeight = 550;
     GameMap map;
     GameMap memhazMap = MapLoader.loadMap(MapLoader.class.getResourceAsStream("/memhaz.txt"));
     GameMap mainMap = MapLoader.loadMap(MapLoader.class.getResourceAsStream("/main.txt"));
@@ -138,8 +138,10 @@ public class Main extends Application {
 
     private void teleportToNextLevel(String file){
         Map<String, Integer> inventoryOfPlayer = map.getPlayer().getInventory();
+        int health = map.getPlayer().getHealth();
         map = MapLoader.loadMap(MapLoader.class.getResourceAsStream(file));
         map.getPlayer().setInventory(inventoryOfPlayer);
+        map.getPlayer().setHealth(health);
     }
 
     private void designUI(GridPane ui){
