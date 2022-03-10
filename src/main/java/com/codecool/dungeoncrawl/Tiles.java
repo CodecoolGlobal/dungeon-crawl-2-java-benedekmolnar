@@ -51,7 +51,13 @@ public class Tiles {
         tileMap.put("bush", new Tile(19, 5));
         tileMap.put("grass", new Tile(0, 2));
         tileMap.put("knight", new Tile(31, 0));
-        tileMap.put("ghost", new Tile(23, 8));
+        tileMap.put("ghost1", new Tile(21, 8));
+        tileMap.put("ghost0", new Tile(18, 8));
+
+
+
+
+
         tileMap.put("cannon", new Tile(16, 2));
     }
 

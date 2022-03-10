@@ -23,6 +23,7 @@ public class Player extends Movable implements Killable {
     public Player(GameMap map, Cell cell) {
         super(map, cell, Direction.UP);
         killable = true;
+        health = 25;
         lastOrder = ' ';
         super.coolDownTimer = 3;
     }
