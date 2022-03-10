@@ -1,8 +1,12 @@
-package com.codecool.dungeoncrawl.logic.actors;
+package com.codecool.dungeoncrawl.logic.actors.movable.projectile;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.logic.actors.Direction;
+import com.codecool.dungeoncrawl.logic.actors.Killable;
+import com.codecool.dungeoncrawl.logic.actors.movable.Movable;
 
 import java.util.Arrays;
 

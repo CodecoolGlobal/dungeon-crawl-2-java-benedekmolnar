@@ -1,17 +1,14 @@
 package com.codecool.dungeoncrawl.logic;
 
-import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.logic.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.actors.movable.monster.Knight;
+import com.codecool.dungeoncrawl.logic.actors.movable.player.Player;
+import com.codecool.dungeoncrawl.logic.actors.movable.monster.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.Arrow;
 import com.codecool.dungeoncrawl.logic.items.Cheese;
 import com.codecool.dungeoncrawl.logic.items.Key;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class MapLoader {
     public static GameMap loadMap(InputStream is) {
@@ -106,6 +103,10 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             map.setPlayer(player);
                             map.addToActors(player);
+                            break;
+                        case 'l':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Knight(map, cell));
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

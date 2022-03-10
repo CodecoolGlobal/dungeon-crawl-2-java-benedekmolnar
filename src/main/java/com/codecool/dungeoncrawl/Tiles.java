@@ -50,6 +50,7 @@ public class Tiles {
         tileMap.put("tree", new Tile(3, 1));
         tileMap.put("bush", new Tile(19, 5));
         tileMap.put("grass", new Tile(0, 2));
+        tileMap.put("knight", new Tile(31, 0));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {

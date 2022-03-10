@@ -1,8 +1,8 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Actor;
-import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.logic.actors.Portal;
+import com.codecool.dungeoncrawl.logic.actors.movable.player.Player;
+import com.codecool.dungeoncrawl.logic.actors.inmovable.Portal;
 
 import java.util.LinkedList;
 import java.util.List;

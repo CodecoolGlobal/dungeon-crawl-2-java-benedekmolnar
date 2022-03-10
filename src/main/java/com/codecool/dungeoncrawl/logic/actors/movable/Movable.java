@@ -1,12 +1,16 @@
-package com.codecool.dungeoncrawl.logic.actors;
+package com.codecool.dungeoncrawl.logic.actors.movable;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.logic.actors.Direction;
+
+import java.util.Arrays;
 
 public abstract class Movable extends Actor {
     protected Direction direction;
-    private CellType[] passable = new CellType[] {CellType.FLOOR};
+    protected CellType[] passable = new CellType[] {CellType.FLOOR};
 
     public Movable(GameMap map, Cell cell, Direction direction) {
         super(cell, map);
@@ -22,7 +26,7 @@ public abstract class Movable extends Actor {
 
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
-        if (nextCell.getActor() == null && nextCell.getType() == CellType.FLOOR || nextCell.getType() == CellType.NEXTLEVEL) {
+        if (nextCell.getActor() == null && Arrays.asList(passable).contains(nextCell.getType())) {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;

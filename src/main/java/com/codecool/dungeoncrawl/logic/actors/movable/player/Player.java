@@ -1,8 +1,13 @@
-package com.codecool.dungeoncrawl.logic.actors;
+package com.codecool.dungeoncrawl.logic.actors.movable.player;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.actors.Direction;
+import com.codecool.dungeoncrawl.logic.actors.Killable;
+import com.codecool.dungeoncrawl.logic.actors.movable.projectile.PortalProjectile;
+import com.codecool.dungeoncrawl.logic.actors.movable.projectile.Projectile;
+import com.codecool.dungeoncrawl.logic.actors.movable.Movable;
 import com.codecool.dungeoncrawl.logic.items.Arrow;
 import com.codecool.dungeoncrawl.logic.items.Cheese;
 import com.codecool.dungeoncrawl.logic.items.Item;
@@ -99,10 +104,10 @@ public class Player extends Movable implements Killable {
                     shoot();
                     break;
                 case 'r':
-                    redShoot();
+                    portalShoot("red");
                     break;
                 case 'b':
-                    blueShoot();
+                    portalShoot("blue");
                     break;
             }
             lastOrder = ' ';
@@ -124,26 +129,15 @@ public class Player extends Movable implements Killable {
         }
     }
 
-    private void redShoot() {
+    private void portalShoot(String type) {
         if (cell.getNeighborByDir(direction).getType() == CellType.FLOOR &&
-            cell.getNeighborByDir(direction).getActor() == null) {
+                cell.getNeighborByDir(direction).getActor() == null) {
 
-            if (map.getPortal("red") != null)
-                map.getPortal("red").killPortal();
+            if (map.getPortal(type) != null)
+                map.getPortal(type).killPortal();
 
-            map.addToActors(new PortalProjectile(map, cell.getNeighborByDir(direction), direction, "red"));
-        }
-    }
-
-    private void blueShoot() {
-        if (cell.getNeighborByDir(direction).getType() == CellType.FLOOR &&
-            cell.getNeighborByDir(direction).getActor() == null) {
-
-            if (map.getPortal("blue") != null)
-                map.getPortal("blue").killPortal();
-
-            map.addToActors(new PortalProjectile(map, cell.getNeighborByDir(direction), direction, "blue"));
-        }
+            map.addToActors(new PortalProjectile(map, cell.getNeighborByDir(direction), direction, type));
+        };
     }
 
     public void setLastOrder(char order) {
