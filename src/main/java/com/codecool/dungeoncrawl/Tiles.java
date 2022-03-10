@@ -63,6 +63,7 @@ public class Tiles {
         tileMap.put("wall6", new Tile(19, 2));
         tileMap.put("wall7", new Tile(18, 2));
         tileMap.put("wall8", new Tile(18, 1));
+        tileMap.put("teleportkey", new Tile(17, 23));
         tileMap.put("cannon", new Tile(16, 2));
     }
 

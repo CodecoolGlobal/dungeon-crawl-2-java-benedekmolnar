@@ -136,6 +136,9 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             map.addToActors(new Cannon(map, cell));
                             break;
+                        case 't':
+                            cell.setType(CellType.TELEPORTKEY);
+                            break;
                         case 'b':
                             cell.setType(CellType.FLOOR);
                             map.addToActors(new Boss(map, cell));
