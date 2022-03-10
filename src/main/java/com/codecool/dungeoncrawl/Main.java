@@ -55,7 +55,7 @@ public class Main extends Application {
         BorderPane borderPane = new BorderPane();
 
         borderPane.setCenter(canvas);
-        borderPane.setRight(ui);
+        borderPane.setBottom(ui);
 
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
@@ -122,16 +122,18 @@ public class Main extends Application {
         inventory.setText(map.getPlayer().inventoryToString());
 
         inventory.setText(map.getPlayer().inventoryToString());
-        teleportToNextLevel("/memhaz.txt");
+        if (map.getPlayer().getCell().getType() == CellType.NEXTLEVEL){
+            teleportToNextLevel("/memhaz.txt");
+        } else if (map.getPlayer().getCell().getType() == CellType.OPENDOOR2){
+            teleportToNextLevel("/bosslevel.txt");
+        }
 
     }
 
     private void teleportToNextLevel(String nextLevelsFilename){
-        if (map.getPlayer().getCell().getType() == CellType.NEXTLEVEL){
-            Map<String, Integer> inventoryOfPlayer = map.getPlayer().getInventory();
-            map = MapLoader.loadMap(MapLoader.class.getResourceAsStream(nextLevelsFilename));
-            map.getPlayer().setInventory(inventoryOfPlayer);
-            refresh();
-        }
+        Map<String, Integer> inventoryOfPlayer = map.getPlayer().getInventory();
+        map = MapLoader.loadMap(MapLoader.class.getResourceAsStream(nextLevelsFilename));
+        map.getPlayer().setInventory(inventoryOfPlayer);
+        refresh();
     }
 }

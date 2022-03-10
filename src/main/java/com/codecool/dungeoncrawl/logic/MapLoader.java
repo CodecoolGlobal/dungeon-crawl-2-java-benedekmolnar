@@ -72,6 +72,9 @@ public class MapLoader {
                         case 'B':
                             cell.setType(CellType.BASEROOF);
                             break;
+                        case 'M':
+                            cell.setType(CellType.OPENDOOR2);
+                            break;
                         case '?':
                             cell.setType(CellType.TREE);
                             break;
