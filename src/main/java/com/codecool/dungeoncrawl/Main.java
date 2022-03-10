@@ -29,8 +29,8 @@ public class Main extends Application {
     InputStream is = MapLoader.class.getResourceAsStream("/main.txt");
     private int widthModifier = 0;
     private int heightModifier = 0;
-    private final int canvasWidth = 600;
-    private final int canvasHeight = 600;
+    private final int canvasWidth = 900;
+    private final int canvasHeight = 900;
     GameMap map = MapLoader.loadMap(is);
     public Canvas canvas = new Canvas(canvasWidth, canvasHeight);
     GraphicsContext context = canvas.getGraphicsContext2D();
@@ -118,16 +118,19 @@ public class Main extends Application {
         inventory.setText(map.getPlayer().inventoryToString());
 
         inventory.setText(map.getPlayer().inventoryToString());
-        teleportToNextLevel("/memhaz.txt");
+        if (map.getPlayer().getCell().getType() == CellType.NEXTLEVEL){
+            teleportToNextLevel("/memhaz.txt");
+        } else if (map.getPlayer().getCell().getType() == CellType.OPENDOOR2){
+            teleportToNextLevel("/bosslevel.txt");
+        }
+
     }
 
     private void teleportToNextLevel(String nextLevelsFilename){
-        if (map.getPlayer().getCell().getType() == CellType.NEXTLEVEL){
-            Map<String, Integer> inventoryOfPlayer = map.getPlayer().getInventory();
-            map = MapLoader.loadMap(MapLoader.class.getResourceAsStream(nextLevelsFilename));
-            map.getPlayer().setInventory(inventoryOfPlayer);
-            refresh();
-        }
+        Map<String, Integer> inventoryOfPlayer = map.getPlayer().getInventory();
+        map = MapLoader.loadMap(MapLoader.class.getResourceAsStream(nextLevelsFilename));
+        map.getPlayer().setInventory(inventoryOfPlayer);
+        refresh();
     }
 
     private void designUI(GridPane ui){

@@ -46,11 +46,20 @@ public class Tiles {
         tileMap.put("closeddoor", new Tile(0, 9));
         tileMap.put("wall", new Tile(23, 27));
         tileMap.put("shootablewall", new Tile(23, 26));
-        tileMap.put("nextlevel", new Tile(0, 6));
+        tileMap.put("nextlevel", new Tile(6, 9));
         tileMap.put("tree", new Tile(3, 1));
         tileMap.put("bush", new Tile(19, 5));
         tileMap.put("grass", new Tile(0, 2));
         tileMap.put("knight", new Tile(31, 0));
+        tileMap.put("opendoor2", new Tile(2, 12));
+        tileMap.put("ghost1", new Tile(21, 8));
+        tileMap.put("ghost0", new Tile(18, 8));
+
+
+
+
+
+        tileMap.put("cannon", new Tile(16, 2));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {

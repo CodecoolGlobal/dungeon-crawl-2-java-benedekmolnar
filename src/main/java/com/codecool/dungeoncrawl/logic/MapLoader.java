@@ -1,5 +1,8 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.logic.actors.Direction;
+import com.codecool.dungeoncrawl.logic.actors.inmovable.Cannon;
+import com.codecool.dungeoncrawl.logic.actors.movable.monster.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.movable.monster.Knight;
 import com.codecool.dungeoncrawl.logic.actors.movable.player.Player;
 import com.codecool.dungeoncrawl.logic.actors.movable.monster.Skeleton;
@@ -69,6 +72,9 @@ public class MapLoader {
                         case 'B':
                             cell.setType(CellType.BASEROOF);
                             break;
+                        case 'M':
+                            cell.setType(CellType.OPENDOOR2);
+                            break;
                         case '?':
                             cell.setType(CellType.TREE);
                             break;
@@ -108,6 +114,27 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             map.addToActors(new Knight(map, cell));
                             break;
+                        case '↑':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Ghost(map, cell, Direction.UP));
+                            break;
+                        case '↓':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Ghost(map, cell, Direction.DOWN));
+                            break;
+                        case '→':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Ghost(map, cell, Direction.LEFT));
+                            break;
+                        case '←':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Ghost(map, cell, Direction.RIGHT));
+                            break;
+                        case '+':
+                            cell.setType(CellType.FLOOR);
+                            map.addToActors(new Cannon(map, cell));
+                            break;
+
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

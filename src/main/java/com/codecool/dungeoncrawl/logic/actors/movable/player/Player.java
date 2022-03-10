@@ -23,6 +23,7 @@ public class Player extends Movable implements Killable {
     public Player(GameMap map, Cell cell) {
         super(map, cell, Direction.UP);
         killable = true;
+        health = 25;
         lastOrder = ' ';
         super.coolDownTimer = 3;
     }
@@ -35,7 +36,8 @@ public class Player extends Movable implements Killable {
         boolean nextIsNotActor = nextCell.getActor() == null;
         boolean nextIsOpenDoor = nextCell.getType() == CellType.OPENDOOR;
         boolean nextIsNextLevel = nextCell.getType() == CellType.NEXTLEVEL;
-        if ((nextIsFloor && nextIsNotActor) || nextIsClosedDoorAndHasKey || nextIsOpenDoor || nextIsNextLevel) {
+        boolean nextIsBosslevel = nextCell.getType() == CellType.OPENDOOR2;
+        if ((nextIsFloor && nextIsNotActor) || nextIsClosedDoorAndHasKey || nextIsOpenDoor || nextIsNextLevel || nextIsBosslevel) {
             if (nextCell.getType() == CellType.CLOSEDDOOR){
                 nextCell.setType(CellType.OPENDOOR);
             }

@@ -11,7 +11,6 @@ import com.codecool.dungeoncrawl.logic.actors.movable.Movable;
 import java.util.Arrays;
 
 public class Projectile extends Movable implements Killable{
-    private CellType[] walls = new CellType[]{CellType.WALL};
 
     public Projectile(GameMap map, Cell cell, Direction direction) {
         super(map, cell, direction);
@@ -26,7 +25,7 @@ public class Projectile extends Movable implements Killable{
                 nextActor.setHealth(nextActor.getHealth() - 5);
             kill(map, this);
         }
-        if (Arrays.asList(walls).contains(nextCell.getType()))
+        if (!Arrays.asList(passable).contains(nextCell.getType()))
             kill(map, this);
         moveToDir();
     }
