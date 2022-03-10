@@ -11,6 +11,7 @@ import com.codecool.dungeoncrawl.logic.actors.movable.Movable;
 import com.codecool.dungeoncrawl.logic.items.Arrow;
 import com.codecool.dungeoncrawl.logic.items.Cheese;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Key;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,9 +38,15 @@ public class Player extends Movable implements Killable {
         boolean nextIsOpenDoor = nextCell.getType() == CellType.OPENDOOR;
         boolean nextIsNextLevel = nextCell.getType() == CellType.NEXTLEVEL;
         boolean nextIsBosslevel = nextCell.getType() == CellType.OPENDOOR2;
-        if ((nextIsFloor && nextIsNotActor) || nextIsClosedDoorAndHasKey || nextIsOpenDoor || nextIsNextLevel || nextIsBosslevel) {
+        boolean nextIsTeleportKey = nextCell.getType() == CellType.TELEPORTKEY;
+        if ((nextIsFloor && nextIsNotActor) || nextIsClosedDoorAndHasKey
+                || nextIsOpenDoor || nextIsNextLevel
+                || nextIsBosslevel || nextIsTeleportKey) {
             if (nextCell.getType() == CellType.CLOSEDDOOR){
                 nextCell.setType(CellType.OPENDOOR);
+            }
+            if (nextCell.getType() == CellType.TELEPORTKEY){
+                addItemToInventory(new Key(getCell()));
             }
             getCell().setActor(null);
             nextCell.setActor(this);

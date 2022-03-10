@@ -29,9 +29,12 @@ public class Main extends Application {
     InputStream is = MapLoader.class.getResourceAsStream("/main.txt");
     private int widthModifier = 0;
     private int heightModifier = 0;
-    private final int canvasWidth = 900;
-    private final int canvasHeight = 900;
-    GameMap map = MapLoader.loadMap(is);
+    private final int canvasWidth = 600;
+    private final int canvasHeight = 600;
+    GameMap map;
+    GameMap memhazMap = MapLoader.loadMap(MapLoader.class.getResourceAsStream("/memhaz.txt"));
+    GameMap mainMap = MapLoader.loadMap(MapLoader.class.getResourceAsStream("/main.txt"));
+    GameMap bossLevelMap = MapLoader.loadMap(MapLoader.class.getResourceAsStream("/bosslevel.txt"));
     public Canvas canvas = new Canvas(canvasWidth, canvasHeight);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabelText = new Label("Health: ");
@@ -45,6 +48,7 @@ public class Main extends Application {
 
    @Override
     public void start(Stage primaryStage) throws Exception {
+        map = mainMap;
         GridPane ui = new GridPane();
         designUI(ui);
 
@@ -115,15 +119,16 @@ public class Main extends Application {
         healthLabel.setText("" + map.getPlayer().getHealth());
 
         map.getPlayer().pickUpItem();
-        inventory.setText(map.getPlayer().inventoryToString());
 
-        inventory.setText(map.getPlayer().inventoryToString());
         if (map.getPlayer().getCell().getType() == CellType.NEXTLEVEL){
             teleportToNextLevel("/memhaz.txt");
         } else if (map.getPlayer().getCell().getType() == CellType.OPENDOOR2){
             teleportToNextLevel("/bosslevel.txt");
+        }else if (map.getPlayer().getCell().getType() == CellType.TELEPORTKEY){
+            teleportToNextLevel("/main.txt");
         }
 
+        inventory.setText(map.getPlayer().inventoryToString());
     }
 
     private void teleportToNextLevel(String nextLevelsFilename){
