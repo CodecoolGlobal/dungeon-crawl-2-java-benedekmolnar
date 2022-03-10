@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Player extends Movable implements Killable {
-    private Map<Item, Integer> inventory = new HashMap<>();
+    private Map<String, Integer> inventory = new HashMap<>();
     private char lastOrder;
 
 
@@ -40,14 +40,14 @@ public class Player extends Movable implements Killable {
         }else{
             value = 1;
         }
-        if (inventory.get(item) != null){
-            inventory.put(item, inventory.get(item) + value);
+        if (inventory.get(item.getTileName()) != null){
+            inventory.put(item.getTileName(), inventory.get(item.getTileName()) + value);
         }else{
-            inventory.put(item, value);
+            inventory.put(item.getTileName(), value);
         }
     }
 
-    public Map<Item, Integer> getInventory(){
+    public Map<String, Integer> getInventory(){
         return inventory;
     }
 
@@ -76,7 +76,9 @@ public class Player extends Movable implements Killable {
                     moveToDir();
                     break;
                 case 'y':
-                    shoot();
+                    if (0 < inventory.get("arrow")){
+                        shoot();
+                    }
                     break;
                 case 'r':
                     redShoot();
@@ -125,14 +127,14 @@ public class Player extends Movable implements Killable {
 
     public String inventoryToString() {
         StringBuilder inventoryAsString = new StringBuilder();
-        for (Item key : inventory.keySet()) {
-            inventoryAsString.append(key.getTileName() + "=" + inventory.get(key) + "   ");
+        for (String key : inventory.keySet()) {
+            inventoryAsString.append(key + "=" + inventory.get(key) + "   ");
             inventoryAsString.append("\n");
         }
         return inventoryAsString.toString();
     }
 
-    public void setInventory(Map<Item, Integer> inventory) {
+    public void setInventory(Map<String, Integer> inventory) {
         this.inventory = inventory;
     }
 }

@@ -134,7 +134,7 @@ public class Main extends Application {
 
     private void teleportToNextLevel(String nextLevelsFilename){
         if (map.getPlayer().getCell().getType() == CellType.NEXTLEVEL){
-            Map<Item, Integer> inventoryOfPlayer = map.getPlayer().getInventory();
+            Map<String, Integer> inventoryOfPlayer = map.getPlayer().getInventory();
             map = MapLoader.loadMap(MapLoader.class.getResourceAsStream(nextLevelsFilename));
             map.getPlayer().setInventory(inventoryOfPlayer);
             refresh();
