@@ -24,7 +24,10 @@ public class Knight extends Monster implements Killable {
 
     @Override
     public void act() {
-        if (isDead(this)) kill(map, this);
+        if (isDead(this)){
+            kill(map, this);
+            return;
+        }
         action();
     }
 

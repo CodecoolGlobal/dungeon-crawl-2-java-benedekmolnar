@@ -44,6 +44,7 @@ public class Main extends Application {
     Label Martin = new Label();
     Label newLine = new Label(" ");
     Label speech = new Label();
+    boolean isBossLevel = false;
 
     public static void main(String[] args) {
         launch(args);
@@ -78,27 +79,29 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
-        throwMartinsThoughts();
+        if (isBossLevel){
+            throwMartinsThoughts();
+        }
         switch (keyEvent.getCode()) {
-            case UP:
+            case W:
                 map.getPlayer().setLastOrder('w');
                 break;
-            case DOWN:
+            case S:
                 map.getPlayer().setLastOrder('s');
                 break;
-            case LEFT:
+            case A:
                 map.getPlayer().setLastOrder('a');
                 break;
-            case RIGHT:
+            case D:
                 map.getPlayer().setLastOrder('d');
                 break;
             case SPACE:
                 map.getPlayer().setLastOrder('y');
                 break;
-            case R:
+            case I:
                 map.getPlayer().setLastOrder('r');
                 break;
-            case B:
+            case O:
                 map.getPlayer().setLastOrder('b');
                 break;
         }
@@ -126,6 +129,7 @@ public class Main extends Application {
         if (map.getPlayer().getCell().getType() == CellType.NEXTLEVEL){
             teleportToNextLevel("/memhaz.txt");
         } else if (map.getPlayer().getCell().getType() == CellType.OPENDOOR2){
+            isBossLevel = true;
             teleportToNextLevel("/bosslevel.txt");
         }else if (map.getPlayer().getCell().getType() == CellType.TELEPORTKEY){
             teleportToNextLevel("/main.txt");
@@ -180,14 +184,13 @@ public class Main extends Application {
         sentences.add("Höhö...mémek");
         sentences.add("A KFC drágább és kevesebbet adnak.");
         sentences.add("De ez itt felesleges.");
+        sentences.add("Két code snippet volt, nem egy.");
         Random rand = new Random();
         return sentences.get(rand.nextInt(sentences.size()));
     }
 
     private void throwMartinsThoughts(){
-        if (map == bossLevelMap){
             Martin.setText("Martin:");
             speech.setText(getSentence());
-        }
     }
 }

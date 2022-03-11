@@ -24,7 +24,7 @@ public class Player extends Movable implements Killable {
     public Player(GameMap map, Cell cell) {
         super(map, cell, Direction.UP);
         killable = true;
-        health = 25;
+        health = 50;
         lastOrder = ' ';
         super.coolDownTimer = 3;
     }
@@ -90,7 +90,10 @@ public class Player extends Movable implements Killable {
     }
 
     public void act() {
-        if (isDead(this)) kill(map, this);
+        if (isDead(this)) {
+            kill(map, this);
+            return;
+        }
         if (super.coolDown == 0) {
             switch (lastOrder) {
                 case 'w':
