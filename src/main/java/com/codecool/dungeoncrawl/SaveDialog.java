@@ -10,9 +10,10 @@ import javafx.scene.Scene;
 
 public class SaveDialog {
     static String playerName;
+    static Stage stage;
 
     public static String display() {
-        Stage stage = new Stage();
+        stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
 
         TextField text = new TextField();
@@ -21,7 +22,7 @@ public class SaveDialog {
         Button cancelButton = new Button("Cancel");
         saveButton.setOnAction(e -> {
             playerName = text.getText();
-            stage.close();
+            showConfirmationDialog();
         });
         cancelButton.setOnAction(e -> {
             stage.close();
@@ -48,19 +49,23 @@ public class SaveDialog {
         return playerName;
     }
 
-    public void showConfirmationDialog(){
-        //Creating a dialog
-        Dialog<String> dialog = new Dialog<>();
-        //Setting the title
+    public static void showConfirmationDialog(){
+        Dialog<ButtonType> dialog = new Dialog<>();
+
         dialog.setTitle("Confirmation");
         ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
         ButtonType no = new ButtonType("No", ButtonBar.ButtonData.NO);
-        ButtonType cancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-        //Setting the content of the dialog
+
         dialog.setContentText("Would you like to overwrite the already existing state?");
-        //Adding buttons to the dialog pane
+
         dialog.getDialogPane().getButtonTypes().add(yes);
         dialog.getDialogPane().getButtonTypes().add(no);
-        dialog.getDialogPane().getButtonTypes().add(cancel);
+
+        dialog.showAndWait().ifPresent(response -> {
+            if (response == yes) {
+                System.out.println("yes");
+                stage.close();
+            }
+        });
     }
 }
