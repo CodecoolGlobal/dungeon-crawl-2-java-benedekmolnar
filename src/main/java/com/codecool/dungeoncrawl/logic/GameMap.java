@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GameMap {
     private int width;
@@ -92,11 +93,22 @@ public class GameMap {
     }
 
     public String mapToString() {
-        return Arrays.stream(cells).map(this::addLineToString).reduce("", (mapStr, lineStr) -> mapStr + "\n" + lineStr);
+        String map = Arrays.stream(cells).map(this::addLineToString).reduce("", (mapStr, lineStr) -> mapStr + "\n" + lineStr);
+        return map.substring(1, map.length());
     }
 
     private String addLineToString(Cell[] line) {
         return Arrays.stream(line).map(Cell::typeToString).reduce("", (lineStr, cellStr) -> lineStr + cellStr);
+    }
+
+    public void stringToMap(String mapStr) {
+        String[] lines = mapStr.split("\n");
+        for(int i = 0; i < lines.length; i++) {
+            char[] line = lines[i].toCharArray();
+            for (int j = 0; j < line.length; j++) {
+                cells[i][j] = Cell.stringToCell(this, line[j], i, j);
+            }
+        }
     }
 
     public List<Actor> getActors() {

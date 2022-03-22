@@ -121,6 +121,54 @@ public class Cell implements Drawable {
         return "";
     }
 
+    public static Cell stringToCell(GameMap map, char car, int x, int y) {
+        switch (car) {
+            case '#':
+                return new Cell(map, x, y, CellType.WALL);
+            case '.':
+                return new Cell(map, x, y, CellType.FLOOR);
+            case ',':
+                return new Cell(map, x, y, CellType.GRASS);
+            case '?':
+                return new Cell(map, x, y, CellType.TREE);
+            case ';':
+                return new Cell(map, x, y, CellType.BUSH);
+            case ' ':
+                return new Cell(map, x, y, CellType.EMPTY);
+            case 'U':
+                return new Cell(map, x, y, CellType.UPROOF);
+            case 'D':
+                return new Cell(map, x, y, CellType.DOWNROOF);
+            case 'L':
+                return new Cell(map, x, y, CellType.LEFTROOF);
+            case 'R':
+                return new Cell(map, x, y, CellType.RIGHTROOF);
+            case '>':
+                return new Cell(map, x, y, CellType.UPLEFTROOF);
+            case '<':
+                return new Cell(map, x, y, CellType.UPRIGHTROOF);
+            case '(':
+                return new Cell(map, x, y, CellType.DOWNLEFTROOF);
+            case ')':
+                return new Cell(map, x, y, CellType.DOWNRIGHTROOF);
+            case 'B':
+                return new Cell(map, x, y, CellType.BASEROOF);
+            case 'O':
+                return new Cell(map, x, y, CellType.SHOOTABLEWALL);
+            case 'N':
+                return new Cell(map, x, y, CellType.NEXTLEVEL);
+            case 'X':
+                return new Cell(map, x, y, CellType.CLOSEDDOOR);
+            case '|':
+                return new Cell(map, x, y, CellType.OPENDOOR);
+            case 'M':
+                return new Cell(map, x, y, CellType.OPENDOOR2);
+            case 't':
+                return new Cell(map, x, y, CellType.TELEPORTKEY);
+        }
+        return new Cell(map, x, y, CellType.EMPTY);
+    }
+
     @Override
     public String getTileName() {
         return type.getTileName();
