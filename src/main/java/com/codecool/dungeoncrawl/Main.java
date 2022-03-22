@@ -12,10 +12,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -53,7 +50,6 @@ public class Main extends Application {
     Label speech = new Label();
     boolean isBossLevel = false;
     GameDatabaseManager dbManager;
-    Dialog<String> dialog = new Dialog<>();
 
     public static void main(String[] args) {
         launch(args);
@@ -71,7 +67,6 @@ public class Main extends Application {
         borderPane.setCenter(canvas);
         borderPane.setBottom(ui);
 
-        setupDialog();
 
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
@@ -100,7 +95,7 @@ public class Main extends Application {
                 || keyEvent.getCode() == KeyCode.ESCAPE) {
             exit();
         }else  if (saveCombinationWin.match(keyEvent)){
-            dialog.showAndWait();
+            SaveDialog.display();
         }
     }
 
@@ -220,12 +215,6 @@ public class Main extends Application {
             speech.setText(getSentence());
     }
 
-    private void setupDialog(){
-        dialog.setTitle("Dialog");
-        ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
-        dialog.setContentText("This is a sample dialog");
-        dialog.getDialogPane().getButtonTypes().add(type);
-    }
 
     private void setupDbManager() {
         dbManager = new GameDatabaseManager();
