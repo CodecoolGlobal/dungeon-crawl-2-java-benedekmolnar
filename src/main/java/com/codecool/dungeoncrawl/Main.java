@@ -7,15 +7,14 @@ import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
-import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.GameMap;
-import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.logic.actors.Player;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -42,9 +41,7 @@ public class Main extends Application {
     private final int canvasWidth = 550;
     private final int canvasHeight = 550;
     GameMap map;
-    GameMap memhazMap = MapLoader.loadMap(MapLoader.class.getResourceAsStream("/memhaz.txt"));
     GameMap mainMap = MapLoader.loadMap(MapLoader.class.getResourceAsStream("/main.txt"));
-    GameMap bossLevelMap = MapLoader.loadMap(MapLoader.class.getResourceAsStream("/bosslevel.txt"));
     public Canvas canvas = new Canvas(canvasWidth, canvasHeight);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabelText = new Label("Health: ");
@@ -54,8 +51,9 @@ public class Main extends Application {
     Label Martin = new Label();
     Label newLine = new Label(" ");
     Label speech = new Label();
-    boolean isBossLevel = false;;
+    boolean isBossLevel = false;
     GameDatabaseManager dbManager;
+    Dialog<String> dialog = new Dialog<>();
 
     public static void main(String[] args) {
         launch(args);
@@ -63,20 +61,22 @@ public class Main extends Application {
 
    @Override
     public void start(Stage primaryStage) throws Exception {
-       setupDbManager();
+        setupDbManager();
         map = mainMap;
+
         GridPane ui = new GridPane();
         designUI(ui);
 
         BorderPane borderPane = new BorderPane();
-
         borderPane.setCenter(canvas);
         borderPane.setBottom(ui);
+
+        setupDialog();
 
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
         scene.setOnKeyPressed(this::onKeyPressed);
-       scene.setOnKeyReleased(this::onKeyReleased);
+        scene.setOnKeyReleased(this::onKeyReleased);
 
 
         Timeline refresh = new Timeline(
@@ -94,10 +94,13 @@ public class Main extends Application {
     private void onKeyReleased(KeyEvent keyEvent) {
         KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
         KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
+        KeyCombination saveCombinationWin = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
         if (exitCombinationMac.match(keyEvent)
                 || exitCombinationWin.match(keyEvent)
                 || keyEvent.getCode() == KeyCode.ESCAPE) {
             exit();
+        }else  if (saveCombinationWin.match(keyEvent)){
+            dialog.showAndWait();
         }
     }
 
@@ -215,6 +218,13 @@ public class Main extends Application {
     private void throwMartinsThoughts(){
             Martin.setText("Martin:");
             speech.setText(getSentence());
+    }
+
+    private void setupDialog(){
+        dialog.setTitle("Dialog");
+        ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+        dialog.setContentText("This is a sample dialog");
+        dialog.getDialogPane().getButtonTypes().add(type);
     }
 
     private void setupDbManager() {
