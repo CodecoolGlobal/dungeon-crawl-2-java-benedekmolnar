@@ -47,4 +47,20 @@ public class SaveDialog {
 
         return playerName;
     }
+
+    public void showConfirmationDialog(){
+        //Creating a dialog
+        Dialog<String> dialog = new Dialog<>();
+        //Setting the title
+        dialog.setTitle("Confirmation");
+        ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+        ButtonType no = new ButtonType("No", ButtonBar.ButtonData.NO);
+        ButtonType cancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        //Setting the content of the dialog
+        dialog.setContentText("Would you like to overwrite the already existing state?");
+        //Adding buttons to the dialog pane
+        dialog.getDialogPane().getButtonTypes().add(yes);
+        dialog.getDialogPane().getButtonTypes().add(no);
+        dialog.getDialogPane().getButtonTypes().add(cancel);
+    }
 }
