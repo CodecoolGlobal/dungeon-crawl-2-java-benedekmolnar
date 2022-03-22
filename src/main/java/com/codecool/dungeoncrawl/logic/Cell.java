@@ -73,6 +73,54 @@ public class Cell implements Drawable {
         return getNeighbor(0, 0);
     }
 
+    public String typeToString() {
+        switch (type) {
+            case WALL:
+                return "#";
+            case FLOOR:
+                return ".";
+            case GRASS:
+                return ",";
+            case TREE:
+                return "?";
+            case BUSH:
+                return ";";
+            case EMPTY:
+                return " ";
+            case UPROOF:
+                return "U";
+            case DOWNROOF:
+                return "D";
+            case LEFTROOF:
+                return "L";
+            case RIGHTROOF:
+                return "R";
+            case UPLEFTROOF:
+                return ">";
+            case UPRIGHTROOF:
+                return "<";
+            case DOWNLEFTROOF:
+                return "(";
+            case DOWNRIGHTROOF:
+                return ")";
+            case BASEROOF:
+                return "B";
+            case SHOOTABLEWALL:
+                return "O";
+            case NEXTLEVEL:
+                return "N";
+            case CLOSEDDOOR:
+                return "X";
+            case OPENDOOR:
+                return "|";
+            case OPENDOOR2:
+                return "M";
+            case TELEPORTKEY:
+                return "t";
+        }
+        return "";
+    }
+
     @Override
     public String getTileName() {
         return type.getTileName();

@@ -126,11 +126,11 @@ public class MapLoader {
                             break;
                         case '→':
                             cell.setType(CellType.FLOOR);
-                            map.addToActors(new Ghost(map, cell, Direction.LEFT));
+                            map.addToActors(new Ghost(map, cell, Direction.RIGHT));
                             break;
                         case '←':
                             cell.setType(CellType.FLOOR);
-                            map.addToActors(new Ghost(map, cell, Direction.RIGHT));
+                            map.addToActors(new Ghost(map, cell, Direction.LEFT));
                             break;
                         case '+':
                             cell.setType(CellType.FLOOR);

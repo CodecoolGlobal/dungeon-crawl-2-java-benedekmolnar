@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.actors.movable.player.Player;
 import com.codecool.dungeoncrawl.logic.actors.inmovable.Portal;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -88,6 +89,14 @@ public class GameMap {
     public void setPortal(String type, Portal portal) {
         if (type.equals("red")) redPortal = portal;
         else bluePortal = portal;
+    }
+
+    public String mapToString() {
+        return Arrays.stream(cells).map(this::addLineToString).reduce("", (mapStr, lineStr) -> mapStr + "\n" + lineStr);
+    }
+
+    private String addLineToString(Cell[] line) {
+        return Arrays.stream(line).map(Cell::typeToString).reduce("", (lineStr, cellStr) -> lineStr + cellStr);
     }
 
     public List<Actor> getActors() {
