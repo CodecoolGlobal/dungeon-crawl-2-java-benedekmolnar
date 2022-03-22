@@ -1,15 +1,14 @@
 package com.codecool.dungeoncrawl;
 
 import javafx.geometry.Insets;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
-public class InputDialog {
+
+public class SaveDialog {
     static String playerName;
 
     public static String display() {
@@ -28,7 +27,7 @@ public class InputDialog {
             stage.close();
         });
 
-        Label label1 = new Label(" Enter your name:");
+        Label label1 = new Label("Name:");
 
         GridPane layout = new GridPane();
 
