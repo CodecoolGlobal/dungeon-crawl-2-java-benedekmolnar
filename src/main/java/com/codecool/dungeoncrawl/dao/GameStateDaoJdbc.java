@@ -36,6 +36,7 @@ public class GameStateDaoJdbc implements GameStateDao {
         return null;
     }
 
+    @Override
     public boolean isPlayerNameInDatabase(String playerName){
         try (Connection conn = dataSource.getConnection()) {
             String sql = "SELECT 1 FROM game_state WHERE player_name = ?";
