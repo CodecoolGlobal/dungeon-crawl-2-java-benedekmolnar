@@ -29,6 +29,12 @@ public class GameDatabaseManager {
         gameStateDao.add(model);
     }
 
+    public boolean isPlayerNameInDatabase(String currentMap, Date savedAt, PlayerModel player, String playerName) {
+        GameState model = new GameState(currentMap, savedAt, player, playerName);
+        gameStateDao.add(model);
+        return gameStateDao.isPlayerNameInDatabase(playerName);
+    }
+
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         String dbName = System.getenv("PSQL_DB_NAME");
