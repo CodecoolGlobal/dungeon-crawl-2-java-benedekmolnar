@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.dao.ActorData;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.movable.player.Player;
 import com.codecool.dungeoncrawl.logic.actors.inmovable.Portal;
@@ -92,7 +93,11 @@ public class GameMap {
         else bluePortal = portal;
     }
 
-    public String mapToString() {
+    public List<Actor> getActors() {
+        return actors;
+    }
+
+    public String saveMap() {
         String map = Arrays.stream(cells).map(this::addLineToString).reduce("", (mapStr, lineStr) -> mapStr + "\n" + lineStr);
         return map.substring(1, map.length());
     }
@@ -101,7 +106,7 @@ public class GameMap {
         return Arrays.stream(line).map(Cell::typeToString).reduce("", (lineStr, cellStr) -> lineStr + cellStr);
     }
 
-    public void stringToMap(String mapStr) {
+    public void loadMap(String mapStr) {
         String[] lines = mapStr.split("\n");
         for(int i = 0; i < lines.length; i++) {
             char[] line = lines[i].toCharArray();
@@ -111,7 +116,12 @@ public class GameMap {
         }
     }
 
-    public List<Actor> getActors() {
-        return actors;
+    public List<ActorData> saveActors() {
+        return actors.stream().map(ActorData::new).collect(Collectors.toList());
+    }
+
+    public void loadActors(List<ActorData> data) {
+        actors = data.stream().map(d -> d.createActorFromData(this)).collect(Collectors.toList());
+        player = (Player) actors.stream().filter(p -> p instanceof Player).findFirst().get();
     }
 }

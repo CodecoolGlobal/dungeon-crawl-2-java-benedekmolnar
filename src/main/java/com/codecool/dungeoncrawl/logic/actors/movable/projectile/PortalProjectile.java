@@ -54,4 +54,8 @@ public class PortalProjectile extends Projectile {
         else
             return "bluePortal";
     }
+
+    public String getType() {
+        return type;
+    }
 }

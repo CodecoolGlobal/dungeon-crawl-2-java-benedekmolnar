@@ -8,6 +8,14 @@ import com.codecool.dungeoncrawl.logic.actors.Killable;
 public class Knight extends Monster implements Killable {
     private Cell startCell;
 
+    public Cell getStartCell() {
+        return startCell;
+    }
+
+    public void setStartCell(Cell startCell) {
+        this.startCell = startCell;
+    }
+
     public Knight(GameMap map, Cell cell) {
         super(map, cell, Direction.NONE, 3);
         startCell = cell;
