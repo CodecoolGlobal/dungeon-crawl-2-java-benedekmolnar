@@ -26,7 +26,9 @@ public class SaveDialog {
         Button cancelButton = new Button("Cancel");
         saveButton.setOnAction(e -> {
             playerName = text.getText();
+            //TODO: if playerName is already in database
             showConfirmationDialog();
+            //TODO: else save gamestate for playerName
         });
         cancelButton.setOnAction(e -> {
             stage.close();
@@ -70,7 +72,7 @@ public class SaveDialog {
 
         dialog.showAndWait().ifPresent(response -> {
             if (response == yes) {
-                System.out.println("yes");
+                //TODO:overwrite previous save for this player name
                 stage.close();
             }
         });
