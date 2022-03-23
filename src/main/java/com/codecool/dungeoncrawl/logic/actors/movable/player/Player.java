@@ -29,6 +29,10 @@ public class Player extends Movable implements Killable {
         super.coolDownTimer = 3;
     }
 
+    public String getName(){
+        return "";
+    }
+
     @Override
     public void move(int dx, int dy) {
         Cell nextCell = getCell().getNeighbor(dx, dy);
