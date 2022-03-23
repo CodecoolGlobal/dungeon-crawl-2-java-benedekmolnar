@@ -1,5 +1,8 @@
 package com.codecool.dungeoncrawl;
 
+import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
+import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.model.PlayerModel;
 import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -9,6 +12,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
+import java.sql.Date;
 import java.util.Optional;
 
 
@@ -16,7 +20,7 @@ public class SaveDialog {
     static String playerName;
     static Stage stage;
 
-    public static String display() {
+    public static String display(GameDatabaseManager dbManager, GameMap map) {
         stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
 
@@ -26,13 +30,15 @@ public class SaveDialog {
         Button cancelButton = new Button("Cancel");
         saveButton.setOnAction(e -> {
             playerName = text.getText();
-            //TODO: if playerName is already in database
-            showConfirmationDialog();
-            //TODO: else save gamestate for playerName
+            //these arguments are dummy arguments
+            if (dbManager.isPlayerNameInDatabase("", new Date(2022,3,23),new PlayerModel(map.getPlayer()), playerName)) {
+                showConfirmationDialog();
+            }else{
+                //TODO: save gamestate for playerName
+                stage.close();
+            }
         });
-        cancelButton.setOnAction(e -> {
-            stage.close();
-        });
+        cancelButton.setOnAction(e -> stage.close());
 
         Label nameLabel = new Label("Name:");
 

@@ -95,7 +95,7 @@ public class Main extends Application {
                 || keyEvent.getCode() == KeyCode.ESCAPE) {
             exit();
         }else  if (saveCombinationWin.match(keyEvent)){
-            SaveDialog.display();
+            SaveDialog.display(dbManager, map);
         }
     }
 
