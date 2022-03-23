@@ -17,27 +17,6 @@ public class SaveDialog {
     static Stage stage;
 
     public static String display() {
-        /*TextInputDialog textInputDialog = new TextInputDialog();
-        textInputDialog.setTitle("Save");
-        textInputDialog.setHeaderText(null);
-        textInputDialog.setGraphic(null);
-        textInputDialog.setContentText("Name:");
-        textInputDialog.getDialogPane().getButtonTypes().remove(ButtonType.OK);
-        ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.APPLY);
-        textInputDialog.getDialogPane().getButtonTypes().add(saveButtonType);
-
-        textInputDialog.showAndWait();
-        Button saveButton = (Button) textInputDialog.getDialogPane().lookupButton(saveButtonType);
-        Button cancelButton = (Button) textInputDialog.getDialogPane().lookupButton(ButtonType.CANCEL);
-
-        saveButton.setOnAction(e -> {
-            playerName = textInputDialog.getResult();
-            showConfirmationDialog();
-            System.out.println("kjk");
-        });
-        cancelButton.setOnMouseClicked(e -> {
-            stage.close();
-        });*/
         stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
 
