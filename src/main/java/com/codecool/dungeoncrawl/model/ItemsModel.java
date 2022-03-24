@@ -25,8 +25,7 @@ public class ItemsModel extends BaseModel{
         y = item.getCell().getY();
     }
 
-    public ItemsModel(int gameStateId, String type, int x, int y) {
-        this.gameStateId = gameStateId;
+    public ItemsModel(String type, int x, int y) {
         this.type = type;
         this.x = x;
         this.y = y;

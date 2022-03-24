@@ -44,7 +44,16 @@ public class InventoryDaoJdbc {
     }
 
     public InventoryModel get(int id) {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "Select * FROM inventory WHERE game_state_id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            return new InventoryModel(rs.getInt(3), rs.getInt(4));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<InventoryModel> getAll() {

@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.model.ItemsModel;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ItemsDaoJdbc {
@@ -45,7 +46,7 @@ public class ItemsDaoJdbc {
         }
     }
 
-    public void delete( int gameStateId) {
+    public void delete(int gameStateId) {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "DELETE FROM items WHERE game_state_id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
@@ -56,8 +57,20 @@ public class ItemsDaoJdbc {
         }
     }
 
-    public ItemsModel get(int id) {
-        return null;
+    public List<ItemsModel> get(int id) {
+        try (Connection conn = dataSource.getConnection()) {
+            List<ItemsModel> items = new LinkedList<>();
+            String sql = "SELECT * FROM items WHERE game_state_id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                items.add(new ItemsModel(rs.getString(3), rs.getInt(4), rs.getInt(5)));
+            }
+            return items;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<ItemsModel> getAll() {

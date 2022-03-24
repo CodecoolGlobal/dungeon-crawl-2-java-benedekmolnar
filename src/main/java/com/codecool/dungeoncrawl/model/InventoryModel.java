@@ -4,12 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InventoryModel extends BaseModel {
-    private int gameStateId;
     private int arrow;
     private int key;
 
-    public InventoryModel(int gameStateId, int arrow, int key) {
-        this.gameStateId = gameStateId;
+    public InventoryModel(int arrow, int key) {
         this.arrow = arrow;
         this.key = key;
     }
@@ -30,7 +28,7 @@ public class InventoryModel extends BaseModel {
         if (key != 0)
             inventoryDir.put("key", key);
         if (arrow != 0)
-            inventoryDir.put("arrow", key);
+            inventoryDir.put("arrow", arrow);
         return inventoryDir;
     }
 
@@ -48,13 +46,5 @@ public class InventoryModel extends BaseModel {
 
     public void setArrow(int arrow) {
         this.arrow = arrow;
-    }
-
-    public int getGameStateId() {
-        return gameStateId;
-    }
-
-    public void setGameStateId(int gameStateId) {
-        this.gameStateId = gameStateId;
     }
 }

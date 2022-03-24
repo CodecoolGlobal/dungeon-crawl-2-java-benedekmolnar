@@ -81,6 +81,12 @@ public class GameDatabaseManager {
         return actorsDao.get(id);
     }
 
+    public List<ItemsModel> loadItemModels(int id) {
+        return itemsDao.get(id);
+    }
+
+    public InventoryModel loadInventoryModal(int id) { return inventoryDao.get(id); }
+
 
     public boolean isPlayerNameInDatabase(String playerName) {
         return gameStateDao.isPlayerNameInDatabase(playerName);
