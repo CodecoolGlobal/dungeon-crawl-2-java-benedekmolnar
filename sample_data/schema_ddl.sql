@@ -14,7 +14,8 @@ CREATE TABLE public.actors (
                                x integer NOT NULL,
                                y integer NOT NULL,
                                direction text NULL,
-                               data text
+                               data text,
+                               cooldown_timer integer NOT NULL
 );
 
 DROP TABLE IF EXISTS public.items;
