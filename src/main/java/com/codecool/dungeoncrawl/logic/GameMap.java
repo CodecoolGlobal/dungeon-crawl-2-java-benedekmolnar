@@ -1,11 +1,10 @@
 package com.codecool.dungeoncrawl.logic;
 
-import com.codecool.dungeoncrawl.dao.ActorData;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.movable.player.Player;
 import com.codecool.dungeoncrawl.logic.actors.inmovable.Portal;
 import com.codecool.dungeoncrawl.logic.items.Item;
-import com.codecool.dungeoncrawl.model.ItemModel;
+import com.codecool.dungeoncrawl.model.ItemsModel;
 import com.codecool.dungeoncrawl.model.ActorsModel;
 
 import java.util.ArrayList;
@@ -137,11 +136,11 @@ public class GameMap {
         player = (Player) actors.stream().filter(p -> p instanceof Player).findFirst().get();
     }
 
-    public List<ItemModel> saveItems() {
-        return items.stream().map((ItemModel::new)).collect(Collectors.toList());
+    public List<ItemsModel> saveItems() {
+        return items.stream().map((ItemsModel::new)).collect(Collectors.toList());
     }
 
-    public void loadItems(List<ItemModel> data) {
+    public void loadItems(List<ItemsModel> data) {
         items = data.stream().map(d -> d.createItemFromModel(this)).collect(Collectors.toList());
     }
 }

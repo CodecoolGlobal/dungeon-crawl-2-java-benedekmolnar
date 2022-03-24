@@ -1,6 +1,5 @@
 package com.codecool.dungeoncrawl.dao;
 
-import com.codecool.dungeoncrawl.model.ActorsModel;
 import com.codecool.dungeoncrawl.model.ItemsModel;
 
 import javax.sql.DataSource;

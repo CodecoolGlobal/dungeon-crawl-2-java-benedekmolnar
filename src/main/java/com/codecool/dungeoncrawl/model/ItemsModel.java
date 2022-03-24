@@ -1,10 +1,29 @@
 package com.codecool.dungeoncrawl.model;
 
-public class ItemsModel extends BaseModel {
+import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.items.Arrow;
+import com.codecool.dungeoncrawl.logic.items.Cheese;
+import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Key;
+
+public class ItemsModel extends BaseModel{
     private int gameStateId;
     private String type;
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
+
+    public ItemsModel(Item item) {
+        if (item instanceof Arrow)
+            type = "arrow";
+        if (item instanceof Key)
+            type = "key";
+        if (item instanceof Cheese)
+            type = "cheese";
+
+        x = item.getCell().getX();
+        y = item.getCell().getY();
+    }
 
     public ItemsModel(int gameStateId, String type, int x, int y) {
         this.gameStateId = gameStateId;
@@ -13,35 +32,30 @@ public class ItemsModel extends BaseModel {
         this.y = y;
     }
 
-    public int getGameStateId() {
-        return gameStateId;
+    public Item createItemFromModel(GameMap map) {
+        Cell itemCell = map.getCell(x, y);
+        switch (type) {
+            case "arrow":
+                return new Arrow(map, itemCell);
+            case "key":
+                return new Key(map, itemCell);
+        }
+        return new Cheese(map, itemCell);
     }
 
-    public void setGameStateId(int gameStateId) {
-        this.gameStateId = gameStateId;
+    public int getGameStateId() {
+        return gameStateId;
     }
 
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public int getX() {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getY() {
         return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 }
