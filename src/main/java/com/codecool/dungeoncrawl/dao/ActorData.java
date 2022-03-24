@@ -25,7 +25,6 @@ public class ActorData {
     private final Direction dir;
     private final int coolDownTimer;
     private final int health;
-
     Map<String, String> data = new HashMap<>();
 
     public ActorData(Actor actor) {
@@ -46,14 +45,20 @@ public class ActorData {
         }
         else if (actor instanceof Projectile)
             this.type = "projectile";
-        else if (actor instanceof Wall)
+        else if (actor instanceof Wall) {
             this.type = "wall";
+            data.put("type", ((Wall) actor).getType());
+        }
         else if (actor instanceof Portal) {
             this.type = "portal";
             data.put("color", ((Portal) actor).getType());
         }
-        else if (actor instanceof Boss)
+        else if (actor instanceof Boss) {
             this.type = "boss";
+            data.put("skeleton_time", String.valueOf(((Boss) actor).getCoolDownForSkeletonTimer()));
+            data.put("item_timer", String.valueOf(((Boss) actor).getCoolDownForItemTimer()));
+            data.put("knight_timer", String.valueOf(((Boss) actor).getCoolDownForKnightTimer()));
+        }
         else if (actor instanceof Player)
             this.type = "player";
 
@@ -109,6 +114,7 @@ public class ActorData {
             case "wall":
                 Wall w = new Wall(map, actorCell, "1");
                 w.setHealth(health);
+                w.setType(data.get("type"));
                 return w;
             case "portal":
                 Portal p = new Portal(actorCell, map, dir, data.get("color"));
@@ -116,6 +122,9 @@ public class ActorData {
             case "boss":
                 Boss b = new Boss(map, actorCell);
                 b.setHealth(health);
+                b.setCoolDownForItemTimer(Integer.parseInt(data.get("item_timer")));
+                b.setCoolDownForKnightTimer(Integer.parseInt(data.get("knight_timer")));
+                b.setCoolDownForSkeletonTimer(Integer.parseInt(data.get("skeleton_time")));
                 return b;
             case "player":
                 Player pl = new Player(map, actorCell);
