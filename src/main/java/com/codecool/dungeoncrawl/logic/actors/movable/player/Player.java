@@ -85,10 +85,6 @@ public class Player extends Movable implements Killable {
         }
     }
 
-    public Map<String, Integer> getInventory(){
-        return inventory;
-    }
-
     public String getTileName() {
         return "player";
     }
@@ -166,6 +162,10 @@ public class Player extends Movable implements Killable {
             inventoryAsString.append(key + "=" + inventory.get(key) + "    ");
         }
         return inventoryAsString.toString();
+    }
+
+    public Map<String, Integer> getInventory(){
+        return inventory;
     }
 
     public void setInventory(Map<String, Integer> inventory) {

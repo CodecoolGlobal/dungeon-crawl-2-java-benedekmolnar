@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.movable.player.Player;
 import com.codecool.dungeoncrawl.logic.actors.inmovable.Portal;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.model.InventoryModel;
 import com.codecool.dungeoncrawl.model.ItemsModel;
 import com.codecool.dungeoncrawl.model.ActorsModel;
 
@@ -142,5 +143,13 @@ public class GameMap {
 
     public void loadItems(List<ItemsModel> data) {
         items = data.stream().map(d -> d.createItemFromModel(this)).collect(Collectors.toList());
+    }
+
+    public InventoryModel saveInventory() {
+        return new InventoryModel(player.getInventory());
+    }
+
+    public void loadInventory(InventoryModel data) {
+        player.setInventory(data.createInventoryDir());
     }
 }
