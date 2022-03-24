@@ -168,6 +168,10 @@ public class Player extends Movable implements Killable {
         return inventoryAsString.toString();
     }
 
+    public String getName() {
+        return "";
+    }
+
     public void setInventory(Map<String, Integer> inventory) {
         this.inventory = inventory;
     }

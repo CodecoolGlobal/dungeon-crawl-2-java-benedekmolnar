@@ -10,6 +10,7 @@ public abstract class Actor implements Drawable {
     protected int coolDownTimer;
     protected GameMap map;
     protected int coolDown = 0;
+    protected Direction direction = Direction.NONE;
 
     protected Cell cell;
     protected int health = 10;
@@ -32,12 +33,20 @@ public abstract class Actor implements Drawable {
         this.health += change;
     }
 
-    public Cell getCell() {
-        return cell;
+    public int getCoolDownTimer() {
+        return coolDownTimer;
+    }
+
+    public void setCoolDownTimer(int coolDownTimer) {
+        this.coolDownTimer = coolDownTimer;
     }
 
     public void setCell(Cell cell) {
         this.cell = cell;
+    }
+
+    public Cell getCell() {
+        return cell;
     }
 
     public int getX() {
@@ -49,4 +58,8 @@ public abstract class Actor implements Drawable {
     }
 
     public boolean isKillable() {return killable; }
+
+    public Direction getDirection() {
+        return direction;
+    }
 }

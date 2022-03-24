@@ -74,4 +74,8 @@ public class Portal extends Actor implements Killable {
     public Direction getDirection() {
         return direction;
     }
+
+    public String getType() {
+        return type;
+    }
 }
