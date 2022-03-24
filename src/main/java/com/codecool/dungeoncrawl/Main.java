@@ -90,12 +90,15 @@ public class Main extends Application {
         KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
         KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
         KeyCombination saveCombinationWin = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
+        KeyCombination loadCombinationWin = new KeyCodeCombination(KeyCode.L, KeyCombination.CONTROL_DOWN);
         if (exitCombinationMac.match(keyEvent)
                 || exitCombinationWin.match(keyEvent)
                 || keyEvent.getCode() == KeyCode.ESCAPE) {
             exit();
         }else  if (saveCombinationWin.match(keyEvent)){
             SaveDialog.display(dbManager, map);
+        }else  if (loadCombinationWin.match(keyEvent)){
+            LoadDialog.display();
         }
     }
 
