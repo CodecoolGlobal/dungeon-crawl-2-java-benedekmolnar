@@ -2,10 +2,7 @@ package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.GameMap;
-import com.codecool.dungeoncrawl.model.PlayerModel;
-import javafx.event.EventType;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
@@ -13,7 +10,6 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 
 import java.sql.Date;
-import java.util.Optional;
 
 
 public class SaveDialog {
@@ -30,11 +26,13 @@ public class SaveDialog {
         Button cancelButton = new Button("Cancel");
         saveButton.setOnAction(e -> {
             playerName = text.getText();
-            //these arguments are dummy arguments
-            if (dbManager.isPlayerNameInDatabase("", new Date(2022,3,23),new PlayerModel(map.getPlayer()), playerName)) {
+            if (dbManager.isPlayerNameInDatabase(playerName)){
                 showConfirmationDialog();
             }else{
-                //TODO: save gamestate for playerName
+                String currenMap = map.saveMap();
+                Date date = Date.valueOf(java.time.LocalDate.now());
+                int gameStateID = dbManager.saveGameState(currenMap, date, playerName);
+                dbManager.saveActors(map.saveActors(), gameStateID);
                 stage.close();
             }
         });
