@@ -73,6 +73,15 @@ public class GameDatabaseManager {
         inventoryDao.update(model, gameStateId);
     }
 
+    public GameState loadGameState(String name) {
+        return gameStateDao.get(name);
+    }
+
+    public List<ActorsModel> loadActorModels(int id) {
+        return actorsDao.get(id);
+    }
+
+
     public boolean isPlayerNameInDatabase(String playerName) {
         return gameStateDao.isPlayerNameInDatabase(playerName);
     }

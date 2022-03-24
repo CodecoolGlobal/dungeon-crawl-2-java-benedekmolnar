@@ -15,6 +15,13 @@ public class GameState extends BaseModel {
         this.playerName = playerName;
     }
 
+    public GameState(int id, String currentMap, Date savedAt, String playerName) {
+        this.id = id;
+        this.currentMap = currentMap;
+        this.savedAt = savedAt;
+        this.playerName = playerName;
+    }
+
     public Date getSavedAt() {
         return savedAt;
     }

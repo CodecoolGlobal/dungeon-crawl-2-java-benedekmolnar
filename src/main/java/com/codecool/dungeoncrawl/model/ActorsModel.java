@@ -151,6 +151,7 @@ public class ActorsModel extends BaseModel{
 
     private Map<String, String> createDataFromString(String str) {
         Map<String, String> data = new HashMap<>();
+        if (str.equals("")) return data;
         for (String d : str.split(",")) {
             String[] keyValue = d.split(":");
             data.put(keyValue[0], keyValue[1]);

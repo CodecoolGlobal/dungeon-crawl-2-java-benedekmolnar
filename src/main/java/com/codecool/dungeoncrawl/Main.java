@@ -98,7 +98,7 @@ public class Main extends Application {
         }else  if (saveCombinationWin.match(keyEvent)){
             SaveDialog.display(dbManager, map);
         }else  if (loadCombinationWin.match(keyEvent)){
-            LoadDialog.display();
+            LoadDialog.display(dbManager, map);
         }
     }
 
