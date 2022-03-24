@@ -15,11 +15,7 @@ import java.util.Optional;
 public class LoadDialog {
 
     public static void display(GameDatabaseManager dbManager, GameMap map){
-        List<String> choices = new ArrayList<>();
-        //TODO: choices = list of all player names
-
-        choices.add("a");
-        choices.add("b");
+        List<String> choices = dbManager.getAllNames();
 
         ChoiceDialog<String> dialog = new ChoiceDialog<>(choices.get(0), choices);
         dialog.setTitle("Load game");

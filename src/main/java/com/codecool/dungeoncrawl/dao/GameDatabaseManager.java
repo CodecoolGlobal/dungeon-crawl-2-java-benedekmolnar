@@ -87,6 +87,9 @@ public class GameDatabaseManager {
 
     public InventoryModel loadInventoryModal(int id) { return inventoryDao.get(id); }
 
+    public List<String> getAllNames(){
+        return gameStateDao.getAllNames();
+    }
 
     public boolean isPlayerNameInDatabase(String playerName) {
         return gameStateDao.isPlayerNameInDatabase(playerName);

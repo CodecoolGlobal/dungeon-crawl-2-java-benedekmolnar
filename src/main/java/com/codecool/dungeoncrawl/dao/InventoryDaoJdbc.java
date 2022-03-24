@@ -55,8 +55,4 @@ public class InventoryDaoJdbc {
             throw new RuntimeException(e);
         }
     }
-
-    public List<InventoryModel> getAll() {
-        return null;
-    }
 }

@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.model.GameState;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameStateDaoJdbc implements GameStateDao {
@@ -23,11 +24,11 @@ public class GameStateDaoJdbc implements GameStateDao {
             st.setDate(3, state.getSavedAt());
             st.executeUpdate();
             ResultSet rs = st.getGeneratedKeys();
-            rs.next(); // Read next returned value - in this case the first one. See ResultSet docs for more explaination
+            rs.next();
             state.setId(rs.getInt(1));
 
         } catch (SQLException throwables) {
-            throw new RuntimeException("Error while adding new Author.", throwables);
+            throw new RuntimeException("Error", throwables);
         }
     }
 
@@ -52,11 +53,11 @@ public class GameStateDaoJdbc implements GameStateDao {
             PreparedStatement st = conn.prepareStatement(sql);
             st.setString(1, playerName);
             ResultSet rs = st.executeQuery();
-            if (!rs.next()) { // first row was not found == no data was returned by the query
+            if (!rs.next()) {
                 return null;
             }
             GameState gameState = new GameState(rs.getString(3), rs.getDate(4), rs.getString(2));
-            gameState.setId(rs.getInt(1)); // we already knew author id, so we do not read it from database.
+            gameState.setId(rs.getInt(1));
             return gameState;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -64,8 +65,18 @@ public class GameStateDaoJdbc implements GameStateDao {
     }
 
     @Override
-    public List<GameState> getAll() {
-        return null;
+    public List<String> getAllNames() {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT player_name FROM game_state";
+            ResultSet rs = conn.createStatement().executeQuery(sql);
+            List<String> result = new ArrayList<>();
+            while (rs.next()) {
+                result.add(rs.getString(1));
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error", e);
+        }
     }
 
     @Override

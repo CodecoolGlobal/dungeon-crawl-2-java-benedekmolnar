@@ -9,7 +9,7 @@ public interface GameStateDao {
     void add(GameState state);
     void update(String currentMap, Date savedAt, int id);
     GameState get(String playerName);
-    List<GameState> getAll();
+    List<String> getAllNames();
 
     boolean isPlayerNameInDatabase(String playerName);
 }
