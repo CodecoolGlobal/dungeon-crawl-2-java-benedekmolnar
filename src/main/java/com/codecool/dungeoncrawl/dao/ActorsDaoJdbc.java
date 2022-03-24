@@ -14,8 +14,26 @@ public class ActorsDaoJdbc {
         this.dataSource = dataSource;
     }
 
-    public void add(ActorsModel actor) {
+    public void add(ActorsModel actor, int gameStateId) {
+        try(Connection conn = dataSource.getConnection()) {
+            String sql = "INSERT INTO actors (game_state_id, type, hp, x, y, direction, data, cooldown_timer) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            st.setInt(1, gameStateId);
+            st.setString(2, actor.getType());
+            st.setInt(3, actor.getHp());
+            st.setInt(4, actor.getX());
+            st.setInt(5, actor.getY());
+            st.setString(6, actor.getDirection());
+            st.setString(7, actor.getData());
+            st.setInt(8, actor.getCooldown_timer());
+            st.executeUpdate();
+            ResultSet rs = st.getGeneratedKeys();
+            rs.next(); // Read next returned value - in this case the first one. See ResultSet docs for more explaination
+            actor.setId(rs.getInt(1));
 
+        } catch (SQLException throwables) {
+            throw new RuntimeException("Error while adding new Author.", throwables);
+        }
     }
 
     public void update(ActorsModel actor) {

@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS public.actors;
 CREATE TABLE public.actors (
                                id serial NOT NULL PRIMARY KEY,
                                game_state_id integer NOT NULL,
+                               type text NOT NULL,
                                hp integer NOT NULL,
                                x integer NOT NULL,
                                y integer NOT NULL,
