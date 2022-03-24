@@ -119,7 +119,12 @@ public class GameMap {
     }
 
     public void loadMap(String mapStr) {
+
+
         String[] lines = mapStr.split("\n");
+        cells = new Cell[lines.length][lines[0].length()];
+        width = lines.length;
+        height = lines[0].length();
         for(int i = 0; i < lines.length; i++) {
             char[] line = lines[i].toCharArray();
             for (int j = 0; j < line.length; j++) {
