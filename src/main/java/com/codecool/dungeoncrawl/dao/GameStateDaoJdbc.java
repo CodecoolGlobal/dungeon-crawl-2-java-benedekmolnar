@@ -32,14 +32,13 @@ public class GameStateDaoJdbc implements GameStateDao {
     }
 
     @Override
-    public void update(GameState state) {
+    public void update(String currentMap, Date savedAt, int id) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "UPDATE game_state SET player_name = ?, map = ?, saved_at = ? WHERE id = ?";
+            String sql = "UPDATE game_state SET  map = ?, saved_at = ? WHERE id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
-            st.setString(1, state.getPlayerName());
-            st.setString(2, state.getCurrentMap());
-            st.setDate(3, state.getSavedAt());
-            st.setInt(4, state.getId());
+            st.setString(1, currentMap);
+            st.setDate(2, savedAt);
+            st.setInt(3, id);
             st.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -47,8 +46,21 @@ public class GameStateDaoJdbc implements GameStateDao {
     }
 
     @Override
-    public GameState get(int id) {
-        return null;
+    public GameState get(String playerName) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id, player_name, map, saved_at FROM game_state WHERE player_name = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, playerName);
+            ResultSet rs = st.executeQuery();
+            if (!rs.next()) { // first row was not found == no data was returned by the query
+                return null;
+            }
+            GameState gameState = new GameState(rs.getString(3), rs.getDate(4), rs.getString(2));
+            gameState.setId(rs.getInt(1)); // we already knew author id, so we do not read it from database.
+            return gameState;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

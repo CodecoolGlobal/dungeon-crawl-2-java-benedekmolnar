@@ -32,12 +32,11 @@ public class InventoryDaoJdbc {
 
     public void update(InventoryModel inventory, int gameStateId) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "UPDATE inventory SET game_state_id = ?, arrow = ?, key = ? WHERE id = ?";
+            String sql = "UPDATE inventory SET arrow = ?, key = ? WHERE game_state_id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
-            st.setInt(1, gameStateId);
-            st.setInt(2, inventory.getArrow());
-            st.setInt(3, inventory.getKey());
-            st.setInt(4, inventory.getId());
+            st.setInt(1, inventory.getArrow());
+            st.setInt(2, inventory.getKey());
+            st.setInt(3, gameStateId);
             st.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

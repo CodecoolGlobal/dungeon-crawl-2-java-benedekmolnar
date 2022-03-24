@@ -50,20 +50,22 @@ public class GameDatabaseManager {
     }
 
     public int updateGameState(String currentMap, Date savedAt, String playerName){
-        GameState model = new GameState(currentMap, savedAt, playerName);
-        gameStateDao.update(model);
+        GameState model = gameStateDao.get(playerName);
+        gameStateDao.update(currentMap, savedAt, model.getId());
         return model.getId();
     }
 
     public void updateActors(List<ActorsModel> actorsModels, int gameStateId){
+        actorsDao.delete(gameStateId);
         for (ActorsModel model: actorsModels) {
-            actorsDao.update(model, gameStateId);
+            actorsDao.add(model, gameStateId);
         }
     }
 
     public void updateItems(List<ItemsModel> itemsModels, int gameStateId) {
+        itemsDao.delete(gameStateId);
         for (ItemsModel model: itemsModels) {
-            itemsDao.update(model, gameStateId);
+            itemsDao.add(model, gameStateId);
         }
     }
 

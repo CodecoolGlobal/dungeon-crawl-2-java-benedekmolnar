@@ -26,12 +26,12 @@ public class SaveDialog {
         Button cancelButton = new Button("Cancel");
         saveButton.setOnAction(e -> {
             playerName = text.getText();
+            String currentMap = map.saveMap();
+            Date date = Date.valueOf(java.time.LocalDate.now());
             if (dbManager.isPlayerNameInDatabase(playerName)){
-                showConfirmationDialog();
+                showConfirmationDialog(dbManager, map, currentMap, date);
             }else{
-                String currenMap = map.saveMap();
-                Date date = Date.valueOf(java.time.LocalDate.now());
-                int gameStateID = dbManager.saveGameState(currenMap, date, playerName);
+                int gameStateID = dbManager.saveGameState(currentMap, date, playerName);
                 dbManager.saveActors(map.saveActors(), gameStateID);
                 dbManager.saveItems(map.saveItems(), gameStateID);
                 dbManager.saveInventory(map.saveInventory(), gameStateID);
@@ -64,7 +64,7 @@ public class SaveDialog {
         return playerName;
     }
 
-    public static void showConfirmationDialog(){
+    public static void showConfirmationDialog(GameDatabaseManager databaseManager,GameMap map,String currentMap, Date date){
         Dialog<ButtonType> dialog = new Dialog<>();
 
         dialog.setTitle("Confirmation");
@@ -77,8 +77,11 @@ public class SaveDialog {
         dialog.getDialogPane().getButtonTypes().add(no);
 
         dialog.showAndWait().ifPresent(response -> {
-            if (response == yes) {
-                //TODO:overwrite previous save for this player name
+            if (response.equals(yes)) {
+                int gameStateId = databaseManager.updateGameState(currentMap, date, playerName);
+                databaseManager.updateActors(map.saveActors(), gameStateId);
+                databaseManager.updateItems(map.saveItems(), gameStateId);
+                databaseManager.updateInventory(map.saveInventory(), gameStateId);
                 stage.close();
             }
         });

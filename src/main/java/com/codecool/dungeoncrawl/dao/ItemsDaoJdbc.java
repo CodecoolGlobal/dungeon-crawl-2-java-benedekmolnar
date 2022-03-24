@@ -33,13 +33,23 @@ public class ItemsDaoJdbc {
 
     public void update(ItemsModel item, int gameStateId) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "UPDATE items SET game_state_id = ?, type = ?, x = ?, y = ? WHERE id = ?";
+            String sql = "UPDATE items SET type = ?, x = ?, y = ? WHERE game_state_id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, item.getType());
+            st.setInt(2, item.getX());
+            st.setInt(3, item.getY());
+            st.setInt(4, gameStateId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void delete( int gameStateId) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "DELETE FROM items WHERE game_state_id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, gameStateId);
-            st.setString(2, item.getType());
-            st.setInt(3, item.getX());
-            st.setInt(4, item.getY());
-            st.setInt(5, item.getId());
             st.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -37,17 +37,27 @@ public class ActorsDaoJdbc {
 
     public void update(ActorsModel actor, int gameStateId) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "UPDATE actors SET game_state_id = ?, type = ?, x = ?, y = ?, hp = ?, direction = ?, data = ?, cooldown_timer = ? WHERE id = ?";
+            String sql = "UPDATE actors SET  type = ?, x = ?, y = ?, hp = ?, direction = ?, data = ?, cooldown_timer = ? WHERE game_state_id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, actor.getType());
+            st.setInt(2, actor.getX());
+            st.setInt(3, actor.getY());
+            st.setInt(4, actor.getHp());
+            st.setString(5, actor.getDirection());
+            st.setString(6, actor.getData());
+            st.setInt(7, actor.getCooldown_timer());
+            st.setInt(8, gameStateId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void delete( int gameStateId) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "DELETE FROM actors WHERE game_state_id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, gameStateId);
-            st.setString(2, actor.getType());
-            st.setInt(3, actor.getX());
-            st.setInt(4, actor.getY());
-            st.setInt(5, actor.getHp());
-            st.setString(6, actor.getDirection());
-            st.setString(7, actor.getData());
-            st.setInt(8, actor.getCooldown_timer());
-            st.setInt(8, actor.getId());
             st.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
