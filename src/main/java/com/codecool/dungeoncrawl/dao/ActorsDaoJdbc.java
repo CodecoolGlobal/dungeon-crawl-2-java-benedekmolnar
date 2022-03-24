@@ -37,7 +37,22 @@ public class ActorsDaoJdbc {
     }
 
     public void update(ActorsModel actor) {
-
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "UPDATE actors SET game_state_id = ?, type = ?, x = ?, y = ?, hp = ?, direction = ?, data = ?, cooldown_timer = ? WHERE id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, actor.getGameStateId());
+            st.setString(2, actor.getType());
+            st.setInt(3, actor.getX());
+            st.setInt(4, actor.getY());
+            st.setInt(5, actor.getHp());
+            st.setString(6, actor.getDirection());
+            st.setString(7, actor.getData());
+            st.setInt(8, actor.getCooldown_timer());
+            st.setInt(8, actor.getId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public ActorsModel get(int id) {
