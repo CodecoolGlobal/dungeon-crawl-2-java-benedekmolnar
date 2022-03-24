@@ -4,6 +4,8 @@ import com.codecool.dungeoncrawl.dao.ActorData;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.movable.player.Player;
 import com.codecool.dungeoncrawl.logic.actors.inmovable.Portal;
+import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.model.ItemModel;
 import com.codecool.dungeoncrawl.model.ActorsModel;
 
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ public class GameMap {
 
     private Player player;
     private List<Actor> actors = new LinkedList<>();
+    private List<Item> items = new LinkedList<>();
     private List<Actor> added = new LinkedList<>();
     private List<Actor> killed = new LinkedList<>();
 
@@ -98,6 +101,14 @@ public class GameMap {
         return actors;
     }
 
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void removeItem(Item item) {
+        items.remove(item);
+    }
+
     public String saveMap() {
         String map = Arrays.stream(cells).map(this::addLineToString).reduce("", (mapStr, lineStr) -> mapStr + "\n" + lineStr);
         return map.substring(1, map.length());
@@ -124,5 +135,13 @@ public class GameMap {
     public void loadActors(List<ActorsModel> data) {
         actors = data.stream().map(d -> d.createActorFromData(this)).collect(Collectors.toList());
         player = (Player) actors.stream().filter(p -> p instanceof Player).findFirst().get();
+    }
+
+    public List<ItemModel> saveItems() {
+        return items.stream().map((ItemModel::new)).collect(Collectors.toList());
+    }
+
+    public void loadItems(List<ItemModel> data) {
+        items = data.stream().map(d -> d.createItemFromModel(this)).collect(Collectors.toList());
     }
 }

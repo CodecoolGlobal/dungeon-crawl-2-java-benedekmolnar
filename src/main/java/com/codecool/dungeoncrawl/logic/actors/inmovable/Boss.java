@@ -81,8 +81,8 @@ public class Boss extends Actor {
         if (coolDownForItemTimer == 0) {
             coolDownForItemTimer = coolDownForKnight;
             List<Cell> freeCells = map.getFreeCells();
-            if (rand.nextInt(2) == 1) new Cheese(freeCells.get(rand.nextInt(freeCells.size())));
-            else new Arrow(freeCells.get(rand.nextInt(freeCells.size())));
+            if (rand.nextInt(2) == 1) new Cheese(map, freeCells.get(rand.nextInt(freeCells.size())));
+            else new Arrow(map, freeCells.get(rand.nextInt(freeCells.size())));
         } else coolDownForItemTimer--;
     }
 }
