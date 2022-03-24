@@ -16,19 +16,20 @@ import com.codecool.dungeoncrawl.logic.actors.movable.projectile.PortalProjectil
 import com.codecool.dungeoncrawl.logic.actors.movable.projectile.Projectile;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ActorData {
     private String type;
-    private int x;
-    private int y;
-    private Direction dir;
-    private int coolDownTimer;
-    private int health;
+    private final int x;
+    private final int y;
+    private final Direction dir;
+    private final int coolDownTimer;
+    private final int health;
     private int def_x;
     private int def_y;
     private String color;
+
+    Map<String, String> data;
 
     public ActorData(Actor actor) {
         if (actor instanceof Skeleton)
@@ -64,6 +65,16 @@ public class ActorData {
         dir = actor.getDirection();
         health = actor.getHealth();
         coolDownTimer = actor.getCoolDownTimer();
+    }
+
+    public ActorData(String type, int x, int y, String dir, int coolDownTimer, int health, String data) {
+        this.type = type;
+        this.x = x;
+        this.y = y;
+        this.dir = Direction.dirFromString(dir);
+        this.coolDownTimer = coolDownTimer;
+        this.health = health;
+        this.data = createDataFromString(data);
     }
 
     public Actor createActorFromData(GameMap map) {
@@ -114,5 +125,22 @@ public class ActorData {
                 return pl;
         }
         return new Skeleton(map, actorCell);
+    }
+
+    private String createStringFromData() {
+        StringJoiner sj = new StringJoiner(",");
+        for (Map.Entry<String,String> entry : data.entrySet()) {
+            sj.add(entry.getKey() + ":" + entry.getValue());
+        }
+        return sj.toString();
+    }
+
+    private Map<String, String> createDataFromString(String str) {
+        Map<String, String> data = new HashMap<>();
+        for (String d : str.split(",")) {
+            String[] keyValue = d.split(":");
+            data.put(keyValue[0], keyValue[1]);
+        }
+        return data;
     }
 }
