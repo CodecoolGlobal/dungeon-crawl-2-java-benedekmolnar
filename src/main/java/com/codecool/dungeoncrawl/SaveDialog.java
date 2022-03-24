@@ -33,6 +33,7 @@ public class SaveDialog {
                 Date date = Date.valueOf(java.time.LocalDate.now());
                 int gameStateID = dbManager.saveGameState(currenMap, date, playerName);
                 dbManager.saveActors(map.saveActors(), gameStateID);
+                dbManager.saveItems(map.saveItems(), gameStateID);
                 stage.close();
             }
         });

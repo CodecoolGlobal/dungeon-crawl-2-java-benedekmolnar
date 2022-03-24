@@ -13,11 +13,11 @@ public class ItemsDaoJdbc {
         this.dataSource = dataSource;
     }
 
-    public void add(ItemsModel item) {
+    public void add(ItemsModel item, int gameSateId) {
         try(Connection conn = dataSource.getConnection()) {
             String sql = "INSERT INTO items (game_state_id, type, x, y) VALUES (?, ?, ?, ?)";
             PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            st.setInt(1, item.getGameStateId());
+            st.setInt(1, gameSateId);
             st.setString(2, item.getType());
             st.setInt(3, item.getX());
             st.setInt(4, item.getY());

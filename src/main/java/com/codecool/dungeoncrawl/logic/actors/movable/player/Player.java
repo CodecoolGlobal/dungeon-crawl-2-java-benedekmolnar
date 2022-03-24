@@ -50,7 +50,7 @@ public class Player extends Movable implements Killable {
                 nextCell.setType(CellType.OPENDOOR);
             }
             if (nextCell.getType() == CellType.TELEPORTKEY){
-                addItemToInventory(new Key(getCell()));
+                addItemToInventory(new Key(map,getCell()));
             }
             getCell().setActor(null);
             nextCell.setActor(this);
