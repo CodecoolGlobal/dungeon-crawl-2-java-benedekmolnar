@@ -46,8 +46,4 @@ public class InventoryDaoJdbc {
     public InventoryModel get(int id) {
         return null;
     }
-
-    public List<InventoryModel> getAll() {
-        return null;
-    }
 }
