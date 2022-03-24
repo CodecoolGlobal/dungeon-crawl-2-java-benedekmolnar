@@ -35,11 +35,11 @@ public class ActorsDaoJdbc {
         }
     }
 
-    public void update(ActorsModel actor) {
+    public void update(ActorsModel actor, int gameStateId) {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "UPDATE actors SET game_state_id = ?, type = ?, x = ?, y = ?, hp = ?, direction = ?, data = ?, cooldown_timer = ? WHERE id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
-            st.setInt(1, actor.getGameStateId());
+            st.setInt(1, gameStateId);
             st.setString(2, actor.getType());
             st.setInt(3, actor.getX());
             st.setInt(4, actor.getY());

@@ -49,6 +49,28 @@ public class GameDatabaseManager {
         inventoryDao.add(model, gameStateId);
     }
 
+    public int updateGameState(String currentMap, Date savedAt, String playerName){
+        GameState model = new GameState(currentMap, savedAt, playerName);
+        gameStateDao.update(model);
+        return model.getId();
+    }
+
+    public void updateActors(List<ActorsModel> actorsModels, int gameStateId){
+        for (ActorsModel model: actorsModels) {
+            actorsDao.update(model, gameStateId);
+        }
+    }
+
+    public void updateItems(List<ItemsModel> itemsModels, int gameStateId) {
+        for (ItemsModel model: itemsModels) {
+            itemsDao.update(model, gameStateId);
+        }
+    }
+
+    public void updateInventory(InventoryModel model, int gameStateId) {
+        inventoryDao.update(model, gameStateId);
+    }
+
     public boolean isPlayerNameInDatabase(String playerName) {
         return gameStateDao.isPlayerNameInDatabase(playerName);
     }

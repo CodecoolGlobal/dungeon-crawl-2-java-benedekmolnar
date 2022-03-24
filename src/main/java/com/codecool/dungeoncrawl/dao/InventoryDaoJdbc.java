@@ -1,6 +1,5 @@
 package com.codecool.dungeoncrawl.dao;
 
-import com.codecool.dungeoncrawl.model.ActorsModel;
 import com.codecool.dungeoncrawl.model.InventoryModel;
 
 import javax.sql.DataSource;
@@ -31,11 +30,11 @@ public class InventoryDaoJdbc {
         }
     }
 
-    public void update(InventoryModel inventory) {
+    public void update(InventoryModel inventory, int gameStateId) {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "UPDATE inventory SET game_state_id = ?, arrow = ?, key = ? WHERE id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
-            st.setInt(1, inventory.getGameStateId());
+            st.setInt(1, gameStateId);
             st.setInt(2, inventory.getArrow());
             st.setInt(3, inventory.getKey());
             st.setInt(4, inventory.getId());

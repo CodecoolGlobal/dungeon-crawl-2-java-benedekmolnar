@@ -31,11 +31,11 @@ public class ItemsDaoJdbc {
         }
     }
 
-    public void update(ItemsModel item) {
+    public void update(ItemsModel item, int gameStateId) {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "UPDATE items SET game_state_id = ?, type = ?, x = ?, y = ? WHERE id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
-            st.setInt(1, item.getGameStateId());
+            st.setInt(1, gameStateId);
             st.setString(2, item.getType());
             st.setInt(3, item.getX());
             st.setInt(4, item.getY());
