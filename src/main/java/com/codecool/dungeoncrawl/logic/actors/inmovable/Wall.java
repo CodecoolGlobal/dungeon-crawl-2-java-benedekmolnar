@@ -8,6 +8,14 @@ import com.codecool.dungeoncrawl.logic.actors.Killable;
 public class Wall extends Actor implements Killable {
     private String type;
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public Wall(GameMap map, Cell cell, String type) {
         super(cell, map);
         this.type = type;

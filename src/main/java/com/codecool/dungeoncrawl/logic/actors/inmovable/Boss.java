@@ -13,11 +13,38 @@ import java.util.Random;
 
 public class Boss extends Actor {
     private final int coolDownForSkeleton = 300;
+
+    public int getCoolDownForSkeletonTimer() {
+        return coolDownForSkeletonTimer;
+    }
+
+    public void setCoolDownForSkeletonTimer(int coolDownForSkeletonTimer) {
+        this.coolDownForSkeletonTimer = coolDownForSkeletonTimer;
+    }
+
     private int coolDownForSkeletonTimer = 300;
     private final int coolDownForKnight = 1000;
+
+    public int getCoolDownForKnightTimer() {
+        return coolDownForKnightTimer;
+    }
+
+    public void setCoolDownForKnightTimer(int coolDownForKnightTimer) {
+        this.coolDownForKnightTimer = coolDownForKnightTimer;
+    }
+
     private int coolDownForKnightTimer = 1000;
     private int coolDownForItem = 500;
-    private int coolDownForKnightItem =  500;
+
+    public int getCoolDownForItemTimer() {
+        return coolDownForItemTimer;
+    }
+
+    public void setCoolDownForItemTimer(int coolDownForItemTimer) {
+        this.coolDownForItemTimer = coolDownForItemTimer;
+    }
+
+    private int coolDownForItemTimer =  500;
 
     private Random rand = new Random();
 
@@ -51,11 +78,11 @@ public class Boss extends Actor {
             List<Cell> freeCells = map.getFreeCells();
             map.addToActors(new Knight(map, freeCells.get(rand.nextInt(freeCells.size()))));
         } else coolDownForKnightTimer--;
-        if (coolDownForKnightItem == 0) {
-            coolDownForKnightItem = coolDownForKnight;
+        if (coolDownForItemTimer == 0) {
+            coolDownForItemTimer = coolDownForKnight;
             List<Cell> freeCells = map.getFreeCells();
             if (rand.nextInt(2) == 1) new Cheese(freeCells.get(rand.nextInt(freeCells.size())));
             else new Arrow(freeCells.get(rand.nextInt(freeCells.size())));
-        } else coolDownForKnightItem--;
+        } else coolDownForItemTimer--;
     }
 }

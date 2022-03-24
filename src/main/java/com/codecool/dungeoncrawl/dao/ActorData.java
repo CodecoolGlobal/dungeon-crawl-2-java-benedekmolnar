@@ -16,27 +16,24 @@ import com.codecool.dungeoncrawl.logic.actors.movable.projectile.PortalProjectil
 import com.codecool.dungeoncrawl.logic.actors.movable.projectile.Projectile;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ActorData {
     private String type;
-    private int x;
-    private int y;
-    private Direction dir;
-    private int coolDownTimer;
-    private int health;
-    private int def_x;
-    private int def_y;
-    private String color;
+    private final int x;
+    private final int y;
+    private final Direction dir;
+    private final int coolDownTimer;
+    private final int health;
+    Map<String, String> data = new HashMap<>();
 
     public ActorData(Actor actor) {
         if (actor instanceof Skeleton)
             this.type = "skeleton";
         else if (actor instanceof Knight) {
             this.type = "knight";
-            def_x = ((Knight) actor).getStartCell().getX();
-            def_y = ((Knight) actor).getStartCell().getY();
+            data.put("def_x", String.valueOf(((Knight) actor).getStartCell().getX()));
+            data.put("def_y", String.valueOf(((Knight) actor).getStartCell().getY()));
         }
         else if (actor instanceof Ghost)
             this.type = "ghost";
@@ -44,18 +41,24 @@ public class ActorData {
             this.type = "cannon";
         else if (actor instanceof PortalProjectile) {
             this.type = "portalProjectile";
-            color = ((PortalProjectile) actor).getType();
+            data.put("color", ((PortalProjectile) actor).getType());
         }
         else if (actor instanceof Projectile)
             this.type = "projectile";
-        else if (actor instanceof Wall)
+        else if (actor instanceof Wall) {
             this.type = "wall";
+            data.put("type", ((Wall) actor).getType());
+        }
         else if (actor instanceof Portal) {
             this.type = "portal";
-            color = ((Portal) actor).getType();
+            data.put("color", ((Portal) actor).getType());
         }
-        else if (actor instanceof Boss)
+        else if (actor instanceof Boss) {
             this.type = "boss";
+            data.put("skeleton_time", String.valueOf(((Boss) actor).getCoolDownForSkeletonTimer()));
+            data.put("item_timer", String.valueOf(((Boss) actor).getCoolDownForItemTimer()));
+            data.put("knight_timer", String.valueOf(((Boss) actor).getCoolDownForKnightTimer()));
+        }
         else if (actor instanceof Player)
             this.type = "player";
 
@@ -64,6 +67,16 @@ public class ActorData {
         dir = actor.getDirection();
         health = actor.getHealth();
         coolDownTimer = actor.getCoolDownTimer();
+    }
+
+    public ActorData(String type, int x, int y, String dir, int coolDownTimer, int health, String data) {
+        this.type = type;
+        this.x = x;
+        this.y = y;
+        this.dir = Direction.dirFromString(dir);
+        this.coolDownTimer = coolDownTimer;
+        this.health = health;
+        this.data = createDataFromString(data);
     }
 
     public Actor createActorFromData(GameMap map) {
@@ -75,7 +88,9 @@ public class ActorData {
                 sk.setCoolDownTimer(coolDownTimer);
                 return sk;
             case "knight":
-                Cell defCell = map.getCell(def_x, def_y);
+                Cell defCell = map.getCell(
+                        Integer.parseInt(data.get("def_x")),
+                        Integer.parseInt(data.get("def_y")));
                 Knight kn = new Knight(map, actorCell);
                 kn.setHealth(health);
                 kn.setCoolDownTimer(coolDownTimer);
@@ -91,7 +106,7 @@ public class ActorData {
                 cn.setCoolDownTimer(coolDownTimer);
                 return cn;
             case "portalProjectile":
-                PortalProjectile pp = new PortalProjectile(map, actorCell, dir, color);
+                PortalProjectile pp = new PortalProjectile(map, actorCell, dir, data.get("color"));
                 return pp;
             case "projectile":
                 Projectile pt = new Projectile(map, actorCell, dir);
@@ -99,13 +114,17 @@ public class ActorData {
             case "wall":
                 Wall w = new Wall(map, actorCell, "1");
                 w.setHealth(health);
+                w.setType(data.get("type"));
                 return w;
             case "portal":
-                Portal p = new Portal(actorCell, map, dir, color);
+                Portal p = new Portal(actorCell, map, dir, data.get("color"));
                 return p;
             case "boss":
                 Boss b = new Boss(map, actorCell);
                 b.setHealth(health);
+                b.setCoolDownForItemTimer(Integer.parseInt(data.get("item_timer")));
+                b.setCoolDownForKnightTimer(Integer.parseInt(data.get("knight_timer")));
+                b.setCoolDownForSkeletonTimer(Integer.parseInt(data.get("skeleton_time")));
                 return b;
             case "player":
                 Player pl = new Player(map, actorCell);
@@ -114,5 +133,22 @@ public class ActorData {
                 return pl;
         }
         return new Skeleton(map, actorCell);
+    }
+
+    private String createStringFromData() {
+        StringJoiner sj = new StringJoiner(",");
+        for (Map.Entry<String,String> entry : data.entrySet()) {
+            sj.add(entry.getKey() + ":" + entry.getValue());
+        }
+        return sj.toString();
+    }
+
+    private Map<String, String> createDataFromString(String str) {
+        Map<String, String> data = new HashMap<>();
+        for (String d : str.split(",")) {
+            String[] keyValue = d.split(":");
+            data.put(keyValue[0], keyValue[1]);
+        }
+        return data;
     }
 }
