@@ -2,6 +2,8 @@ package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.model.ActorsModel;
+import com.codecool.dungeoncrawl.model.GameState;
 import javafx.scene.control.ChoiceDialog;
 
 import java.util.ArrayList;
@@ -25,9 +27,10 @@ public class LoadDialog {
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
             System.out.println("Your choice: " + result.get());
-
-            map.loadMap(dbManager.loadGameState(result.get()).getCurrentMap());
-
+            GameState gs = dbManager.loadGameState(result.get());
+            map.loadMap(gs.getCurrentMap());
+            List<ActorsModel> actorModals = dbManager.loadActorModels(gs.getId());
+            map.loadActors(actorModals);
             dialog.close();
         }
     }

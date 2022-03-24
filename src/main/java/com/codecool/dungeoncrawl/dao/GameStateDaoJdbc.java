@@ -54,7 +54,7 @@ public class GameStateDaoJdbc implements GameStateDao {
             st.setString(1, name);
             ResultSet rs = st.executeQuery();
             rs.next();
-            return new GameState(rs.getString(3), rs.getDate(4), rs.getString(2));
+            return new GameState(rs.getInt(1), rs.getString(3), rs.getDate(4), rs.getString(2));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
