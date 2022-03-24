@@ -24,14 +24,13 @@ public class GameDatabaseManager {
         playerDao.add(model);
     }
 
-    public void saveGameState(String currentMap, Date savedAt, PlayerModel player, String playerName) {
-        GameState model = new GameState(currentMap, savedAt, player, playerName);
+    public void saveGameState(String currentMap, Date savedAt, String playerName) {
+        GameState model = new GameState(currentMap, savedAt, playerName);
         gameStateDao.add(model);
+        //TODO: actordDao.add(), itemsDao.add(), inventoryDao.add();
     }
 
-    public boolean isPlayerNameInDatabase(String currentMap, Date savedAt, PlayerModel player, String playerName) {
-        GameState model = new GameState(currentMap, savedAt, player, playerName);
-        gameStateDao.add(model);
+    public boolean isPlayerNameInDatabase(String playerName) {
         return gameStateDao.isPlayerNameInDatabase(playerName);
     }
 
