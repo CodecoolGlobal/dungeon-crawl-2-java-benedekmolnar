@@ -3,7 +3,12 @@ package com.codecool.dungeoncrawl.logic.actors;
 import java.util.Random;
 
 public enum Direction {
-    UP, DOWN, LEFT, RIGHT, NONE;
+    UP("Up"), DOWN("Down"), LEFT("Left"), RIGHT("Right"), NONE("None");
+    public final String dirString;
+
+    Direction(String str) {
+        dirString = str;
+    }
 
     public Direction getReversDirection(){
         switch (this) {
@@ -31,5 +36,19 @@ public enum Direction {
                 return DOWN;
         }
         return LEFT;
+    }
+
+    public static Direction dirFromString(String str){
+        switch (str) {
+            case "Up":
+                return UP;
+            case "Down":
+                return DOWN;
+            case "Left":
+                return LEFT;
+            case "Right":
+                return RIGHT;
+        }
+        return NONE;
     }
 }
