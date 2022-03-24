@@ -32,9 +32,8 @@ DROP TABLE IF EXISTS public.inventory;
 CREATE TABLE public.inventory (
                                   id serial NOT NULL PRIMARY KEY,
                                   game_state_id integer NOT NULL,
-                                  type text NOT NULL,
-                                  arrow integer NOT NULL,
-                                  key integer NOT NULL
+                                  arrow integer,
+                                  key integer
 );
 
 ALTER TABLE ONLY public.actors

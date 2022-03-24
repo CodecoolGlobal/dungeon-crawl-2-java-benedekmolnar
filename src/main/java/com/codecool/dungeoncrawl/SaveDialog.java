@@ -34,6 +34,7 @@ public class SaveDialog {
                 int gameStateID = dbManager.saveGameState(currenMap, date, playerName);
                 dbManager.saveActors(map.saveActors(), gameStateID);
                 dbManager.saveItems(map.saveItems(), gameStateID);
+                dbManager.saveInventory(map.saveInventory(), gameStateID);
                 stage.close();
             }
         });

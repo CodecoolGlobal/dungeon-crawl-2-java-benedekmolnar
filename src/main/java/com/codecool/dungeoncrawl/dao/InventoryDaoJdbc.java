@@ -26,7 +26,7 @@ public class InventoryDaoJdbc {
             inventory.setId(rs.getInt(1));
 
         } catch (SQLException throwables) {
-            throw new RuntimeException("Error while adding new Author.", throwables);
+            throw new RuntimeException("Error", throwables);
         }
     }
 

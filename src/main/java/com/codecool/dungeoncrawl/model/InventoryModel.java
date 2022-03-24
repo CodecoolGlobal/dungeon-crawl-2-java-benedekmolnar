@@ -3,7 +3,7 @@ package com.codecool.dungeoncrawl.model;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InventoryModel {
+public class InventoryModel extends BaseModel {
     private int gameStateId;
     private int arrow;
     private int key;
