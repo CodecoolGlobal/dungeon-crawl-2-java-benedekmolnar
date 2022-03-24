@@ -140,7 +140,7 @@ public class GameMap {
         return items.stream().map((ItemModel::new)).collect(Collectors.toList());
     }
 
-    public void load(List<ItemModel> data) {
+    public void loadItems(List<ItemModel> data) {
         items = data.stream().map(d -> d.createItemFromModel(this)).collect(Collectors.toList());
     }
 }
