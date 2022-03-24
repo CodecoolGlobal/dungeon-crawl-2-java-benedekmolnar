@@ -81,6 +81,9 @@ public class GameDatabaseManager {
         return actorsDao.get(id);
     }
 
+    public List<String> getAllNames(){
+        return gameStateDao.getAllNames();
+    }
 
     public boolean isPlayerNameInDatabase(String playerName) {
         return gameStateDao.isPlayerNameInDatabase(playerName);
