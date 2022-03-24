@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.model;
 
-public class InventoryModel {
+public class InventoryModel extends BaseModel{
     private int gameStateId;
     private int arrow;
     private int key;
