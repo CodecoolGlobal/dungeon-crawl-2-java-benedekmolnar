@@ -32,7 +32,18 @@ public class ItemsDaoJdbc {
     }
 
     public void update(ItemsModel item) {
-
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "UPDATE items SET game_state_id = ?, type = ?, x = ?, y = ? WHERE id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, item.getGameStateId());
+            st.setString(2, item.getType());
+            st.setInt(3, item.getX());
+            st.setInt(4, item.getY());
+            st.setInt(5, item.getId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public ItemsModel get(int id) {
