@@ -42,7 +42,7 @@ public class MapLoader {
                             break;
                         case 'k':
                             cell.setType(CellType.FLOOR);
-                            new Key(cell);
+                            new Key(map, cell);
                             break;
                         case '#':
                             cell.setType(CellType.WALL);
@@ -88,7 +88,7 @@ public class MapLoader {
                             break;
                         case 'a':
                             cell.setType(CellType.FLOOR);
-                            new Arrow(cell);
+                            new Arrow(map, cell);
                             break;
                         case 'O':
                             cell.setType(CellType.SHOOTABLEWALL);
@@ -98,7 +98,7 @@ public class MapLoader {
                             break;
                         case 'c':
                             cell.setType(CellType.FLOOR);
-                            new Cheese(cell);
+                            new Cheese(map, cell);
                             break;
                         case 'X':
                             cell.setType(CellType.CLOSEDDOOR);

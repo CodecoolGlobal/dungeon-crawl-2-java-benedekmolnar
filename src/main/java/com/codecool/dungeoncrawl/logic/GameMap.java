@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.dao.ActorData;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.movable.player.Player;
 import com.codecool.dungeoncrawl.logic.actors.inmovable.Portal;
+import com.codecool.dungeoncrawl.logic.items.Item;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +22,7 @@ public class GameMap {
 
     private Player player;
     private List<Actor> actors = new LinkedList<>();
+    private List<Item> items = new LinkedList<>();
     private List<Actor> added = new LinkedList<>();
     private List<Actor> killed = new LinkedList<>();
 
@@ -95,6 +97,14 @@ public class GameMap {
 
     public List<Actor> getActors() {
         return actors;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void removeItem(Item item) {
+        items.remove(item);
     }
 
     public String saveMap() {

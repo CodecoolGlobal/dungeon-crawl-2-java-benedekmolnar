@@ -34,10 +34,22 @@ public class ItemModel {
         Cell itemCell = map.getCell(x, y);
         switch (type) {
             case "arrow":
-                return new Arrow(itemCell);
+                return new Arrow(map, itemCell);
             case "key":
-                return new Key((itemCell));
+                return new Key(map, itemCell);
         }
-        return new Cheese(itemCell);
+        return new Cheese(map, itemCell);
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 }
