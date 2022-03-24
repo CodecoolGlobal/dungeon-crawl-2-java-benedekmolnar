@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.model;
 
-public class ItemsModel {
+public class ItemsModel extends BaseModel {
     private int gameStateId;
     private String type;
     private int x;
