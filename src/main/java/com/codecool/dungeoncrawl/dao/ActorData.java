@@ -25,19 +25,16 @@ public class ActorData {
     private final Direction dir;
     private final int coolDownTimer;
     private final int health;
-    private int def_x;
-    private int def_y;
-    private String color;
 
-    Map<String, String> data;
+    Map<String, String> data = new HashMap<>();
 
     public ActorData(Actor actor) {
         if (actor instanceof Skeleton)
             this.type = "skeleton";
         else if (actor instanceof Knight) {
             this.type = "knight";
-            def_x = ((Knight) actor).getStartCell().getX();
-            def_y = ((Knight) actor).getStartCell().getY();
+            data.put("def_x", String.valueOf(((Knight) actor).getStartCell().getX()));
+            data.put("def_y", String.valueOf(((Knight) actor).getStartCell().getY()));
         }
         else if (actor instanceof Ghost)
             this.type = "ghost";
@@ -45,7 +42,7 @@ public class ActorData {
             this.type = "cannon";
         else if (actor instanceof PortalProjectile) {
             this.type = "portalProjectile";
-            color = ((PortalProjectile) actor).getType();
+            data.put("color", ((PortalProjectile) actor).getType());
         }
         else if (actor instanceof Projectile)
             this.type = "projectile";
@@ -53,7 +50,7 @@ public class ActorData {
             this.type = "wall";
         else if (actor instanceof Portal) {
             this.type = "portal";
-            color = ((Portal) actor).getType();
+            data.put("color", ((Portal) actor).getType());
         }
         else if (actor instanceof Boss)
             this.type = "boss";
@@ -86,7 +83,9 @@ public class ActorData {
                 sk.setCoolDownTimer(coolDownTimer);
                 return sk;
             case "knight":
-                Cell defCell = map.getCell(def_x, def_y);
+                Cell defCell = map.getCell(
+                        Integer.parseInt(data.get("def_x")),
+                        Integer.parseInt(data.get("def_y")));
                 Knight kn = new Knight(map, actorCell);
                 kn.setHealth(health);
                 kn.setCoolDownTimer(coolDownTimer);
@@ -102,7 +101,7 @@ public class ActorData {
                 cn.setCoolDownTimer(coolDownTimer);
                 return cn;
             case "portalProjectile":
-                PortalProjectile pp = new PortalProjectile(map, actorCell, dir, color);
+                PortalProjectile pp = new PortalProjectile(map, actorCell, dir, data.get("color"));
                 return pp;
             case "projectile":
                 Projectile pt = new Projectile(map, actorCell, dir);
@@ -112,7 +111,7 @@ public class ActorData {
                 w.setHealth(health);
                 return w;
             case "portal":
-                Portal p = new Portal(actorCell, map, dir, color);
+                Portal p = new Portal(actorCell, map, dir, data.get("color"));
                 return p;
             case "boss":
                 Boss b = new Boss(map, actorCell);
