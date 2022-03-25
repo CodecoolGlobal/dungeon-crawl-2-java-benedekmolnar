@@ -67,6 +67,7 @@ public class Player extends Movable implements Killable {
             }else{
                 this.addItemToInventory(itemToPickUp);
             }
+            map.removeItem(itemToPickUp);
             currentCell.setItem(null);
         }
     }
