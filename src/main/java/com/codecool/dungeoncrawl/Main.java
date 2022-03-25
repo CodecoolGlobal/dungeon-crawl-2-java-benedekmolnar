@@ -50,6 +50,9 @@ public class Main extends Application {
     Label speech = new Label();
     boolean isBossLevel = false;
     GameDatabaseManager dbManager;
+    Timeline refresh = new Timeline(
+            new KeyFrame(Duration.seconds(0.05),
+                    event -> refresh()));
 
     public static void main(String[] args) {
         launch(args);
@@ -73,10 +76,6 @@ public class Main extends Application {
         scene.setOnKeyPressed(this::onKeyPressed);
         scene.setOnKeyReleased(this::onKeyReleased);
 
-
-        Timeline refresh = new Timeline(
-            new KeyFrame(Duration.seconds(0.05),
-                    event -> refresh()));
         refresh.setCycleCount(Timeline.INDEFINITE);
         refresh.play();
 
@@ -96,9 +95,13 @@ public class Main extends Application {
                 || keyEvent.getCode() == KeyCode.ESCAPE) {
             exit();
         }else  if (saveCombinationWin.match(keyEvent)){
+            refresh.pause();
             SaveDialog.display(dbManager, map);
+            refresh.play();
         }else  if (loadCombinationWin.match(keyEvent)){
+            refresh.pause();
             LoadDialog.display(dbManager, map);
+            refresh.play();
         }
     }
 
