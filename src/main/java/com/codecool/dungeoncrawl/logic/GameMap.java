@@ -140,6 +140,16 @@ public class GameMap {
     public void loadActors(List<ActorsModel> data) {
         actors = data.stream().map(d -> d.createActorFromData(this)).collect(Collectors.toList());
         player = (Player) actors.stream().filter(p -> p instanceof Player).findFirst().get();
+        redPortal = null;
+        bluePortal = null;
+        List<Portal> portals = actors.stream()
+                               .filter(p -> p instanceof Portal)
+                               .map(p -> (Portal) p)
+                               .collect(Collectors.toList());
+        for (Portal p : portals) {
+            if (p.getType().equals("red")) redPortal = p;
+            else bluePortal = p;
+        }
     }
 
     public List<ItemsModel> saveItems() {
